@@ -85,7 +85,7 @@
 				                            <span>Choreographer</span>
 				                        </a>
                                         <ul class="nav nav-children ">
-                                            <li class="nav nav-active">
+                                            <li>
                                                 <a href="#">
                                                     Choreographer List
                                                 </a>
@@ -143,7 +143,7 @@
 				                            </li>
 				                        </ul>
 				                    </li>
-				                    <li>
+				                    <li class="nav nav-active">
 				                        <a href="branches.php">
 				                            <i class="fa fa-building-o" aria-hidden="true"></i>
 				                            <span>Branches</span>
@@ -201,21 +201,67 @@
 				</aside>
 				<!-- end: sidebar -->
 
-				<section role="main" class="content-body">
-					<header class="page-header">
-						<h2>Choreographers</h2>
+                <section role="main" class="content-body">
+                    <header class="page-header">
+                        <h2>Branches</h2>
 
-					</header>
+                    </header>
 
+                    <!-- start: page -->
+                    <section class="panel">
+                        <header class="panel-heading">
+                            <div class="panel-actions">
+                                <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                                <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+                            </div>
 
+                            <h2 class="panel-title">Branches</h2>
+                        </header>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="mb-md">
+                                        <a href="branch_add.php">
+                                            <button id="addbranchbtn" class="btn btn-primary">Add <i class="fa fa-plus"></i> </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="table table-bordered table-striped mb-none" id="tester_table">
+                                <thead>
+                                <tr>
+                                    <th>Landmark</th>
+                                    <th>Place</th>
+                                    <th>Pincode</th>
+                                    <th>District</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                $server_name = "localhost";
+                                $user_name = "root";
+                                $password = "";
+                                $database = "dance-academy";
 
-					<!-- start: page -->
-					<div class="row">
-						<div class="col-md-6 col-lg-12 col-xl-6">
-						</div>
-					</div>
-					<!-- end: page -->
-				</section>
+                                $conn = new mysqli($server_name, $user_name, $password, $database);
+
+                                $branch_sel = "select branch_id, branch_landmark, branch_pincode, branch_place, branch_dst from branch";
+                                $res = $conn->query($branch_sel);
+                                while ($row = $res->fetch_array())
+                                {
+                                    echo "<tr>";
+                                    echo "<td>$row[1]</td>";
+                                    echo "<td>$row[2]</td>";
+                                    echo "<td>$row[3]</td>";
+                                    echo "<td>$row[4]</td>";
+                                }
+                                ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                    <!-- end: page -->
+                </section>
 			</div>
 
 

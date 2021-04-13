@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 11, 2021 at 04:09 PM
+-- Generation Time: Apr 13, 2021 at 01:13 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -20,6 +20,20 @@ SET time_zone = "+00:00";
 --
 -- Database: `dance-academy`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `branch`
+--
+
+CREATE TABLE `branch` (
+  `branch_id` int(11) NOT NULL,
+  `branch_landmark` varchar(40) NOT NULL,
+  `branch_pincode` int(11) NOT NULL,
+  `branch_place` varchar(30) NOT NULL,
+  `branch_dst` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -47,6 +61,12 @@ INSERT INTO `login` (`login_id`, `user_name`, `user_type`, `password`) VALUES
 --
 
 --
+-- Indexes for table `branch`
+--
+ALTER TABLE `branch`
+  ADD PRIMARY KEY (`branch_id`);
+
+--
 -- Indexes for table `login`
 --
 ALTER TABLE `login`
@@ -55,6 +75,12 @@ ALTER TABLE `login`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `branch`
+--
+ALTER TABLE `branch`
+  MODIFY `branch_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `login`
