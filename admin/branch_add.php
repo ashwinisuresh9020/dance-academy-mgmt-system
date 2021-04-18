@@ -357,10 +357,6 @@ if (isset($_POST['add_branch']))
     {
         echo "<script>alert('Please enter pincode with 6 digits...')</script>";
     }
-    else if($branch_dst == 0)
-    {
-        echo "<script>alert('Please select a valid district...')</script>";
-    }
     else
     {
         $ins_branch =  "INSERT INTO branch (branch_landmark,branch_pincode,branch_place,branch_dst) values ('$branch_landmark','$branch_pin','$branch_place','$branch_dst')";

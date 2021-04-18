@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 13, 2021 at 01:13 PM
+-- Generation Time: Apr 18, 2021 at 12:28 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -48,13 +48,26 @@ CREATE TABLE `login` (
   `password` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `login`
+-- Table structure for table `student`
 --
 
-INSERT INTO `login` (`login_id`, `user_name`, `user_type`, `password`) VALUES
-(1, 'admin', 'ADMIN', 'admin'),
-(2, 'test', 'CHOREOGRAPHER', 'test');
+CREATE TABLE `student` (
+  `student_id` int(11) NOT NULL,
+  `student_name` varchar(40) NOT NULL,
+  `student_dob` varchar(30) NOT NULL,
+  `address` varchar(25) NOT NULL,
+  `place` varchar(25) NOT NULL,
+  `pincode` int(11) NOT NULL,
+  `district` varchar(30) NOT NULL,
+  `nearest_branch` int(11) NOT NULL,
+  `email_address` varchar(40) NOT NULL,
+  `mobile_number` bigint(12) NOT NULL,
+  `profile_photo` text DEFAULT NULL,
+  `batch_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables
@@ -73,6 +86,13 @@ ALTER TABLE `login`
   ADD PRIMARY KEY (`login_id`);
 
 --
+-- Indexes for table `student`
+--
+ALTER TABLE `student`
+  ADD PRIMARY KEY (`student_id`),
+  ADD KEY `fk_student_branch` (`nearest_branch`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -86,7 +106,23 @@ ALTER TABLE `branch`
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `student`
+--
+ALTER TABLE `student`
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `student`
+--
+ALTER TABLE `student`
+  ADD CONSTRAINT `fk_student_branch` FOREIGN KEY (`nearest_branch`) REFERENCES `branch` (`branch_id`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

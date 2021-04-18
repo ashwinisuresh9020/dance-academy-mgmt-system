@@ -231,8 +231,8 @@
                                 <thead>
                                 <tr>
                                     <th>Landmark</th>
-                                    <th>Place</th>
                                     <th>Pincode</th>
+				    <th>Place</th>
                                     <th>District</th>
                                 </tr>
                                 </thead>
