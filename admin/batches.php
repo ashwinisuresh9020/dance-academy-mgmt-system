@@ -5,7 +5,7 @@
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<title>Add Branch | THUNDERLINES</title>
+		<title>Admin Dashboard | THUNDERLINES</title>
 		<meta name="keywords" content="HTML5 Admin Template" />
 		<meta name="description" content="Porto Admin - Responsive HTML5 Template">
 		<meta name="author" content="okler.net">
@@ -108,7 +108,7 @@
 				                            <span>Students</span>
 				                        </a>
 				                        <ul class="nav nav-children">
-				                            <li>
+				                            <li class="nav nav-active">
 				                                <a href="batches.php">
 				                                    Batches
 				                                </a>
@@ -143,7 +143,7 @@
 				                            </li>
 				                        </ul>
 				                    </li>
-				                    <li class="nav nav-active">
+				                    <li>
 				                        <a href="branches.php">
 				                            <i class="fa fa-building-o" aria-hidden="true"></i>
 				                            <span>Branches</span>
@@ -203,83 +203,89 @@
 
                 <section role="main" class="content-body">
                     <header class="page-header">
-                        <h2>Add Branch</h2>
+                        <h2>Batches</h2>
 
                     </header>
 
                     <!-- start: page -->
+                    <section class="panel">
+                        <header class="panel-heading">
+                            <div class="panel-actions">
+                                <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                                <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+                            </div>
 
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <section class="panel">
-                                <header class="panel-heading">
-                                    <div class="panel-actions">
-                                        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-                                        <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+                            <h2 class="panel-title">Batches</h2>
+                        </header>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="mb-md">
+                                        <a href="batch_add.php">
+                                            <button id="addbatchbtn" class="btn btn-primary">Add <i class="fa fa-plus"></i> </button>
+                                        </a>
                                     </div>
+                                </div>
+                            </div>
+                            <table class="table table-bordered table-striped mb-none" id="tester_table">
+                                <thead>
+                                <tr>
+                                    <th>Batch Name</th>
+                                    <th>Age Group</th>
+                                    <th>Branch</th>
+				                    <th>Choreographer</th>
+				                    <th>No. of students</th>
+				                    <th>Details</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                $server_name = "localhost";
+                                $user_name = "root";
+                                $password = "";
+                                $database = "dance-academy";
 
-                                    <h2 class="panel-title">Add Branch</h2>
-                                </header>
-                                <form class="form-horizontal form-bordered" method="post">
-                                    <div class="panel-body">
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="branchlandmark">Landmark <span class="required">*</span></label>
-                                            <div class="col-md-6">
-                                                <input type="text" class="form-control" id="branchlandmark" name="branchlandmark" required>
-                                            </div>
-                                        </div>
+                                $conn = new mysqli($server_name, $user_name, $password, $database);
 
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="place">Place <span class="required">*</span></label>
-                                            <div class="col-md-6">
-                                                <input type="text" class="form-control" id="place" name="place" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="pincode">Pin <span class="required">*</span></label>
-                                            <div class="col-md-6">
-                                                <input type="number"   class="form-control" id="pincode" name="pincode" maxlength="6" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="dst">District <span class="required">*</span></label>
-                                            <div class="col-md-6">
-                                                <select class="form-control" id="dst" name="dst" required>
-                                                    <option value="0">Select District</option>
-                                                    <option value="Alappuzha">Alappuzha</option>
-                                                    <option value="Ernamkulam">Ernamkulam</option>
-                                                    <option value="Idukki">Idukki</option>
-                                                    <option value="Kannur">Kannur</option>
-                                                    <option value="Kasargod">Kasargod</option>
-                                                    <option value="Kollam">Kollam</option>
-                                                    <option value="Kottayam">Kottayam</option>
-                                                    <option value="Kozhikode" selected>Kozhikode</option>
-                                                    <option value="Malappuram">Malappuram</option>
-                                                    <option value="Palakkad">Palakkad</option>
-                                                    <option value="Pathanamthitta">Pathanamthitta</option>
-                                                    <option value="Thiruvananthapuram">Thiruvananthapuram</option>
-                                                    <option value="Thrissur">Thrissur</option>
-                                                    <option value="Wayanad">Wayanad</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <footer class="panel-footer">
-                                        <div class="row">
-                                            <div class="col-sm-9 col-sm-offset-3">
-                                                <input class="btn btn-primary" type="submit" name="add_branch">
-                                                <button type="reset" class="btn btn-default">Reset</button>
-                                            </div>
-                                        </div>
-                                    </footer>
-                                </form>
-                            </section>
+                                $batch_sel = "select batch_id, batch_name, batch_age_grp, branch_id, choreographer_id from batch";
+                                $res = $conn->query($batch_sel);
+                                while ($row = $res->fetch_array())
+                                {
+                                    echo "<tr>";
+                                    echo "<td>$row[1]</td>";
+                                    echo "<td>$row[2]</td>";
+                                    $branch_sel = "select branch_landmark, branch_place from branch where branch_id='$row[3]'";
+                                    $branch_res = mysqli_query($conn, $branch_sel);
+                                    while ($row_branch = $branch_res->fetch_array())
+                                    {
+                                        echo "<td>$row_branch[0] , $row_branch[1]</td>";
+                                    }
+                                    if ($row[4]==0)
+                                    {
+                                        echo "<td>Not assigned</td>";
+                                    }
+                                    else
+                                    {
+                                        $choreo_sel = "select choreographer_name from choreographer where choreographer_id = '$row[4]'";
+                                        $chore_res = $conn->query($choreo_sel);
+                                        while ($choreo_row = $chore_res->fetch_array())
+                                        {
+                                            echo "<td>$choreo_row[0]</td>";
+                                        }
+                                    }
+                                    $nostud = "select count(*) from student where batch_id='$row[0]'";
+                                    $res_nostud = $conn->query($nostud);
+                                    while ($row_nostud = $res_nostud->fetch_array())
+                                    {
+                                        echo "<td>$row_nostud[0]</td>";
+                                    }
+                                    echo "<td><a href='batch_details.php?bid=$row[0]'><button class='btn btn-primary'>Details</button></a></td>";
+                                }
+                                ?>
+                                </tbody>
+                            </table>
                         </div>
-                    </div>
-
+                    </section>
                     <!-- end: page -->
                 </section>
 			</div>
@@ -337,39 +343,3 @@
 
 	</body>
 </html>
-
-<?php
-
-$server_name = "localhost";
-$user_name = "root";
-$password = "";
-$database = "dance-academy";
-
-$conn = new mysqli($server_name, $user_name, $password, $database);
-
-if (isset($_POST['add_branch']))
-{
-    $branch_landmark = $_POST['branchlandmark'];
-    $branch_place = $_POST['place'];
-    $branch_pin = $_POST['pincode'];
-    $branch_dst = $_POST['dst'];
-    if (strlen($branch_pin)<6)
-    {
-        echo "<script>alert('Please enter pincode with 6 digits...')</script>";
-    }
-    else
-    {
-        $ins_branch =  "INSERT INTO branch (branch_landmark,branch_pincode,branch_place,branch_dst) values ('$branch_landmark','$branch_pin','$branch_place','$branch_dst')";
-        $reg = mysqli_query($conn, $ins_branch);
-
-        if($reg == true)
-        {
-            echo "<script>alert('Branch Added Successfully...')</script>";
-            echo "<script>window.location='branches.php'</script>";
-        }
-        else
-        {
-            echo "<script>alert('Error in Adding branch')</script>";
-        }
-    }
-}

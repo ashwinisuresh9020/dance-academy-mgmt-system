@@ -5,7 +5,7 @@
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<title>Add Branch | THUNDERLINES</title>
+		<title>Add Batch | THUNDERLINES</title>
 		<meta name="keywords" content="HTML5 Admin Template" />
 		<meta name="description" content="Porto Admin - Responsive HTML5 Template">
 		<meta name="author" content="okler.net">
@@ -108,7 +108,7 @@
 				                            <span>Students</span>
 				                        </a>
 				                        <ul class="nav nav-children">
-				                            <li>
+				                            <li class="nav nav-active">
 				                                <a href="batches.php">
 				                                    Batches
 				                                </a>
@@ -143,7 +143,7 @@
 				                            </li>
 				                        </ul>
 				                    </li>
-				                    <li class="nav nav-active">
+				                    <li>
 				                        <a href="branches.php">
 				                            <i class="fa fa-building-o" aria-hidden="true"></i>
 				                            <span>Branches</span>
@@ -203,7 +203,7 @@
 
                 <section role="main" class="content-body">
                     <header class="page-header">
-                        <h2>Add Branch</h2>
+                        <h2>Add Batch</h2>
 
                     </header>
 
@@ -218,50 +218,39 @@
                                         <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
                                     </div>
 
-                                    <h2 class="panel-title">Add Branch</h2>
+                                    <h2 class="panel-title">Add Batch</h2>
                                 </header>
                                 <form class="form-horizontal form-bordered" method="post">
                                     <div class="panel-body">
+
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label" for="branchlandmark">Landmark <span class="required">*</span></label>
+                                            <label class="col-md-3 control-label" for="batchagegroup">Age Group <span class="required">*</span></label>
                                             <div class="col-md-6">
-                                                <input type="text" class="form-control" id="branchlandmark" name="branchlandmark" required>
+                                                <select class="form-control" id="batchagegroup" name="batchagegroup" required>
+                                                <option value="nothing" selected>Select age group</option>
+                                                <option value="4-10 yrs">4-10 years</option>
+                                                <option value="11-15 yrs">11-15 years</option>
+                                                <option value="16-25 yrs">16-25 years</option>
+                                                <option value="25+ yrs male">25+ years (Male)</option>
+                                                <option value="25+ yrs female">25+ years (Female)</option>
+                                                </select>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label" for="place">Place <span class="required">*</span></label>
+                                            <label class="col-md-3 control-label" for="batchbranch">Branch <span class="required">*</span></label>
                                             <div class="col-md-6">
-                                                <input type="text" class="form-control" id="place" name="place" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="pincode">Pin <span class="required">*</span></label>
-                                            <div class="col-md-6">
-                                                <input type="number"   class="form-control" id="pincode" name="pincode" maxlength="6" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="dst">District <span class="required">*</span></label>
-                                            <div class="col-md-6">
-                                                <select class="form-control" id="dst" name="dst" required>
-                                                    <option value="0">Select District</option>
-                                                    <option value="Alappuzha">Alappuzha</option>
-                                                    <option value="Ernamkulam">Ernamkulam</option>
-                                                    <option value="Idukki">Idukki</option>
-                                                    <option value="Kannur">Kannur</option>
-                                                    <option value="Kasargod">Kasargod</option>
-                                                    <option value="Kollam">Kollam</option>
-                                                    <option value="Kottayam">Kottayam</option>
-                                                    <option value="Kozhikode" selected>Kozhikode</option>
-                                                    <option value="Malappuram">Malappuram</option>
-                                                    <option value="Palakkad">Palakkad</option>
-                                                    <option value="Pathanamthitta">Pathanamthitta</option>
-                                                    <option value="Thiruvananthapuram">Thiruvananthapuram</option>
-                                                    <option value="Thrissur">Thrissur</option>
-                                                    <option value="Wayanad">Wayanad</option>
+                                                <select class="form-control" id="batchbranch" name="batchbranch" required>
+                                                    <option value="nothing" selected>Select branch</option>
+                                                    <?php
+                                                        require_once '../Database_Connect.php';
+                                                        $sql_branch = "select * from branch";
+                                                        $res_branch = mysqli_query($conn, $sql_branch);
+                                                        while ($row_branch = mysqli_fetch_array($res_branch))
+                                                        {
+                                                            echo "<option value='$row_branch[0]'>$row_branch[1]"." , "."$row_branch[3]</option>";
+                                                        }
+                                                    ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -270,7 +259,7 @@
                                     <footer class="panel-footer">
                                         <div class="row">
                                             <div class="col-sm-9 col-sm-offset-3">
-                                                <input class="btn btn-primary" type="submit" name="add_branch">
+                                                <input class="btn btn-primary" type="submit" name="add_batch" id="add_batch">
                                                 <button type="reset" class="btn btn-default">Reset</button>
                                             </div>
                                         </div>
@@ -340,36 +329,32 @@
 
 <?php
 
-$server_name = "localhost";
-$user_name = "root";
-$password = "";
-$database = "dance-academy";
-
-$conn = new mysqli($server_name, $user_name, $password, $database);
-
-if (isset($_POST['add_branch']))
+if (isset($_POST['add_batch']))
 {
-    $branch_landmark = $_POST['branchlandmark'];
-    $branch_place = $_POST['place'];
-    $branch_pin = $_POST['pincode'];
-    $branch_dst = $_POST['dst'];
-    if (strlen($branch_pin)<6)
+    $batch_age_grp = $_POST['batchagegroup'];
+    $batch_branch = $_POST['batchbranch'];
+    if ($batch_age_grp == "nothing")
     {
-        echo "<script>alert('Please enter pincode with 6 digits...')</script>";
+        echo "<script>alert('Please select a age group...')</script>";
+    }
+    else if ($batch_branch == "nothing")
+    {
+        echo "<script>alert('Please select a branch...')</script>";
     }
     else
     {
-        $ins_branch =  "INSERT INTO branch (branch_landmark,branch_pincode,branch_place,branch_dst) values ('$branch_landmark','$branch_pin','$branch_place','$branch_dst')";
-        $reg = mysqli_query($conn, $ins_branch);
+        $batch_name = $batch_branch."_branch_".$batch_age_grp."_".date("d_m");
+        $ins_batch =  "INSERT INTO batch (batch_name,batch_age_grp,branch_id) values ('$batch_name','$batch_age_grp','$batch_branch')";
+        $req_batch = mysqli_query($conn, $ins_batch);
 
-        if($reg == true)
+        if($req_batch == true)
         {
-            echo "<script>alert('Branch Added Successfully...')</script>";
-            echo "<script>window.location='branches.php'</script>";
+            echo "<script>alert('Batch Added Successfully...')</script>";
+            echo "<script>window.location='batches.php'</script>";
         }
         else
         {
-            echo "<script>alert('Error in Adding branch')</script>";
+            echo "<script>alert('Error in Adding batch')</script>";
         }
     }
 }
