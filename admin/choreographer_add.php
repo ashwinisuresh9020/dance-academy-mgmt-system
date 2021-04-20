@@ -96,6 +96,11 @@
                                         </a>
                                     </li>
                                     <li>
+                                        <a href="assign_batch.php">
+                                            Assign batch
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a href="#">
                                             Leave Management
                                         </a>

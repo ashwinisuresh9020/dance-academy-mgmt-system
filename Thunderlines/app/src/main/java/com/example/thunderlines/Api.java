@@ -17,10 +17,10 @@ public interface Api {
     @POST("service_call.php?servicecall=student_register")
     @FormUrlEncoded
     Call<JsonObject> regStudent(@Field("full_name") String studentName, @Field("date_of_birth") String studentDob,
-                                @Field("address") String studentAddress, @Field("place") String studentPlace,
-                                @Field("pincode") String studentPincode, @Field("district") String studentDistrict,
-                                @Field("email") String studentEmail, @Field("mobile") String studentMobile,
-                                @Field("password") String studentPassword,
+                                @Field("gender") String studentGender, @Field("address") String studentAddress,
+                                @Field("place") String studentPlace, @Field("pincode") String studentPincode,
+                                @Field("district") String studentDistrict, @Field("email") String studentEmail,
+                                @Field("mobile") String studentMobile, @Field("password") String studentPassword,
                                 @Field("nearest_branch") String studentBranch);
 
     @POST("service_call.php?servicecall=get_branches")

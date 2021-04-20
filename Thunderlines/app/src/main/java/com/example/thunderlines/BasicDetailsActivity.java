@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -19,7 +20,8 @@ public class BasicDetailsActivity extends AppCompatActivity {
     EditText editTextName, editTextDob, editTextEmail, editTextMobile, editTextPass, editTextConfirmPass;
     Button buttonNext;
     final Calendar myCalendar = Calendar.getInstance();
-    String email_pattern = "[a-zA-Z0-9._-]+@[a-z]+\\\\.+[a-z]+";
+    RadioGroup radioGroupGender;
+    String email_pattern = "[a-zA-Z0-9._-]+@[a-z]+\\\\.+[a-z]+", gender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,7 @@ public class BasicDetailsActivity extends AppCompatActivity {
         editTextPass = findViewById(R.id.basic_et_stud_pass);
         editTextConfirmPass = findViewById(R.id.basic_et_stud_confirm_pass);
         buttonNext = findViewById(R.id.basic_btn_next);
+        radioGroupGender = findViewById(R.id.basic_radio_grp_gender);
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -102,12 +105,21 @@ public class BasicDetailsActivity extends AppCompatActivity {
                 }
                 else
                 {
+                    if (radioGroupGender.getCheckedRadioButtonId()==R.id.basic_radio_male)
+                    {
+                        gender = "Male";
+                    }
+                    if (radioGroupGender.getCheckedRadioButtonId()==R.id.basic_radio_female)
+                    {
+                        gender = "Female";
+                    }
                     Intent addressIntent = new Intent(BasicDetailsActivity.this, AddAddressActivity.class);
                     addressIntent.putExtra("stud_name", editTextName.getText().toString());
                     addressIntent.putExtra("stud_dob", editTextDob.getText().toString());
                     addressIntent.putExtra("stud_mail", editTextEmail.getText().toString());
                     addressIntent.putExtra("stud_mob", editTextMobile.getText().toString());
                     addressIntent.putExtra("stud_pass", editTextConfirmPass.getText().toString());
+                    addressIntent.putExtra("stud_gender", gender);
                     startActivity(addressIntent);
                     finish();
                 }

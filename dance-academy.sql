@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2021 at 02:43 AM
+-- Generation Time: Apr 20, 2021 at 04:16 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -40,7 +40,7 @@ CREATE TABLE `batch` (
 --
 
 INSERT INTO `batch` (`batch_id`, `batch_name`, `batch_age_grp`, `branch_id`, `choreographer_id`) VALUES
-(7, '8_branch_4-10 yrs_19_04', '4-10 yrs', 8, 0),
+(7, '8_branch_4-10 yrs_19_04', '4-10 yrs', 8, 1),
 (8, '8_branch_11-15 yrs_19_04', '11-15 yrs', 8, 0),
 (9, '8_branch_16-25 yrs_19_04', '16-25 yrs', 8, 0),
 (10, '8_branch_25+ yrs male_19_04', '25+ yrs male', 8, 0),
@@ -342,13 +342,13 @@ ALTER TABLE `choreographer`
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- Constraints for dumped tables

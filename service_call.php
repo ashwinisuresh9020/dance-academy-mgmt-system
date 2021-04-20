@@ -9,10 +9,11 @@ if(isset($_GET['servicecall']))
     {
         case 'student_register':
 
-            if(isTheseParametersAvailable(array('full_name', 'date_of_birth', 'address','place','pincode','district','email','mobile','password','nearest_branch')))
+            if(isTheseParametersAvailable(array('full_name', 'date_of_birth', 'gender', 'address','place','pincode','district','email','mobile','password','nearest_branch')))
             {
                 $user_name = $_POST['full_name'];
                 $user_dob = $_POST['date_of_birth'];
+                $user_gender = $_POST['gender'];
                 $user_address = $_POST['address'];
                 $user_place = $_POST['place'];
                 $user_pincode = $_POST['pincode'];
@@ -37,17 +38,17 @@ if(isset($_GET['servicecall']))
                 }
                 else
                 {
-                    $stmt = $conn->prepare("INSERT INTO student(student_name,student_dob,address,place,pincode,district,email_address,mobile_number,nearest_branch) VALUES (?,?,?,?,?,?,?,?,?)");
-                    $stmt->bind_param("sssssssss",$user_name,$user_dob,$user_address,$user_place,$user_pincode,$user_district,$user_email,$user_mobile,$user_branch);
+                    $stmt = $conn->prepare("INSERT INTO student(student_name,student_dob,student_gender,address,place,pincode,district,email_address,mobile_number,nearest_branch) VALUES (?,?,?,?,?,?,?,?,?,?)");
+                    $stmt->bind_param("ssssssssss",$user_name,$user_dob,$user_gender,$user_address,$user_place,$user_pincode,$user_district,$user_email,$user_mobile,$user_branch);
                     $stmt1 = $conn->prepare("INSERT INTO login(user_name,password,user_type) VALUES (?,?,?)");
                     $stmt1->bind_param("sss",$user_email,$user_password,$role);
 
                     if ($stmt->execute() && $stmt1->execute() )
                     {
-                        $stmt = $conn->prepare("SELECT student_id, student_name,student_dob,address,place,pincode,district,email_address,mobile_number, nearest_branch from student where email_address=?" );
+                        /*$stmt = $conn->prepare("SELECT student_id, student_name,student_dob,student_gender,address,place,pincode,district,email_address,mobile_number, nearest_branch from student where email_address=?" );
                         $stmt->bind_param("s",$user_email);
                         $stmt->execute();
-                        $stmt->bind_result($stud_id, $stud_name,$stud_dob,$stud_address,$stud_place,$stud_pincode,$stud_district,$stud_email,$stud_mobile, $stud_branch);
+                        $stmt->bind_result($stud_id, $stud_name,$stud_dob,$stud_gender,$stud_address,$stud_place,$stud_pincode,$stud_district,$stud_email,$stud_mobile, $stud_branch);
                         $stmt->fetch();
 
                         $student = array
@@ -55,6 +56,7 @@ if(isset($_GET['servicecall']))
                             'stud_id'=>$stud_id,
                             'stud_name'=>$stud_name,
                             'stud_dob'=>$stud_dob,
+                            'stud_gender'=>$stud_gender,
                             'stud_address'=>$stud_address,
                             'stud_place'=>$stud_place,
                             'stud_pin'=>$stud_pincode,
@@ -64,11 +66,11 @@ if(isset($_GET['servicecall']))
                             'stud_branch'=>$stud_branch
                         );
 
-                        $stmt->close();
+                        $stmt->close();*/
 
                         $response['error']= false;
                         $response['message'] = 'User registered Successfully';
-                        $response['student'] = $student;
+                        //$response['student'] = $student;
                     }
                 }
             }

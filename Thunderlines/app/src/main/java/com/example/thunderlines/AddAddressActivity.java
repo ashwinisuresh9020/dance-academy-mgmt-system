@@ -34,7 +34,7 @@ public class AddAddressActivity extends AppCompatActivity{
     List<String> branch_names;
     ArrayList<Branch> branches;
     Spinner spinnerDistrict, spinnerBranch;
-    String district, branch_id, studName, studDob, studMail, studMob, studPass;
+    String district, branch_id, studName, studDob, studMail, studMob, studPass, studGender;
     EditText editTextAddress, editTextPlace, editTextPincode;
     Button buttonNext;
 
@@ -54,6 +54,7 @@ public class AddAddressActivity extends AppCompatActivity{
         branch_names = new ArrayList<>();
         studName = getIntent().getExtras().getString("stud_name");
         studDob = getIntent().getExtras().getString("stud_dob");
+        studGender = getIntent().getExtras().getString("stud_gender");
         studMail = getIntent().getExtras().getString("stud_mail");
         studMob = getIntent().getExtras().getString("stud_mob");
         studPass = getIntent().getExtras().getString("stud_pass");
@@ -87,7 +88,7 @@ public class AddAddressActivity extends AppCompatActivity{
                 else
                 {
 
-                    Call<JsonObject> regStudentCall = RetrofitClient.getInstance().getMyApi().regStudent(studName,studDob,editTextAddress.getText().toString(),
+                    Call<JsonObject> regStudentCall = RetrofitClient.getInstance().getMyApi().regStudent(studName,studDob,studGender,editTextAddress.getText().toString(),
                             editTextPlace.getText().toString(),editTextPincode.getText().toString(),district,studMail,studMob,studPass,branch_id);
 
                     regStudentCall.enqueue(new Callback<JsonObject>() {
@@ -102,8 +103,8 @@ public class AddAddressActivity extends AppCompatActivity{
                                     if (!object.getBoolean("error"))
                                     {
                                         Toast.makeText(AddAddressActivity.this,object.getString("message"),Toast.LENGTH_SHORT).show();
-                                        Intent homeIntent = new Intent(AddAddressActivity.this, HomeActivity.class);
-                                        startActivity(homeIntent);
+                                        Intent loginIntent = new Intent(AddAddressActivity.this, LoginActivity.class);
+                                        startActivity(loginIntent);
                                         finish();
                                     }
                                     else
@@ -185,7 +186,7 @@ public class AddAddressActivity extends AppCompatActivity{
                                     branchObject.getString("branch_pincode"),
                                     branchObject.getString("branch_district")));
 
-                            branch_names.add(branchObject.getString("branch_landmark"));
+                            branch_names.add(branchObject.getString("branch_landmark") + " , "+ branchObject.getString("branch_place"));
                             ArrayAdapter arrayAdapter = new ArrayAdapter(AddAddressActivity.this, android.R.layout.simple_spinner_item, branch_names);
                             arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                             spinnerBranch.setAdapter(arrayAdapter);

@@ -33,7 +33,7 @@
         app:layout_constraintTop_toBottomOf="@id/basic_app_name"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:inputType="textPersonName"/>
@@ -53,6 +53,45 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"/>
 
+    <RadioGroup
+        android:id="@+id/basic_radio_grp_gender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:backgroundTint="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/basic_et_stud_dob"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:orientation="horizontal">
+
+
+        <RadioButton
+            android:id="@+id/basic_radio_male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Male"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@android:color/white"
+            android:textSize="20sp"
+            android:checked="true"
+            android:buttonTint="@android:color/white" />
+
+        <RadioButton
+            android:id="@+id/basic_radio_female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Female"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@android:color/white"
+            android:textSize="20sp"
+            android:buttonTint="@android:color/white"
+            android:layout_marginLeft="20dp"/>
+
+    </RadioGroup>
     <EditText
         android:id="@+id/basic_et_stud_mail"
         android:layout_width="match_parent"
@@ -61,7 +100,7 @@
         android:textColor="@android:color/white"
         android:textColorHint="@android:color/white"
         android:backgroundTint="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@id/basic_et_stud_dob"
+        app:layout_constraintTop_toBottomOf="@id/basic_radio_grp_gender"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="15dp"
@@ -129,7 +168,7 @@
         android:backgroundTint="@android:color/white"
         app:layout_constraintTop_toBottomOf="@id/basic_et_stud_confirm_pass"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="25dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:drawableTint="@android:color/black"

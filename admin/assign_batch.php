@@ -5,7 +5,7 @@
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<title>Admin Dashboard | THUNDERLINES</title>
+		<title>Assign Batch | THUNDERLINES</title>
 		<meta name="keywords" content="HTML5 Admin Template" />
 		<meta name="description" content="Porto Admin - Responsive HTML5 Template">
 		<meta name="author" content="okler.net">
@@ -95,7 +95,7 @@
                                                     Add Choreographer
                                                 </a>
                                             </li>
-                                            <li>
+                                            <li class="nav nav-active">
                                                 <a href="assign_batch.php">
                                                     Assign batch
                                                 </a>
@@ -113,7 +113,7 @@
 				                            <span>Students</span>
 				                        </a>
 				                        <ul class="nav nav-children">
-				                            <li class="nav nav-active">
+				                            <li>
 				                                <a href="batches.php">
 				                                    Batches
 				                                </a>
@@ -208,89 +208,79 @@
 
                 <section role="main" class="content-body">
                     <header class="page-header">
-                        <h2>Batches</h2>
+                        <h2>Assign Batch</h2>
 
                     </header>
 
                     <!-- start: page -->
-                    <section class="panel">
-                        <header class="panel-heading">
-                            <div class="panel-actions">
-                                <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-                                <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
-                            </div>
 
-                            <h2 class="panel-title">Batches</h2>
-                        </header>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="mb-md">
-                                        <a href="batch_add.php">
-                                            <button id="addbatchbtn" class="btn btn-primary">Add <i class="fa fa-plus"></i> </button>
-                                        </a>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <section class="panel">
+                                <header class="panel-heading">
+                                    <div class="panel-actions">
+                                        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                                        <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
                                     </div>
-                                </div>
-                            </div>
-                            <table class="table table-bordered table-striped mb-none" id="tester_table">
-                                <thead>
-                                <tr>
-                                    <th>Batch Name</th>
-                                    <th>Age Group</th>
-                                    <th>Branch</th>
-				                    <th>Choreographer</th>
-				                    <th>No. of students</th>
-				                    <th>Details</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php
-                                $server_name = "localhost";
-                                $user_name = "root";
-                                $password = "";
-                                $database = "dance-academy";
 
-                                $conn = new mysqli($server_name, $user_name, $password, $database);
+                                    <h2 class="panel-title">Assign Batch</h2>
+                                </header>
+                                <form class="form-horizontal form-bordered" method="post">
+                                    <div class="panel-body">
 
-                                $batch_sel = "select batch_id, batch_name, batch_age_grp, branch_id, choreographer_id from batch";
-                                $res = $conn->query($batch_sel);
-                                while ($row = $res->fetch_array())
-                                {
-                                    echo "<tr>";
-                                    echo "<td>$row[1]</td>";
-                                    echo "<td>$row[2]</td>";
-                                    $branch_sel = "select branch_landmark, branch_place from branch where branch_id='$row[3]'";
-                                    $branch_res = mysqli_query($conn, $branch_sel);
-                                    while ($row_branch = $branch_res->fetch_array())
-                                    {
-                                        echo "<td>$row_branch[0] , $row_branch[1]</td>";
-                                    }
-                                    if ($row[4]==0)
-                                    {
-                                        echo "<td>Not assigned</td>";
-                                    }
-                                    else
-                                    {
-                                        $choreo_sel = "select choreographer_name from choreographer where choreographer_id = '$row[4]'";
-                                        $chore_res = $conn->query($choreo_sel);
-                                        while ($choreo_row = $chore_res->fetch_array())
-                                        {
-                                            echo "<td>$choreo_row[0]</td>";
-                                        }
-                                    }
-                                    $nostud = "select count(*) from student where batch_id='$row[0]'";
-                                    $res_nostud = $conn->query($nostud);
-                                    while ($row_nostud = $res_nostud->fetch_array())
-                                    {
-                                        echo "<td>$row_nostud[0]</td>";
-                                    }
-                                    echo "<td><a href='batch_details.php?bid=$row[0]'><button class='btn btn-primary'>Details</button></a></td>";
-                                }
-                                ?>
-                                </tbody>
-                            </table>
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="batches">Batch <span class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <select class="form-control" id="batches" name="batches" required>
+                                                <option value="nothing" selected>Select batch</option>
+                                                    <?php
+                                                        require_once '../Database_Connect.php';
+                                                        $sql_batch = "select * from batch where choreographer_id=0";
+                                                        $res_batch = $conn->query($sql_batch);
+                                                        while ($row_batch = $res_batch->fetch_array())
+                                                        {
+                                                            $sql_branch = "select branch_landmark from branch where branch_id='$row_batch[3]'";
+                                                            $res_branch = mysqli_query($conn, $sql_branch);
+                                                            $row_branch = mysqli_fetch_array($res_branch);
+                                                            echo "<option value='$row_batch[0]'>$row_batch[1] - $row_branch[0]</option>";
+                                                        }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="choreographers">Choreographer <span class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <select class="form-control" id="choreographers" name="choreographers" required>
+                                                    <option value="nothing" selected>Select Choreographer</option>
+                                                    <?php
+                                                        require_once '../Database_Connect.php';
+                                                        $sql_choreo = "select choreographer_id, choreographer_name from choreographer";
+                                                        $res_choreo = $conn->query($sql_choreo);
+                                                        while ($row_choreo = $res_choreo->fetch_array())
+                                                        {
+                                                            echo "<option value='$row_choreo[0]'>$row_choreo[1]</option>";
+                                                        }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <footer class="panel-footer">
+                                        <div class="row">
+                                            <div class="col-sm-9 col-sm-offset-3">
+                                                <input class="btn btn-primary" type="submit" name="assign_batch" id="assign_batch">
+                                                <button type="reset" class="btn btn-default">Reset</button>
+                                            </div>
+                                        </div>
+                                    </footer>
+                                </form>
+                            </section>
                         </div>
-                    </section>
+                    </div>
+
                     <!-- end: page -->
                 </section>
 			</div>
@@ -348,3 +338,33 @@
 
 	</body>
 </html>
+
+<?php
+
+if (isset($_POST['assign_batch']))
+{
+    $batch_id = $_POST['batches'];
+    $choreo_id = $_POST['choreographers'];
+    if ($batch_id == "nothing")
+    {
+        echo "<script>alert('Please select a batch...')</script>";
+    }
+    else if ($choreo_id == "nothing")
+    {
+        echo "<script>alert('Please select a choreographer...')</script>";
+    }
+    else
+    {
+        $assgn_batch =  "UPDATE batch SET choreographer_id='$choreo_id' where batch_id='$batch_id'";
+        $res_batch = mysqli_query($conn, $assgn_batch);
+        if($res_batch == true)
+        {
+            echo "<script>alert('Batch Assigned Successfully...')</script>";
+            echo "<script>window.location='batches.php'</script>";
+        }
+        else
+        {
+            echo "<script>alert('Error in Assigning')</script>";
+        }
+    }
+}
