@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2021 at 04:16 AM
+-- Generation Time: Apr 20, 2021 at 08:23 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -195,6 +195,30 @@ INSERT INTO `login` (`login_id`, `user_name`, `user_type`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `schedule`
+--
+
+CREATE TABLE `schedule` (
+  `schedule_id` int(11) NOT NULL,
+  `batch_id` int(11) NOT NULL,
+  `schedule_time` time NOT NULL,
+  `schedule_date` date NOT NULL,
+  `schedule_status` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `schedule`
+--
+
+INSERT INTO `schedule` (`schedule_id`, `batch_id`, `schedule_time`, `schedule_date`, `schedule_status`) VALUES
+(1, 7, '12:00:00', '2021-04-20', 1),
+(2, 7, '12:00:00', '2021-04-21', 1),
+(3, 7, '10:00:00', '2021-04-21', 1),
+(4, 9, '12:00:00', '2021-04-21', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `student`
 --
 
@@ -310,6 +334,13 @@ ALTER TABLE `login`
   ADD PRIMARY KEY (`login_id`);
 
 --
+-- Indexes for table `schedule`
+--
+ALTER TABLE `schedule`
+  ADD PRIMARY KEY (`schedule_id`),
+  ADD KEY `fk_schedule_batch` (`batch_id`);
+
+--
 -- Indexes for table `student`
 --
 ALTER TABLE `student`
@@ -345,6 +376,12 @@ ALTER TABLE `login`
   MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
+-- AUTO_INCREMENT for table `schedule`
+--
+ALTER TABLE `schedule`
+  MODIFY `schedule_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
@@ -359,6 +396,12 @@ ALTER TABLE `student`
 --
 ALTER TABLE `batch`
   ADD CONSTRAINT `fk_branch_batch` FOREIGN KEY (`branch_id`) REFERENCES `branch` (`branch_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `schedule`
+--
+ALTER TABLE `schedule`
+  ADD CONSTRAINT `fk_schedule_batch` FOREIGN KEY (`batch_id`) REFERENCES `batch` (`batch_id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `student`

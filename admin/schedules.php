@@ -5,7 +5,7 @@
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<title>Add Batch | THUNDERLINES</title>
+		<title>Admin Dashboard | THUNDERLINES</title>
 		<meta name="keywords" content="HTML5 Admin Template" />
 		<meta name="description" content="Porto Admin - Responsive HTML5 Template">
 		<meta name="author" content="okler.net">
@@ -113,7 +113,7 @@
 				                            <span>Students</span>
 				                        </a>
 				                        <ul class="nav nav-children">
-				                            <li class="nav nav-active">
+				                            <li>
 				                                <a href="batches.php">
 				                                    Batches
 				                                </a>
@@ -128,7 +128,7 @@
                                                     Fee Dues
                                                 </a>
                                             </li>
-                                            <li>
+                                            <li class="nav nav-active">
                                                 <a href="schedules.php">
                                                     Schedules
                                                 </a>
@@ -213,72 +213,89 @@
 
                 <section role="main" class="content-body">
                     <header class="page-header">
-                        <h2>Add Batch</h2>
+                        <h2>Schedules</h2>
 
                     </header>
 
                     <!-- start: page -->
+                    <section class="panel">
+                        <header class="panel-heading">
+                            <div class="panel-actions">
+                                <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                                <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+                            </div>
 
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <section class="panel">
-                                <header class="panel-heading">
-                                    <div class="panel-actions">
-                                        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-                                        <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+                            <h2 class="panel-title">Schedules</h2>
+                        </header>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="mb-md">
+                                        <a href="schedule_add.php">
+                                            <button id="addschedulebtn" class="btn btn-primary">Add <i class="fa fa-plus"></i> </button>
+                                        </a>
                                     </div>
+                                </div>
+                            </div>
+                            <table class="table table-bordered table-striped mb-none" id="tester_table">
+                                <thead>
+                                <tr>
+                                    <th>Schedule Date</th>
+                                    <th>Scheduled Time</th>
+                                    <th>Batch</th>
+				                    <th>Choreographer</th>
+				                    <th>Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                $server_name = "localhost";
+                                $user_name = "root";
+                                $password = "";
+                                $database = "dance-academy";
 
-                                    <h2 class="panel-title">Add Batch</h2>
-                                </header>
-                                <form class="form-horizontal form-bordered" method="post">
-                                    <div class="panel-body">
+                                $conn = new mysqli($server_name, $user_name, $password, $database);
 
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="batchagegroup">Age Group <span class="required">*</span></label>
-                                            <div class="col-md-6">
-                                                <select class="form-control" id="batchagegroup" name="batchagegroup" required>
-                                                <option value="nothing" selected>Select age group</option>
-                                                <option value="4-10 yrs">4-10 years</option>
-                                                <option value="11-15 yrs">11-15 years</option>
-                                                <option value="16-25 yrs">16-25 years</option>
-                                                <option value="25+ yrs male">25+ years (Male)</option>
-                                                <option value="25+ yrs female">25+ years (Female)</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="batchbranch">Branch <span class="required">*</span></label>
-                                            <div class="col-md-6">
-                                                <select class="form-control" id="batchbranch" name="batchbranch" required>
-                                                    <option value="nothing" selected>Select branch</option>
-                                                    <?php
-                                                        require_once '../Database_Connect.php';
-                                                        $sql_branch = "select * from branch";
-                                                        $res_branch = mysqli_query($conn, $sql_branch);
-                                                        while ($row_branch = mysqli_fetch_array($res_branch))
-                                                        {
-                                                            echo "<option value='$row_branch[0]'>$row_branch[1]"." , "."$row_branch[3]</option>";
-                                                        }
-                                                    ?>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <footer class="panel-footer">
-                                        <div class="row">
-                                            <div class="col-sm-9 col-sm-offset-3">
-                                                <input class="btn btn-primary" type="submit" name="add_batch" id="add_batch">
-                                                <button type="reset" class="btn btn-default">Reset</button>
-                                            </div>
-                                        </div>
-                                    </footer>
-                                </form>
-                            </section>
+                                $schedule_sel = "select batch_id, schedule_time, schedule_date, schedule_status from schedule";
+                                $res = $conn->query($schedule_sel);
+                                while ($row = $res->fetch_array())
+                                {
+                                    echo "<tr>";
+                                    echo "<td>$row[2]</td>";
+                                    echo "<td>$row[1]</td>";
+                                    $batch_sel = "select batch_name, choreographer_id from batch where batch_id='$row[0]'";
+                                    $batch_res = mysqli_query($conn, $batch_sel);
+                                    while ($row_batch = $batch_res->fetch_array())
+                                    {
+                                        echo "<td>$row_batch[0]</td>";
+                                        if ($row_batch[1]==0)
+                                        {
+                                            echo "<td>Not assigned</td>";
+                                        }
+                                        else
+                                        {
+                                            $choreo_sel = "select choreographer_name from choreographer where choreographer_id ='$row_batch[1]'";
+                                            $chore_res = $conn->query($choreo_sel);
+                                            while ($choreo_row = $chore_res->fetch_array())
+                                            {
+                                                echo "<td>$choreo_row[0]</td>";
+                                            }
+                                        }
+                                    }
+                                    if ($row[3]==0)
+                                    {
+                                        echo "<td>Completed</td>";
+                                    }
+                                    else if($row[3]==1)
+                                    {
+                                        echo "<td>Scheduled</td>";
+                                    }
+                                }
+                                ?>
+                                </tbody>
+                            </table>
                         </div>
-                    </div>
-
+                    </section>
                     <!-- end: page -->
                 </section>
 			</div>
@@ -336,35 +353,3 @@
 
 	</body>
 </html>
-
-<?php
-
-if (isset($_POST['add_batch']))
-{
-    $batch_age_grp = $_POST['batchagegroup'];
-    $batch_branch = $_POST['batchbranch'];
-    if ($batch_age_grp == "nothing")
-    {
-        echo "<script>alert('Please select a age group...')</script>";
-    }
-    else if ($batch_branch == "nothing")
-    {
-        echo "<script>alert('Please select a branch...')</script>";
-    }
-    else
-    {
-        $batch_name = $batch_branch."_branch_".$batch_age_grp."_".date("d_m");
-        $ins_batch =  "INSERT INTO batch (batch_name,batch_age_grp,branch_id) values ('$batch_name','$batch_age_grp','$batch_branch')";
-        $req_batch = mysqli_query($conn, $ins_batch);
-
-        if($req_batch == true)
-        {
-            echo "<script>alert('Batch Added Successfully...')</script>";
-            echo "<script>window.location='batches.php'</script>";
-        }
-        else
-        {
-            echo "<script>alert('Error in Adding batch')</script>";
-        }
-    }
-}

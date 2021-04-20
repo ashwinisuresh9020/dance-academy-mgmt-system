@@ -128,6 +128,11 @@
                                                     Fee Dues
                                                 </a>
                                             </li>
+                                            <li>
+                                                <a href="schedules.php">
+                                                    Schedules
+                                                </a>
+                                            </li>
 				                        </ul>
 				                    </li>
 				                    <li class="nav-parent">
