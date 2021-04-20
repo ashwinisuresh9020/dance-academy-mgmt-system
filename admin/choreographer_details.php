@@ -178,6 +178,12 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="video_lectures.php">
+                                    <i class="fa fa-file-video-o" aria-hidden="true"></i>
+                                    <span>Video Lectures</span>
+                                </a>
+                            </li>
+                            <li>
                                 <a href="#">
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                     <span>Events</span>

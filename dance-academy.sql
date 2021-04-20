@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2021 at 08:23 AM
+-- Generation Time: Apr 20, 2021 at 04:20 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -211,10 +211,7 @@ CREATE TABLE `schedule` (
 --
 
 INSERT INTO `schedule` (`schedule_id`, `batch_id`, `schedule_time`, `schedule_date`, `schedule_status`) VALUES
-(1, 7, '12:00:00', '2021-04-20', 1),
-(2, 7, '12:00:00', '2021-04-21', 1),
-(3, 7, '10:00:00', '2021-04-21', 1),
-(4, 9, '12:00:00', '2021-04-21', 1);
+(1, 7, '12:00:00', '2021-04-20', 1);
 
 -- --------------------------------------------------------
 
@@ -304,6 +301,27 @@ INSERT INTO `student` (`student_id`, `student_name`, `student_dob`, `student_gen
 (61, 'Akash M', '1983-12-12', 'Male', 'Malabar building ', 'Mukkam', 673998, 'Kozhikode', 9, 'akash123@gmail.com', 9876543210, NULL, 15),
 (62, 'Nithin N M', '1988-01-25', 'Male', 'NANGARI MEETHAL HOUSE', 'Mukkam', 678999, 'Kozhikode', 9, 'nithin003@gmail.com', 8765767676, NULL, 15);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `video_class`
+--
+
+CREATE TABLE `video_class` (
+  `video_id` int(11) NOT NULL,
+  `video_title` varchar(50) NOT NULL,
+  `video_location` text NOT NULL,
+  `schedule_id` int(11) NOT NULL,
+  `video_status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `video_class`
+--
+
+INSERT INTO `video_class` (`video_id`, `video_title`, `video_location`, `schedule_id`, `video_status`) VALUES
+(1, 'Coca_Cola tu Dance  Cute Kids  Deepak Tulsyan Chor', 'videos/Coca_Cola tu Dance  Cute Kids  Deepak Tulsyan Choreography  G M Dance  Tony kakkar_360p.MP4', 1, 1);
+
 --
 -- Indexes for dumped tables
 --
@@ -348,6 +366,13 @@ ALTER TABLE `student`
   ADD KEY `fk_student_branch` (`nearest_branch`);
 
 --
+-- Indexes for table `video_class`
+--
+ALTER TABLE `video_class`
+  ADD PRIMARY KEY (`video_id`),
+  ADD KEY `fk_video_schedule` (`schedule_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -388,6 +413,12 @@ ALTER TABLE `student`
   MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
+-- AUTO_INCREMENT for table `video_class`
+--
+ALTER TABLE `video_class`
+  MODIFY `video_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- Constraints for dumped tables
 --
 
@@ -408,6 +439,12 @@ ALTER TABLE `schedule`
 --
 ALTER TABLE `student`
   ADD CONSTRAINT `fk_student_branch` FOREIGN KEY (`nearest_branch`) REFERENCES `branch` (`branch_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `video_class`
+--
+ALTER TABLE `video_class`
+  ADD CONSTRAINT `fk_video_schedule` FOREIGN KEY (`schedule_id`) REFERENCES `schedule` (`schedule_id`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
