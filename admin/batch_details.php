@@ -86,12 +86,12 @@
 				                        </a>
                                         <ul class="nav nav-children ">
                                             <li>
-                                                <a href="#">
+                                                <a href="choreographer_list.php">
                                                     Choreographer List
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="#">
+                                                <a href="choreographer_add.php">
                                                     Add Choreographer
                                                 </a>
                                             </li>

@@ -5,7 +5,7 @@
     <!-- Basic -->
     <meta charset="UTF-8">
 
-    <title>Admin Dashboard | THUNDERLINES</title>
+    <title>Choreographer Details | THUNDERLINES</title>
     <meta name="keywords" content="HTML5 Admin Template" />
     <meta name="description" content="Porto Admin - Responsive HTML5 Template">
     <meta name="author" content="okler.net">
@@ -203,67 +203,133 @@
 
         <section role="main" class="content-body">
             <header class="page-header">
-                <h2>Choreographer List</h2>
+                <h2>Choreographers</h2>
 
             </header>
 
             <!-- start: page -->
-            <section class="panel">
-                <header class="panel-heading">
-                    <div class="panel-actions">
-                        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-                        <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
-                    </div>
 
-                    <h2 class="panel-title">Choreographer</h2>
-                </header>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="mb-md">
-                                <a href="choreographer_add.php">
-                                    <button id="addchoreobtn" class="btn btn-primary">Add <i class="fa fa-plus"></i> </button>
-                                </a>
+            <div class="row">
+                <div class="col-lg-12">
+                    <section class="panel">
+                        <header class="panel-heading">
+                            <div class="panel-actions">
+                                <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                                <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
                             </div>
-                        </div>
-                    </div>
-                    <table class="table table-bordered table-striped mb-none" id="tester_table">
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Date of Birth</th>
-                            <th>House Name</th>
-                            <th>Place</th>
-                            <th>Mobile</th>
-                            <th>Details</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                        $server_name = "localhost";
-                        $user_name = "root";
-                        $password = "";
-                        $database = "dance-academy";
 
-                        $conn = new mysqli($server_name, $user_name, $password, $database);
+                            <h2 class="panel-title">Choreographer Details</h2>
+                        </header>
+                        <form class="form-horizontal form-bordered" method="post">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <?php
+                                    $cid = $_GET['id'];
+                                    $server_name = "localhost";
+                                    $user_name = "root";
+                                    $password = "";
+                                    $database = "dance-academy";
 
-                        $choreo_sel = "select choreographer_id, choreographer_name, choreographer_dob, address, place, mobile from choreographer where email in (select user_name from login where user_type='CHOREOGRAPHER')";
-                        $res = $conn->query($choreo_sel);
-                        while ($row = $res->fetch_array())
-                        {
-                            echo "<tr>";
-                            echo "<td>$row[1]</td>";
-                            echo "<td>$row[2]</td>";
-                            echo "<td>$row[3]</td>";
-                            echo "<td>$row[4]</td>";
-                            echo "<td>$row[5]</td>";
-                            echo "<td><a href='choreographer_details.php?id=$row[0]'><button class='btn btn-primary'>Details</button></a></td>";
-                        }
-                        ?>
-                        </tbody>
-                    </table>
+                                    $conn = new mysqli($server_name, $user_name, $password, $database);
+
+                                    $choreographer = "select choreographer_name, choreographer_dob, address, place, pincode, district, mobile, email, sallary, qualification from choreographer where choreographer_id='$cid'";
+                                    $res = $conn->query($choreographer);
+                                    $choreographer_data = $res->fetch_row();
+                                    $choreo_name = $choreographer_data[0];
+                                    $choreo_dob = $choreographer_data[1];
+                                    $choreo_address = $choreographer_data[2];
+                                    $choreo_place = $choreographer_data[3];
+                                    $choreo_pincode = $choreographer_data[4];
+                                    $choreo_dst = $choreographer_data[5];
+                                    $choreo_mob = $choreographer_data[6];
+                                    $choreo_mail = $choreographer_data[7];
+                                    $choreo_sal = $choreographer_data[8];
+                                    $choreo_qual = $choreographer_data[9];
+                                    ?>
+                                    <label class='col-md-3 control-label' for='testername'>Full Name</label>
+                                    <?php
+                                    echo "<label class='col-md-3 control-label'>$choreo_name</label>";
+                                    ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Date of Birth</label>
+                                    <?php
+                                    echo "<label class='col-md-3 control-label'>$choreo_dob</label>";
+                                    ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Address</label>
+                                    <?php
+                                    echo "<label class='col-md-3 control-label'>$choreo_address</label>";
+                                    ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Place</label>
+                                    <?php
+                                    echo "<label class='col-md-3 control-label'>$choreo_place</label>";
+                                    ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Pin</label>
+                                    <?php
+                                    echo "<label class='col-md-3 control-label'>$choreo_pincode</label>";
+                                    ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">District</label>
+                                    <?php
+                                    echo "<label class='col-md-3 control-label'>$choreo_dst</label>";
+                                    ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class='col-md-3 control-label'>Phone</label>
+                                    <?php
+                                    echo "<label class='col-md-3 control-label'>$choreo_mob</label>";
+                                    ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class='col-md-3 control-label'>Email</label>
+                                    <?php
+                                    echo "<label class='col-md-3 control-label'>$choreo_mail</label>";
+                                    ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class='col-md-3 control-label'>Sallary</label>
+                                    <?php
+                                    echo "<label class='col-md-3 control-label'>$choreo_sal</label>";
+                                    ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class='col-md-3 control-label'>Qualification</label>
+                                    <?php
+                                    echo "<label class='col-md-3 control-label'>$choreo_qual</label>";
+                                    ?>
+                                </div>
+
+                            </div>
+                        </form>
+                        <footer class="panel-footer">
+                            <div class="row">
+                                <div class="col-sm-9 col-sm-offset-6">
+                                    <a href="choreographer_list.php">
+                                        <button class="btn btn-primary" name="choreo_list">Go back <i class="fa fa-arrow-left"></i> </button>
+                                    </a>
+                                </div>
+                            </div>
+                        </footer>
+                    </section>
                 </div>
-            </section>
+            </div>
+
             <!-- end: page -->
         </section>
     </div>
@@ -320,7 +386,3 @@
 
 </body>
 </html>
-
-<?php
-
-

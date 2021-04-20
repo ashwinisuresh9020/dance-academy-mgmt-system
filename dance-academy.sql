@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 19, 2021 at 09:18 PM
+-- Generation Time: Apr 20, 2021 at 02:43 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -88,6 +88,33 @@ INSERT INTO `branch` (`branch_id`, `branch_landmark`, `branch_pincode`, `branch_
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `choreographer`
+--
+
+CREATE TABLE `choreographer` (
+  `choreographer_id` int(11) NOT NULL,
+  `choreographer_name` varchar(50) NOT NULL,
+  `choreographer_dob` date NOT NULL,
+  `address` varchar(40) NOT NULL,
+  `place` varchar(30) NOT NULL,
+  `pincode` int(11) NOT NULL,
+  `district` varchar(25) NOT NULL,
+  `mobile` bigint(12) NOT NULL,
+  `email` varchar(25) NOT NULL,
+  `sallary` int(11) NOT NULL,
+  `qualification` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `choreographer`
+--
+
+INSERT INTO `choreographer` (`choreographer_id`, `choreographer_name`, `choreographer_dob`, `address`, `place`, `pincode`, `district`, `mobile`, `email`, `sallary`, `qualification`) VALUES
+(1, 'Suhail A K', '1998-10-28', 'Valathel house', 'MARANCHERY', 679581, 'Malappuram', 9633058949, 'suhu3515@gmail.com', 12000, 'Bsc Danceology');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `login`
 --
 
@@ -162,7 +189,8 @@ INSERT INTO `login` (`login_id`, `user_name`, `user_type`, `password`) VALUES
 (58, 'rathnan@gmail.com', 'STUDENT', '111111'),
 (59, 'anil89@gmail.com', 'STUDENT', '111111'),
 (60, 'akash123@gmail.com', 'STUDENT', '111111'),
-(61, 'nithin003@gmail.com', 'STUDENT', '111111');
+(61, 'nithin003@gmail.com', 'STUDENT', '111111'),
+(64, 'suhu3515@gmail.com', 'CHOREOGRAPHER', 'abcd123');
 
 -- --------------------------------------------------------
 
@@ -270,6 +298,12 @@ ALTER TABLE `branch`
   ADD PRIMARY KEY (`branch_id`);
 
 --
+-- Indexes for table `choreographer`
+--
+ALTER TABLE `choreographer`
+  ADD PRIMARY KEY (`choreographer_id`);
+
+--
 -- Indexes for table `login`
 --
 ALTER TABLE `login`
@@ -299,10 +333,16 @@ ALTER TABLE `branch`
   MODIFY `branch_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT for table `choreographer`
+--
+ALTER TABLE `choreographer`
+  MODIFY `choreographer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `student`
