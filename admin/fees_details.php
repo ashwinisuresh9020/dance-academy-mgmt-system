@@ -5,7 +5,7 @@
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<title>Schedule class | THUNDERLINES</title>
+		<title>Admin Dashboard | THUNDERLINES</title>
 		<meta name="keywords" content="HTML5 Admin Template" />
 		<meta name="description" content="Porto Admin - Responsive HTML5 Template">
 		<meta name="author" content="okler.net">
@@ -128,7 +128,7 @@
                                                     Fee Dues
                                                 </a>
                                             </li>
-                                            <li class="nav nav-active">
+                                            <li>
                                                 <a href="schedules.php">
                                                     Schedules
                                                 </a>
@@ -164,7 +164,7 @@
 				                            <span>Branches</span>
 				                        </a>
 				                    </li>
-                                    <li>
+                                    <li class="nav nav-active">
                                         <a href="fees_details.php">
                                             <i class="fa fa-money" aria-hidden="true"></i>
                                             <span>Fee details</span>
@@ -224,83 +224,77 @@
 
                 <section role="main" class="content-body">
                     <header class="page-header">
-                        <h2>Schedule Class</h2>
+                        <h2>Fees Management</h2>
 
                     </header>
 
                     <!-- start: page -->
+                    <section class="panel">
+                        <header class="panel-heading">
+                            <div class="panel-actions">
+                                <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                                <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+                            </div>
 
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <section class="panel">
-                                <header class="panel-heading">
-                                    <div class="panel-actions">
-                                        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-                                        <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+                            <h2 class="panel-title">Fees</h2>
+                        </header>
+                        <form class="form-horizontal form-bordered" method="post">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <select class="form-control" id="studentdetails" name="studentdetails" required>
+                                            <option value="0">Paid</option>
+                                            <option value="1">Not paid</option>
+                                        </select>
+                                        <div class="mb-md">
+
+                                        </div>
                                     </div>
 
-                                    <h2 class="panel-title">Schedule Class</h2>
-                                </header>
-                                <form class="form-horizontal form-bordered" method="post">
-                                    <div class="panel-body">
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="batch">Batch <span class="required">*</span></label>
-                                            <div class="col-md-6">
-                                                <select class="form-control" id="batch" name="batch" required>
-                                                <option value="nothing" selected>Select batch</option>
-                                                    <?php
-                                                    include_once '../Database_Connect.php';
+                                    <div class="col-sm-3">
+                                        <input type="submit" value="Get details" class="btn btn-primary" name="get_details"></input>
+                                        <div class="mb-md">
 
-                                                    $sql_batch = "select batch_id, batch_name from batch";
-                                                    $res_batch = mysqli_query($conn, $sql_batch);
-                                                    while ($row_batch = mysqli_fetch_array($res_batch))
-                                                    {
-                                                        echo "<option value='$row_batch[0]'>$row_batch[1]</option>";
-                                                    }
-
-                                                    ?>
-                                                </select>
-                                            </div>
                                         </div>
-
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="scheduledate">Schedule Date <span class="required">*</span> </label>
-                                            <div class="col-md-6">
-                                                <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="fa fa-calendar"></i>
-                                        </span>
-                                                    <input id='scheduledate' type='date' class='form-control' name='scheduledate' required>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="scheduletime">Schedule Time <span class="required">*</span> </label>
-                                            <div class="col-md-6">
-                                                <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="fa fa-clock-o"></i>
-                                        </span>
-                                                    <input id='scheduletime' type='time' class='form-control' name='scheduletime' required>
-                                                </div>
-                                            </div>
-                                        </div>
-
                                     </div>
-                                    <footer class="panel-footer">
-                                        <div class="row">
-                                            <div class="col-sm-9 col-sm-offset-3">
-                                                <input class="btn btn-primary" type="submit" name="add_schedule" id="add_schedule">
-                                                <button type="reset" class="btn btn-default">Reset</button>
-                                            </div>
-                                        </div>
-                                    </footer>
-                                </form>
-                            </section>
-                        </div>
-                    </div>
 
+                                </div>
+                                <table class="table table-bordered table-striped mb-none" id="tester_table">
+                                    <thead>
+                                    <tr>
+                                        <th>Student Name</th>
+                                        <th>Mobile Number</th>
+                                        <th>Amount to pay</th>
+                                        <th>Paid</th>
+                                        <th>Status</th>
+                                        <th>Update</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    $server_name = "localhost";
+                                    $user_name = "root";
+                                    $password = "";
+                                    $database = "dance-academy";
+
+                                    $conn = new mysqli($server_name, $user_name, $password, $database);
+                                    /*$batch_sel = "select student_name,mobile from student where student_id";
+                                    $res = $conn->query($batch_sel);
+                                    while ($row = $res->fetch_array())
+                                    {
+                                        echo "<tr>";
+                                        echo "<td>$row[1]</td>";
+                                        echo "<td>$row[2]</td>";
+                                        echo "<td>$row[4]</td>";
+                                        echo "<td>$row[5]</td>";
+                                        echo "<td>$row[9]</td>";
+                                    }*/
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                    </section>
                     <!-- end: page -->
                 </section>
 			</div>
@@ -343,14 +337,7 @@
 		<script src="assets/vendor/jqvmap/maps/continents/jquery.vmap.europe.js"></script>
 		<script src="assets/vendor/jqvmap/maps/continents/jquery.vmap.north-america.js"></script>
 		<script src="assets/vendor/jqvmap/maps/continents/jquery.vmap.south-america.js"></script>
-
-        <script type="text/javascript">
-            $(function () {
-                $('.datepicker').datepicker({
-                    startDate: new Date()
-                });
-            });
-        </script>
+		
 		<!-- Theme Base, Components and Settings -->
 		<script src="assets/javascripts/theme.js"></script>
 		
@@ -368,32 +355,23 @@
 
 <?php
 
-if (isset($_POST['add_schedule']))
+require_once '../Database_Connect.php';
+
+if (isset($_POST['add_stud']))
 {
-    $batch = $_POST['batch'];
-    $schedule_date = $_POST['scheduledate'];
-    $schedule_time = $_POST['scheduletime'];
-    if ($batch == "nothing")
+    $student_id = $_POST['studentdetails'];
+    if ($student_id == "nothing")
     {
-        echo "<script>alert('Please select a batch...')</script>";
-    }
-    else if (strtotime($schedule_date) < strtotime(date('Y-m-d')))
-    {
-        echo "<script>alert('Please select a date from today...')</script>";
+        echo "<script>alert('Please select a student...')</script>";
     }
     else
     {
-        $ins_schedule =  "INSERT INTO schedule (batch_id,schedule_date,schedule_time) values ('$batch','$schedule_date','$schedule_time')";
-        $req_schedule = mysqli_query($conn, $ins_schedule);
-
-        if($req_schedule == true)
+        $ins_stud = "update student set batch_id=".htmlspecialchars($_GET['bid'])." where student_id='$student_id'";
+        $stud_res = $conn->query($ins_stud);
+        if ($stud_res)
         {
-            echo "<script>alert('Class scheduled Successfully...')</script>";
-            echo "<script>window.location='schedules.php'</script>";
-        }
-        else
-        {
-            echo "<script>alert('Error in scheduling class')</script>";
+            echo "<script>alert('Student Added Successfully...')</script>";
+            echo "<script>window.location='batches.php'</script>";
         }
     }
 }

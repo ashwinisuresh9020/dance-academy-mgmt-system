@@ -133,6 +133,11 @@
                                             Schedules
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="dances.php">
+                                            Dances
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                             <li class="nav-parent">
@@ -160,7 +165,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="fees_details.php">
                                     <i class="fa fa-money" aria-hidden="true"></i>
                                     <span>Fee details</span>
                                 </a>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2021 at 04:20 PM
+-- Generation Time: Apr 22, 2021 at 06:31 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -111,6 +111,43 @@ CREATE TABLE `choreographer` (
 
 INSERT INTO `choreographer` (`choreographer_id`, `choreographer_name`, `choreographer_dob`, `address`, `place`, `pincode`, `district`, `mobile`, `email`, `sallary`, `qualification`) VALUES
 (1, 'Suhail A K', '1998-10-28', 'Valathel house', 'MARANCHERY', 679581, 'Malappuram', 9633058949, 'suhu3515@gmail.com', 12000, 'Bsc Danceology');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dance`
+--
+
+CREATE TABLE `dance` (
+  `dance_id` int(11) NOT NULL,
+  `dance_name` varchar(40) NOT NULL,
+  `dance_price` int(11) NOT NULL,
+  `dance_description` text NOT NULL,
+  `dance_status` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `dance`
+--
+
+INSERT INTO `dance` (`dance_id`, `dance_name`, `dance_price`, `dance_description`, `dance_status`) VALUES
+(1, 'HipHop ', 600, 'Hiphop dance, ', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fees`
+--
+
+CREATE TABLE `fees` (
+  `fees_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `dance_id` int(11) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `due_amount` int(11) NOT NULL,
+  `paid_date` date NOT NULL,
+  `paid_status` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -232,74 +269,87 @@ CREATE TABLE `student` (
   `email_address` varchar(40) NOT NULL,
   `mobile_number` bigint(12) NOT NULL,
   `profile_photo` text DEFAULT NULL,
-  `batch_id` int(11) DEFAULT NULL
+  `batch_id` int(11) DEFAULT NULL,
+  `fee_status` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `student`
 --
 
-INSERT INTO `student` (`student_id`, `student_name`, `student_dob`, `student_gender`, `address`, `place`, `pincode`, `district`, `nearest_branch`, `email_address`, `mobile_number`, `profile_photo`, `batch_id`) VALUES
-(1, 'Nandu', '2020-03-03', 'Male', 'vadakkel methal house may', 'mayanad', 673008, 'Kozhikode', 10, 'nandu03@gmail.com', 9746541990, NULL, 0),
-(2, 'Manju N S ', '2015-06-01', 'Female', 'Ittapurathu house', 'mundikkalthazam', 673004, 'Kozhikode', 10, 'manjuns@gmail.com', 8129321420, NULL, 17),
-(3, 'Ranju H', '2018-11-14', 'Male', 'puthiyakandi house', 'mayanad', 673008, 'Kozhikode', 10, 'ranjuh@gmail.com', 9865432567, NULL, 0),
-(4, 'Ashwini S', '2014-11-05', 'Female', 'Melekkandi house', 'chevayoor', 673017, 'Kozhikode', 8, 'ashwini3456@gmail.com', 9654366654, NULL, 7),
-(5, 'Harikrishnan', '2021-07-05', 'Male', 'varazikinnil house', 'kotooli', 673998, 'Kozhikode', 8, 'harikrishnan78@gmail.com', 9834556785, NULL, 0),
-(6, 'Anusree M T', '2016-12-16', 'Female', 'MELEKKANDI HOUSE', 'KOVOOR', 673003, 'Kozhikode', 8, 'anusree1234@gmail.com', 98345676534, NULL, 7),
-(7, 'Midhun N S', '2015-03-15', 'Male', 'Mangool house', 'chevayoor', 673005, 'Kozhikode', 11, 'midhunremesh67@gmail.com', 8755764312, NULL, 24),
-(8, 'Mrithul Remesh', '2018-09-02', 'Male', 'vadakkelikathoor house', 'managavu', 673005, 'Kozhikode', 11, 'mrithul45@gmail.com', 9976443214, NULL, 0),
-(9, 'Athul Ramesh N S', '2015-11-09', 'Male', 'melekkandathil house', 'palazhi', 673880, 'Kozhikode', 11, 'athul111@gmail.com', 7796543214, NULL, 24),
-(10, 'Dilna V', '2015-06-21', 'Female', 'Harikrishnan house', 'Manasseri', 673001, 'Kozhikode', 9, 'dilnasajeesh11@gmail.com', 6543216785, NULL, 12),
-(11, 'Anusha R', '2017-03-21', 'Female', 'Bargavan nilayam house', 'Kattangal', 673601, 'Kozhikode', 9, 'anusha5643@gmail.com', 8877665544, NULL, 12),
-(12, 'Vishnu O', '2015-02-03', 'Male', 'Melekkandi varidathil hou', 'Mukkam', 673111, 'Kozhikode', 9, 'vishnusr@gmail.com', 9876544567, NULL, 12),
-(13, 'Renjith G', '2011-05-08', 'Male', 'THAZEPARAMBIL HOUSE', 'Ozukkara', 673008, 'Kozhikode', 10, 'renjith7654@gmail.com', 9915643215, NULL, 17),
-(14, 'Ashli E', '2010-02-02', 'Female', 'Malayithoodil house', 'Kalari', 673008, 'Kozhikode', 10, 'ashlisr@gmail.com', 8879898789, NULL, 18),
-(15, 'Shiyaas Z', '2009-11-22', 'Male', 'JAVAN PARAMBIL HOUSE', 'MAUNDIKKALTHAZAM', 673007, 'Kozhikode', 10, 'shiyaas123@gmail.com', 8897766554, NULL, 18),
-(16, 'Anand A', '2006-11-12', 'Male', 'Arakkinar house', 'chevayoor', 673990, 'Kozhikode', 8, 'anandfsa@gmail.com', 9876598765, NULL, 8),
-(17, 'Anaswara V', '2007-05-06', 'Female', 'MALAKUNNUL HOUSE', 'MEDICAL MCOLLEHGE', 673008, 'Kozhikode', 8, 'anaswarav2345@gmail.com', 8769876543, NULL, 8),
-(18, 'Princy  C', '2008-05-21', 'Female', 'NALUKANDATHIL HOUSE', 'VRINDAVAN COLONY', 67305, 'Kozhikode', 8, 'prijncyc234@gmail.com', 8798876678, NULL, 8),
-(19, 'Jincy C', '2007-09-12', 'Female', 'Melekkandi varathil house', 'Mayavadu', 673765, 'Kozhikode', 11, 'jincy@gmail.com', 8877665544, NULL, 23),
-(20, 'Prjin R', '2011-04-04', 'Male', 'Balusseri house ', 'Mangaavu', 673998, 'Kozhikode', 11, 'prjin34@gmail.com', 997008800, NULL, 24),
-(21, 'Seethu H', '2009-01-05', 'Female', 'VARIDATHI HOUSE', 'cherikkampoyil', 679335, 'Kozhikode', 11, 'seethu@gmail.com', 9988443322, NULL, 23),
-(22, 'Anusree B', '2011-03-01', 'Female', 'NANGARI MEETHAL HOUSE', 'Agasthyamuzhi', 678445, 'Kozhikode', 9, 'anusree1678@gmail.com', 6754321567, NULL, 13),
-(23, 'Anagha N V', '2010-12-18', 'Female', 'Harikrishnan house', 'Manasseri', 6783354, 'Kozhikode', 9, 'anuss234@gmail.com', 8765498765, NULL, 13),
-(24, 'Neethu', '2006-01-29', 'Female', 'Fahasil house', 'Mukkam', 673003, 'Kozhikode', 9, 'neethuamal2222@gmail.com', 9999789909, NULL, 14),
-(25, 'Ashwini M', '1996-11-14', 'Female', 'Vadakel meethal house', 'Mayanad', 673008, 'Kozhikode', 10, 'ashwiniachu9020@gmail.com', 8129321420, NULL, 19),
-(26, 'Abhinraj M', '1998-06-15', 'Male', 'BAALIKULAM HOUSE', 'Kalari', 673005, 'Kozhikode', 10, 'abinraj@gmail.com', 9988776655, NULL, 19),
-(27, 'Jishnu M', '1998-12-23', 'Male', 'Mekkamdamadathil house', 'Mayanad', 673008, 'Kozhikode', 10, 'jishnu@gmail.com', 7657890876, NULL, 19),
-(28, 'Abai raj', '1999-07-01', 'Male', 'Janavadha house', 'Chest hospital', 673008, 'Kozhikode', 8, 'abinn111@gmail.com', 9192939495, NULL, 9),
-(29, 'Jinsha V', '2000-04-10', 'Female', 'NAALIKALATHIL HOUSE', 'Kaavu', 673003, 'Kozhikode', 8, 'jinsha156@gmail.com', 6112233445, NULL, 9),
-(30, 'Nithinraj N M', '2001-10-11', 'Male', 'Asokapuram house', 'Patteri', 673017, 'Kozhikode', 8, 'nithin@gmail.com', 9834556777, NULL, 9),
-(31, 'RAHOOF S', '2001-12-28', 'Male', 'Naalayikandathil house', 'Chelathoor', 673005, 'Kozhikode', 11, 'rahoof@gmail.com', 8755764343, NULL, 25),
-(32, 'Shanidh L', '2002-02-02', 'Male', 'Ishaal house', 'Maalikulam', 673966, 'Kozhikode', 11, 'saanu@gmail.com', 8877665500, NULL, 25),
-(33, 'Adith Mohan', '2005-11-20', 'Male', 'Yeyagthil house', 'PARAMBIL', 673000, 'Kozhikode', 11, 'adith234@gmail.com', 8129321423, NULL, 25),
-(34, 'Dipin M', '2021-07-11', 'Male', 'Mangool  parambil house', 'Agasthyamuzhi', 673008, 'Kozhikode', 9, 'dipin@gmail.com', 9834556325, NULL, 0),
-(37, 'Vineth F', '2001-08-30', 'Male', 'Daaritha janam house', 'Thamarasseri', 673998, 'Kozhikode', 9, 'vineth5432@gmail.com', 8877665599, NULL, 14),
-(38, 'Dhanu W', '2000-02-22', 'Female', 'ERAKUDATHI HOUSE', 'OOMASSERI', 673889, 'Kozhikode', 9, 'dhanu23@gmail.com', 9112233445, NULL, 14),
-(39, 'Sruthi O', '1995-02-17', 'Female', 'NAALI PARAMBIL HOUSE', 'VELLIPARAMB', 673008, 'Kozhikode', 10, 'sruthi111@gmail.com', 8755764310, NULL, 21),
-(40, 'Megha B', '1994-01-04', 'Female', 'SAKUNTHALA HOUSE', 'KARANTHOOR', 673008, 'Kozhikode', 10, 'kavaya123@gmail.com', 9021436576, NULL, 21),
-(41, 'Kavya C', '1994-07-01', 'Female', 'MANAKKADAVU', 'Medical college', 673017, 'Kozhikode', 10, 'kunju123@gmail.com', 9654366611, NULL, 21),
-(42, 'Rosi', '1993-11-11', 'Female', 'Jaanaki patamnil', 'Bhatt road', 673998, 'Kozhikode', 8, 'rosi123@gmail.com', 9876540987, NULL, 11),
-(43, 'MAALU JANVI', '1992-11-23', 'Female', 'ANUPARAMA HOUSE', 'VELLAYIL', 678999, 'Kozhikode', 8, 'maalu123@gmail.com', 8123212345, NULL, 11),
-(44, 'Thaani ', '1991-09-23', 'Female', 'Deevadas house', 'Westhill', 673017, 'Kozhikode', 8, 'thaani100@gmail.com', 8129321433, NULL, 11),
-(45, 'Nijisha A', '1990-12-22', 'Female', 'Maatuparambil house', 'Pantheerankavu', 673005, 'Kozhikode', 11, 'nijisha123456@gmail.com', 6655443322, NULL, 27),
-(46, 'Sreelakshmi S', '1993-12-01', 'Female', 'Janavadha  colony house', 'poovatuparamb', 673003, 'Kozhikode', 11, 'sree333@gmail.com', 8129321466, NULL, 27),
-(47, 'Jamsheena F', '1991-07-22', 'Female', 'Mangool house puthiyameet', 'perumanna', 673880, 'Kozhikode', 11, 'jamshee3334@gmail.com', 9192000000, NULL, 27),
-(48, 'Sini I', '1994-02-18', 'Female', 'NARALIKULAM HOUSE', 'Adivaaram', 673005, 'Kozhikode', 9, 'sini1234@gmail.com', 8877660000, NULL, 16),
-(49, 'Jaaziya N ', '1990-10-27', 'Female', 'Haarithoodu valavbu', 'OOMASSERI', 678977, 'Kozhikode', 9, 'jaaziya299@gmail.com', 9834550021, NULL, 16),
-(50, 'Midhuna N ', '1994-12-30', 'Female', 'Harikrishnan house meetha', 'Manasseri', 673008, 'Kozhikode', 9, 'miduna12@gmail.com', 9834556666, NULL, 16),
-(51, 'Faaziz', '1995-12-12', 'Male', 'Javaerithaduthil house', 'Kuttikkattoor', 670099, 'Kozhikode', 10, 'faz123@gmail.com', 6677889900, NULL, 20),
-(52, 'Swarag F', '1993-11-29', 'Male', 'Melekkandi  valavil house', 'Anakuzhikkara', 673003, 'Kozhikode', 10, 'swaga1889@gmail.com', 8755761111, NULL, 20),
-(53, 'Jithindas', '1988-05-01', 'Male', 'Mayanadu kuziyil house', 'Mayanad', 673008, 'Kozhikode', 10, 'jithin123@gmail.com', 9876543218, NULL, 20),
-(54, 'Akshay Das', '1987-08-11', 'Male', 'Manakadavu veetil ', 'Puthiyappa vellayil', 678990, 'Kozhikode', 8, 'akshay123@gmail.com', 8765432134, NULL, 10),
-(55, 'Aswin T', '1987-03-18', 'Male', 'Arakkinar house', 'Bhatt road', 673005, 'Kozhikode', 8, 'aswin111@gmail.com', 9746541993, NULL, 10),
-(56, 'Akshay sreenivas', '1984-11-10', 'Male', 'APPOZATHU PATMBIL HOUSE', 'chevayoor', 673005, 'Kozhikode', 8, 'sreenivas67@gmail.com', 9898989898, NULL, 10),
-(57, 'Yogeesh A', '1994-07-16', 'Male', 'Mangool house kadavu', 'Mavanad', 673998, 'Kozhikode', 11, 'ywes@gmail.com', 9834556781, NULL, 26),
-(58, 'Suresh Babu', '1981-06-11', 'Male', 'Puthuvaaridathil meethal', 'Kaaruthil', 673017, 'Kozhikode', 11, 'suru123@gmail.com', 9754323456, NULL, 26),
-(59, 'Rathnakaran', '1982-10-12', 'Male', 'Melekkandi house meethal', 'chelavoor', 673008, 'Kozhikode', 11, 'rathnan@gmail.com', 8755764322, NULL, 26),
-(60, 'Anil kumar', '1992-10-01', 'Male', 'Ittapythau house', 'Thiruvambaadi', 673017, 'Kozhikode', 9, 'anil89@gmail.com', 7890564312, NULL, 15),
-(61, 'Akash M', '1983-12-12', 'Male', 'Malabar building ', 'Mukkam', 673998, 'Kozhikode', 9, 'akash123@gmail.com', 9876543210, NULL, 15),
-(62, 'Nithin N M', '1988-01-25', 'Male', 'NANGARI MEETHAL HOUSE', 'Mukkam', 678999, 'Kozhikode', 9, 'nithin003@gmail.com', 8765767676, NULL, 15);
+INSERT INTO `student` (`student_id`, `student_name`, `student_dob`, `student_gender`, `address`, `place`, `pincode`, `district`, `nearest_branch`, `email_address`, `mobile_number`, `profile_photo`, `batch_id`, `fee_status`) VALUES
+(1, 'Nandu', '2020-03-03', 'Male', 'vadakkel methal house may', 'mayanad', 673008, 'Kozhikode', 10, 'nandu03@gmail.com', 9746541990, NULL, 0, 0),
+(2, 'Manju N S ', '2015-06-01', 'Female', 'Ittapurathu house', 'mundikkalthazam', 673004, 'Kozhikode', 10, 'manjuns@gmail.com', 8129321420, NULL, 17, 0),
+(3, 'Ranju H', '2018-11-14', 'Male', 'puthiyakandi house', 'mayanad', 673008, 'Kozhikode', 10, 'ranjuh@gmail.com', 9865432567, NULL, 0, 0),
+(4, 'Ashwini S', '2014-11-05', 'Female', 'Melekkandi house', 'chevayoor', 673017, 'Kozhikode', 8, 'ashwini3456@gmail.com', 9654366654, NULL, 7, 0),
+(5, 'Harikrishnan', '2021-07-05', 'Male', 'varazikinnil house', 'kotooli', 673998, 'Kozhikode', 8, 'harikrishnan78@gmail.com', 9834556785, NULL, 0, 0),
+(6, 'Anusree M T', '2016-12-16', 'Female', 'MELEKKANDI HOUSE', 'KOVOOR', 673003, 'Kozhikode', 8, 'anusree1234@gmail.com', 98345676534, NULL, 7, 0),
+(7, 'Midhun N S', '2015-03-15', 'Male', 'Mangool house', 'chevayoor', 673005, 'Kozhikode', 11, 'midhunremesh67@gmail.com', 8755764312, NULL, 24, 0),
+(8, 'Mrithul Remesh', '2018-09-02', 'Male', 'vadakkelikathoor house', 'managavu', 673005, 'Kozhikode', 11, 'mrithul45@gmail.com', 9976443214, NULL, 0, 0),
+(9, 'Athul Ramesh N S', '2015-11-09', 'Male', 'melekkandathil house', 'palazhi', 673880, 'Kozhikode', 11, 'athul111@gmail.com', 7796543214, NULL, 24, 0),
+(10, 'Dilna V', '2015-06-21', 'Female', 'Harikrishnan house', 'Manasseri', 673001, 'Kozhikode', 9, 'dilnasajeesh11@gmail.com', 6543216785, NULL, 12, 0),
+(11, 'Anusha R', '2017-03-21', 'Female', 'Bargavan nilayam house', 'Kattangal', 673601, 'Kozhikode', 9, 'anusha5643@gmail.com', 8877665544, NULL, 12, 0),
+(12, 'Vishnu O', '2015-02-03', 'Male', 'Melekkandi varidathil hou', 'Mukkam', 673111, 'Kozhikode', 9, 'vishnusr@gmail.com', 9876544567, NULL, 12, 0),
+(13, 'Renjith G', '2011-05-08', 'Male', 'THAZEPARAMBIL HOUSE', 'Ozukkara', 673008, 'Kozhikode', 10, 'renjith7654@gmail.com', 9915643215, NULL, 17, 0),
+(14, 'Ashli E', '2010-02-02', 'Female', 'Malayithoodil house', 'Kalari', 673008, 'Kozhikode', 10, 'ashlisr@gmail.com', 8879898789, NULL, 18, 0),
+(15, 'Shiyaas Z', '2009-11-22', 'Male', 'JAVAN PARAMBIL HOUSE', 'MAUNDIKKALTHAZAM', 673007, 'Kozhikode', 10, 'shiyaas123@gmail.com', 8897766554, NULL, 18, 0),
+(16, 'Anand A', '2006-11-12', 'Male', 'Arakkinar house', 'chevayoor', 673990, 'Kozhikode', 8, 'anandfsa@gmail.com', 9876598765, NULL, 8, 0),
+(17, 'Anaswara V', '2007-05-06', 'Female', 'MALAKUNNUL HOUSE', 'MEDICAL MCOLLEHGE', 673008, 'Kozhikode', 8, 'anaswarav2345@gmail.com', 8769876543, NULL, 8, 0),
+(18, 'Princy  C', '2008-05-21', 'Female', 'NALUKANDATHIL HOUSE', 'VRINDAVAN COLONY', 67305, 'Kozhikode', 8, 'prijncyc234@gmail.com', 8798876678, NULL, 8, 0),
+(19, 'Jincy C', '2007-09-12', 'Female', 'Melekkandi varathil house', 'Mayavadu', 673765, 'Kozhikode', 11, 'jincy@gmail.com', 8877665544, NULL, 23, 0),
+(20, 'Prjin R', '2011-04-04', 'Male', 'Balusseri house ', 'Mangaavu', 673998, 'Kozhikode', 11, 'prjin34@gmail.com', 997008800, NULL, 24, 0),
+(21, 'Seethu H', '2009-01-05', 'Female', 'VARIDATHI HOUSE', 'cherikkampoyil', 679335, 'Kozhikode', 11, 'seethu@gmail.com', 9988443322, NULL, 23, 0),
+(22, 'Anusree B', '2011-03-01', 'Female', 'NANGARI MEETHAL HOUSE', 'Agasthyamuzhi', 678445, 'Kozhikode', 9, 'anusree1678@gmail.com', 6754321567, NULL, 13, 0),
+(23, 'Anagha N V', '2010-12-18', 'Female', 'Harikrishnan house', 'Manasseri', 6783354, 'Kozhikode', 9, 'anuss234@gmail.com', 8765498765, NULL, 13, 0),
+(24, 'Neethu', '2006-01-29', 'Female', 'Fahasil house', 'Mukkam', 673003, 'Kozhikode', 9, 'neethuamal2222@gmail.com', 9999789909, NULL, 14, 0),
+(25, 'Ashwini M', '1996-11-14', 'Female', 'Vadakel meethal house', 'Mayanad', 673008, 'Kozhikode', 10, 'ashwiniachu9020@gmail.com', 8129321420, NULL, 19, 0),
+(26, 'Abhinraj M', '1998-06-15', 'Male', 'BAALIKULAM HOUSE', 'Kalari', 673005, 'Kozhikode', 10, 'abinraj@gmail.com', 9988776655, NULL, 19, 0),
+(27, 'Jishnu M', '1998-12-23', 'Male', 'Mekkamdamadathil house', 'Mayanad', 673008, 'Kozhikode', 10, 'jishnu@gmail.com', 7657890876, NULL, 19, 0),
+(28, 'Abai raj', '1999-07-01', 'Male', 'Janavadha house', 'Chest hospital', 673008, 'Kozhikode', 8, 'abinn111@gmail.com', 9192939495, NULL, 9, 0),
+(29, 'Jinsha V', '2000-04-10', 'Female', 'NAALIKALATHIL HOUSE', 'Kaavu', 673003, 'Kozhikode', 8, 'jinsha156@gmail.com', 6112233445, NULL, 9, 0),
+(30, 'Nithinraj N M', '2001-10-11', 'Male', 'Asokapuram house', 'Patteri', 673017, 'Kozhikode', 8, 'nithin@gmail.com', 9834556777, NULL, 9, 0),
+(31, 'RAHOOF S', '2001-12-28', 'Male', 'Naalayikandathil house', 'Chelathoor', 673005, 'Kozhikode', 11, 'rahoof@gmail.com', 8755764343, NULL, 25, 0),
+(32, 'Shanidh L', '2002-02-02', 'Male', 'Ishaal house', 'Maalikulam', 673966, 'Kozhikode', 11, 'saanu@gmail.com', 8877665500, NULL, 25, 0),
+(33, 'Adith Mohan', '2005-11-20', 'Male', 'Yeyagthil house', 'PARAMBIL', 673000, 'Kozhikode', 11, 'adith234@gmail.com', 8129321423, NULL, 25, 0),
+(34, 'Dipin M', '2021-07-11', 'Male', 'Mangool  parambil house', 'Agasthyamuzhi', 673008, 'Kozhikode', 9, 'dipin@gmail.com', 9834556325, NULL, 0, 0),
+(37, 'Vineth F', '2001-08-30', 'Male', 'Daaritha janam house', 'Thamarasseri', 673998, 'Kozhikode', 9, 'vineth5432@gmail.com', 8877665599, NULL, 14, 0),
+(38, 'Dhanu W', '2000-02-22', 'Female', 'ERAKUDATHI HOUSE', 'OOMASSERI', 673889, 'Kozhikode', 9, 'dhanu23@gmail.com', 9112233445, NULL, 14, 0),
+(39, 'Sruthi O', '1995-02-17', 'Female', 'NAALI PARAMBIL HOUSE', 'VELLIPARAMB', 673008, 'Kozhikode', 10, 'sruthi111@gmail.com', 8755764310, NULL, 21, 0),
+(40, 'Megha B', '1994-01-04', 'Female', 'SAKUNTHALA HOUSE', 'KARANTHOOR', 673008, 'Kozhikode', 10, 'kavaya123@gmail.com', 9021436576, NULL, 21, 0),
+(41, 'Kavya C', '1994-07-01', 'Female', 'MANAKKADAVU', 'Medical college', 673017, 'Kozhikode', 10, 'kunju123@gmail.com', 9654366611, NULL, 21, 0),
+(42, 'Rosi', '1993-11-11', 'Female', 'Jaanaki patamnil', 'Bhatt road', 673998, 'Kozhikode', 8, 'rosi123@gmail.com', 9876540987, NULL, 11, 0),
+(43, 'MAALU JANVI', '1992-11-23', 'Female', 'ANUPARAMA HOUSE', 'VELLAYIL', 678999, 'Kozhikode', 8, 'maalu123@gmail.com', 8123212345, NULL, 11, 0),
+(44, 'Thaani ', '1991-09-23', 'Female', 'Deevadas house', 'Westhill', 673017, 'Kozhikode', 8, 'thaani100@gmail.com', 8129321433, NULL, 11, 0),
+(45, 'Nijisha A', '1990-12-22', 'Female', 'Maatuparambil house', 'Pantheerankavu', 673005, 'Kozhikode', 11, 'nijisha123456@gmail.com', 6655443322, NULL, 27, 0),
+(46, 'Sreelakshmi S', '1993-12-01', 'Female', 'Janavadha  colony house', 'poovatuparamb', 673003, 'Kozhikode', 11, 'sree333@gmail.com', 8129321466, NULL, 27, 0),
+(47, 'Jamsheena F', '1991-07-22', 'Female', 'Mangool house puthiyameet', 'perumanna', 673880, 'Kozhikode', 11, 'jamshee3334@gmail.com', 9192000000, NULL, 27, 0),
+(48, 'Sini I', '1994-02-18', 'Female', 'NARALIKULAM HOUSE', 'Adivaaram', 673005, 'Kozhikode', 9, 'sini1234@gmail.com', 8877660000, NULL, 16, 0),
+(49, 'Jaaziya N ', '1990-10-27', 'Female', 'Haarithoodu valavbu', 'OOMASSERI', 678977, 'Kozhikode', 9, 'jaaziya299@gmail.com', 9834550021, NULL, 16, 0),
+(50, 'Midhuna N ', '1994-12-30', 'Female', 'Harikrishnan house meetha', 'Manasseri', 673008, 'Kozhikode', 9, 'miduna12@gmail.com', 9834556666, NULL, 16, 0),
+(51, 'Faaziz', '1995-12-12', 'Male', 'Javaerithaduthil house', 'Kuttikkattoor', 670099, 'Kozhikode', 10, 'faz123@gmail.com', 6677889900, NULL, 20, 0),
+(52, 'Swarag F', '1993-11-29', 'Male', 'Melekkandi  valavil house', 'Anakuzhikkara', 673003, 'Kozhikode', 10, 'swaga1889@gmail.com', 8755761111, NULL, 20, 0),
+(53, 'Jithindas', '1988-05-01', 'Male', 'Mayanadu kuziyil house', 'Mayanad', 673008, 'Kozhikode', 10, 'jithin123@gmail.com', 9876543218, NULL, 20, 0),
+(54, 'Akshay Das', '1987-08-11', 'Male', 'Manakadavu veetil ', 'Puthiyappa vellayil', 678990, 'Kozhikode', 8, 'akshay123@gmail.com', 8765432134, NULL, 10, 0),
+(55, 'Aswin T', '1987-03-18', 'Male', 'Arakkinar house', 'Bhatt road', 673005, 'Kozhikode', 8, 'aswin111@gmail.com', 9746541993, NULL, 10, 0),
+(56, 'Akshay sreenivas', '1984-11-10', 'Male', 'APPOZATHU PATMBIL HOUSE', 'chevayoor', 673005, 'Kozhikode', 8, 'sreenivas67@gmail.com', 9898989898, NULL, 10, 0),
+(57, 'Yogeesh A', '1994-07-16', 'Male', 'Mangool house kadavu', 'Mavanad', 673998, 'Kozhikode', 11, 'ywes@gmail.com', 9834556781, NULL, 26, 0),
+(58, 'Suresh Babu', '1981-06-11', 'Male', 'Puthuvaaridathil meethal', 'Kaaruthil', 673017, 'Kozhikode', 11, 'suru123@gmail.com', 9754323456, NULL, 26, 0),
+(59, 'Rathnakaran', '1982-10-12', 'Male', 'Melekkandi house meethal', 'chelavoor', 673008, 'Kozhikode', 11, 'rathnan@gmail.com', 8755764322, NULL, 26, 0),
+(60, 'Anil kumar', '1992-10-01', 'Male', 'Ittapythau house', 'Thiruvambaadi', 673017, 'Kozhikode', 9, 'anil89@gmail.com', 7890564312, NULL, 15, 0),
+(61, 'Akash M', '1983-12-12', 'Male', 'Malabar building ', 'Mukkam', 673998, 'Kozhikode', 9, 'akash123@gmail.com', 9876543210, NULL, 15, 0),
+(62, 'Nithin N M', '1988-01-25', 'Male', 'NANGARI MEETHAL HOUSE', 'Mukkam', 678999, 'Kozhikode', 9, 'nithin003@gmail.com', 8765767676, NULL, 15, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_dance`
+--
+
+CREATE TABLE `student_dance` (
+  `stud_dance_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `dance_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -346,6 +396,19 @@ ALTER TABLE `choreographer`
   ADD PRIMARY KEY (`choreographer_id`);
 
 --
+-- Indexes for table `dance`
+--
+ALTER TABLE `dance`
+  ADD PRIMARY KEY (`dance_id`);
+
+--
+-- Indexes for table `fees`
+--
+ALTER TABLE `fees`
+  ADD PRIMARY KEY (`fees_id`),
+  ADD KEY `fk_student_fees` (`student_id`);
+
+--
 -- Indexes for table `login`
 --
 ALTER TABLE `login`
@@ -364,6 +427,14 @@ ALTER TABLE `schedule`
 ALTER TABLE `student`
   ADD PRIMARY KEY (`student_id`),
   ADD KEY `fk_student_branch` (`nearest_branch`);
+
+--
+-- Indexes for table `student_dance`
+--
+ALTER TABLE `student_dance`
+  ADD PRIMARY KEY (`stud_dance_id`),
+  ADD KEY `fk_student_id` (`student_id`),
+  ADD KEY `fk_student_dance` (`dance_id`);
 
 --
 -- Indexes for table `video_class`
@@ -395,6 +466,18 @@ ALTER TABLE `choreographer`
   MODIFY `choreographer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `dance`
+--
+ALTER TABLE `dance`
+  MODIFY `dance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `fees`
+--
+ALTER TABLE `fees`
+  MODIFY `fees_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
@@ -413,6 +496,12 @@ ALTER TABLE `student`
   MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
+-- AUTO_INCREMENT for table `student_dance`
+--
+ALTER TABLE `student_dance`
+  MODIFY `stud_dance_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `video_class`
 --
 ALTER TABLE `video_class`
@@ -429,6 +518,12 @@ ALTER TABLE `batch`
   ADD CONSTRAINT `fk_branch_batch` FOREIGN KEY (`branch_id`) REFERENCES `branch` (`branch_id`) ON UPDATE CASCADE;
 
 --
+-- Constraints for table `fees`
+--
+ALTER TABLE `fees`
+  ADD CONSTRAINT `fk_student_fees` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`) ON UPDATE CASCADE;
+
+--
 -- Constraints for table `schedule`
 --
 ALTER TABLE `schedule`
@@ -439,6 +534,13 @@ ALTER TABLE `schedule`
 --
 ALTER TABLE `student`
   ADD CONSTRAINT `fk_student_branch` FOREIGN KEY (`nearest_branch`) REFERENCES `branch` (`branch_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `student_dance`
+--
+ALTER TABLE `student_dance`
+  ADD CONSTRAINT `fk_student_dance` FOREIGN KEY (`dance_id`) REFERENCES `dance` (`dance_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_student_id` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `video_class`

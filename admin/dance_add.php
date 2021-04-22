@@ -5,7 +5,7 @@
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<title>Schedule class | THUNDERLINES</title>
+		<title>Add Dance | THUNDERLINES</title>
 		<meta name="keywords" content="HTML5 Admin Template" />
 		<meta name="description" content="Porto Admin - Responsive HTML5 Template">
 		<meta name="author" content="okler.net">
@@ -128,12 +128,12 @@
                                                     Fee Dues
                                                 </a>
                                             </li>
-                                            <li class="nav nav-active">
+                                            <li>
                                                 <a href="schedules.php">
                                                     Schedules
                                                 </a>
                                             </li>
-                                            <li>
+                                            <li  class="nav nav-active">
                                                 <a href="dances.php">
                                                     Dances
                                                 </a>
@@ -224,7 +224,7 @@
 
                 <section role="main" class="content-body">
                     <header class="page-header">
-                        <h2>Schedule Class</h2>
+                        <h2>Add Dance</h2>
 
                     </header>
 
@@ -239,59 +239,37 @@
                                         <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
                                     </div>
 
-                                    <h2 class="panel-title">Schedule Class</h2>
+                                    <h2 class="panel-title">Add Branch</h2>
                                 </header>
                                 <form class="form-horizontal form-bordered" method="post">
                                     <div class="panel-body">
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label" for="batch">Batch <span class="required">*</span></label>
+                                            <label class="col-md-3 control-label" for="dancename">Dance Name <span class="required">*</span></label>
                                             <div class="col-md-6">
-                                                <select class="form-control" id="batch" name="batch" required>
-                                                <option value="nothing" selected>Select batch</option>
-                                                    <?php
-                                                    include_once '../Database_Connect.php';
-
-                                                    $sql_batch = "select batch_id, batch_name from batch";
-                                                    $res_batch = mysqli_query($conn, $sql_batch);
-                                                    while ($row_batch = mysqli_fetch_array($res_batch))
-                                                    {
-                                                        echo "<option value='$row_batch[0]'>$row_batch[1]</option>";
-                                                    }
-
-                                                    ?>
-                                                </select>
+                                                <input type="text" class="form-control" id="dancename" name="dancename" required>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label" for="scheduledate">Schedule Date <span class="required">*</span> </label>
+                                            <label class="col-md-3 control-label" for="price">Price <span class="required">*</span></label>
                                             <div class="col-md-6">
-                                                <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="fa fa-calendar"></i>
-                                        </span>
-                                                    <input id='scheduledate' type='date' class='form-control' name='scheduledate' required>
-                                                </div>
+                                                <input type="number"   class="form-control" id="price" name="price" maxlength="6" required>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label" for="scheduletime">Schedule Time <span class="required">*</span> </label>
+                                            <label class="col-md-3 control-label" for="dancedescription">Description <span class="required">*</span></label>
                                             <div class="col-md-6">
-                                                <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="fa fa-clock-o"></i>
-                                        </span>
-                                                    <input id='scheduletime' type='time' class='form-control' name='scheduletime' required>
-                                                </div>
+                                                <input type="text" class="form-control" id="dancedescription" name="dancedescription" required>
                                             </div>
                                         </div>
+
 
                                     </div>
                                     <footer class="panel-footer">
                                         <div class="row">
                                             <div class="col-sm-9 col-sm-offset-3">
-                                                <input class="btn btn-primary" type="submit" name="add_schedule" id="add_schedule">
+                                                <input class="btn btn-primary" type="submit" name="add_dance">
                                                 <button type="reset" class="btn btn-default">Reset</button>
                                             </div>
                                         </div>
@@ -343,14 +321,7 @@
 		<script src="assets/vendor/jqvmap/maps/continents/jquery.vmap.europe.js"></script>
 		<script src="assets/vendor/jqvmap/maps/continents/jquery.vmap.north-america.js"></script>
 		<script src="assets/vendor/jqvmap/maps/continents/jquery.vmap.south-america.js"></script>
-
-        <script type="text/javascript">
-            $(function () {
-                $('.datepicker').datepicker({
-                    startDate: new Date()
-                });
-            });
-        </script>
+		
 		<!-- Theme Base, Components and Settings -->
 		<script src="assets/javascripts/theme.js"></script>
 		
@@ -368,32 +339,27 @@
 
 <?php
 
-if (isset($_POST['add_schedule']))
-{
-    $batch = $_POST['batch'];
-    $schedule_date = $_POST['scheduledate'];
-    $schedule_time = $_POST['scheduletime'];
-    if ($batch == "nothing")
-    {
-        echo "<script>alert('Please select a batch...')</script>";
-    }
-    else if (strtotime($schedule_date) < strtotime(date('Y-m-d')))
-    {
-        echo "<script>alert('Please select a date from today...')</script>";
-    }
-    else
-    {
-        $ins_schedule =  "INSERT INTO schedule (batch_id,schedule_date,schedule_time) values ('$batch','$schedule_date','$schedule_time')";
-        $req_schedule = mysqli_query($conn, $ins_schedule);
+$server_name = "localhost";
+$user_name = "root";
+$password = "";
+$database = "dance-academy";
 
-        if($req_schedule == true)
-        {
-            echo "<script>alert('Class scheduled Successfully...')</script>";
-            echo "<script>window.location='schedules.php'</script>";
-        }
-        else
-        {
-            echo "<script>alert('Error in scheduling class')</script>";
-        }
-    }
+$conn = new mysqli($server_name, $user_name, $password, $database);
+
+if (isset($_POST['add_dance']))
+{
+    $dance_name = $_POST['dancename'];
+    $dance_price = $_POST['price'];
+    $dance_desc= $_POST['dancedescription'];
+    $ins_dance =  "INSERT INTO dance (dance_name, dance_price, dance_description) values ('$dance_name','$dance_price','$dance_desc')";
+    $reg = mysqli_query($conn, $ins_dance);
+     if($reg == true)
+     {
+         echo "<script>alert('Dance Added Successfully...')</script>";
+         echo "<script>window.location='dances.php'</script>";
+     }
+     else
+     {
+         echo "<script>alert('Error in Adding dance')</script>";
+     }
 }
