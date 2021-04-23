@@ -45,7 +45,7 @@ if(isset($_GET['servicecall']))
 
                     if ($stmt->execute() && $stmt1->execute() )
                     {
-                        /*$stmt = $conn->prepare("SELECT student_id, student_name,student_dob,student_gender,address,place,pincode,district,email_address,mobile_number, nearest_branch from student where email_address=?" );
+                        $stmt = $conn->prepare("SELECT student_id, student_name,student_dob,student_gender,address,place,pincode,district,email_address,mobile_number, nearest_branch from student where email_address=?" );
                         $stmt->bind_param("s",$user_email);
                         $stmt->execute();
                         $stmt->bind_result($stud_id, $stud_name,$stud_dob,$stud_gender,$stud_address,$stud_place,$stud_pincode,$stud_district,$stud_email,$stud_mobile, $stud_branch);
@@ -66,11 +66,11 @@ if(isset($_GET['servicecall']))
                             'stud_branch'=>$stud_branch
                         );
 
-                        $stmt->close();*/
+                        $stmt->close();
 
                         $response['error']= false;
                         $response['message'] = 'User registered Successfully';
-                        //$response['student'] = $student;
+                        $response['student'] = $student;
                     }
                 }
             }
@@ -100,6 +100,50 @@ if(isset($_GET['servicecall']))
                     array_push($branch,$temp);
                 }
                 $response =$branch;
+            }
+        break;
+
+        case "get_dances":
+
+            $stmt3 = "select dance_id, dance_name from dance";
+            $dance = array();
+            $temp = array();
+            $res_stmt3 = $conn->query($stmt3);
+            if ($res_stmt3)
+            {
+                while ($row_stmt3 = $res_stmt3->fetch_array())
+                {
+                    $temp['dance_id'] = $row_stmt3[0];
+                    $temp['dance_name'] = $row_stmt3[1];
+                    array_push($dance, $temp);
+                }
+                $response = $dance;
+            }
+        break;
+
+        case "add_student_dance":
+            if (isTheseParametersAvailable(array('student_id','dance_id')))
+            {
+                $student_id = $_POST['student_id'];
+                $dance_id = $_POST['dance_id'];
+
+                $stmt4 = $conn->prepare("insert into student_dance(student_id,dance_id) values (?,?)");
+                $stmt4->bind_param("ss",$student_id,$dance_id);
+                if ($stmt4->execute())
+                {
+                    $response['error'] = false;
+                    $response['message'] = 'Dance added successfully...';
+                }
+                else
+                {
+                    $response['error'] = true;
+                    $response['message'] = 'Something went wrong!';
+                }
+            }
+            else
+            {
+                $response['error'] = true;
+                $response['message'] = 'required parameters are not available';
             }
         break;
     }

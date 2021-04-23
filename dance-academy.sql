@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2021 at 06:31 PM
+-- Generation Time: Apr 23, 2021 at 04:29 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -131,7 +131,8 @@ CREATE TABLE `dance` (
 --
 
 INSERT INTO `dance` (`dance_id`, `dance_name`, `dance_price`, `dance_description`, `dance_status`) VALUES
-(1, 'HipHop ', 600, 'Hiphop dance, ', 1);
+(1, 'HipHop ', 600, 'Hiphop dance, ', 1),
+(2, 'Classic', 1200, 'Classic dance', 1);
 
 -- --------------------------------------------------------
 
@@ -227,7 +228,8 @@ INSERT INTO `login` (`login_id`, `user_name`, `user_type`, `password`) VALUES
 (59, 'anil89@gmail.com', 'STUDENT', '111111'),
 (60, 'akash123@gmail.com', 'STUDENT', '111111'),
 (61, 'nithin003@gmail.com', 'STUDENT', '111111'),
-(64, 'suhu3515@gmail.com', 'CHOREOGRAPHER', 'abcd123');
+(64, 'suhu3515@gmail.com', 'CHOREOGRAPHER', 'abcd123'),
+(70, 'safwantrz@gmail.com', 'STUDENT', 'abcde');
 
 -- --------------------------------------------------------
 
@@ -337,7 +339,8 @@ INSERT INTO `student` (`student_id`, `student_name`, `student_dob`, `student_gen
 (59, 'Rathnakaran', '1982-10-12', 'Male', 'Melekkandi house meethal', 'chelavoor', 673008, 'Kozhikode', 11, 'rathnan@gmail.com', 8755764322, NULL, 26, 0),
 (60, 'Anil kumar', '1992-10-01', 'Male', 'Ittapythau house', 'Thiruvambaadi', 673017, 'Kozhikode', 9, 'anil89@gmail.com', 7890564312, NULL, 15, 0),
 (61, 'Akash M', '1983-12-12', 'Male', 'Malabar building ', 'Mukkam', 673998, 'Kozhikode', 9, 'akash123@gmail.com', 9876543210, NULL, 15, 0),
-(62, 'Nithin N M', '1988-01-25', 'Male', 'NANGARI MEETHAL HOUSE', 'Mukkam', 678999, 'Kozhikode', 9, 'nithin003@gmail.com', 8765767676, NULL, 15, 0);
+(62, 'Nithin N M', '1988-01-25', 'Male', 'NANGARI MEETHAL HOUSE', 'Mukkam', 678999, 'Kozhikode', 9, 'nithin003@gmail.com', 8765767676, NULL, 15, 0),
+(76, 'Safwan V', '2002-09-30', 'Male', 'valathel House', 'athikaripadi', 679581, 'Malappuram', 9, 'safwantrz@gmail.com', 7994367615, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -350,6 +353,13 @@ CREATE TABLE `student_dance` (
   `student_id` int(11) NOT NULL,
   `dance_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `student_dance`
+--
+
+INSERT INTO `student_dance` (`stud_dance_id`, `student_id`, `dance_id`) VALUES
+(3, 76, 1);
 
 -- --------------------------------------------------------
 
@@ -469,7 +479,7 @@ ALTER TABLE `choreographer`
 -- AUTO_INCREMENT for table `dance`
 --
 ALTER TABLE `dance`
-  MODIFY `dance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `dance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `fees`
@@ -481,7 +491,7 @@ ALTER TABLE `fees`
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `schedule`
@@ -493,13 +503,13 @@ ALTER TABLE `schedule`
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT for table `student_dance`
 --
 ALTER TABLE `student_dance`
-  MODIFY `stud_dance_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `stud_dance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `video_class`

@@ -103,8 +103,17 @@ public class AddAddressActivity extends AppCompatActivity{
                                     if (!object.getBoolean("error"))
                                     {
                                         Toast.makeText(AddAddressActivity.this,object.getString("message"),Toast.LENGTH_SHORT).show();
-                                        Intent loginIntent = new Intent(AddAddressActivity.this, LoginActivity.class);
-                                        startActivity(loginIntent);
+                                        JSONObject studentObject =  object.getJSONObject("student");
+                                        Student student = new Student(studentObject.getInt("stud_id"),
+                                                studentObject.getString("stud_name"),studentObject.getString("stud_dob"),
+                                                studentObject.getString("stud_gender"),studentObject.getString("stud_address"),
+                                                studentObject.getString("stud_place"),studentObject.getString("stud_pin"),
+                                                studentObject.getString("stud_dst"),studentObject.getString("stud_mobile"),
+                                                studentObject.getString("stud_email"),studentObject.getString("stud_branch"));
+
+                                        SharedPrefManager.getInstance(getApplicationContext()).userLogin(student);
+                                        Intent homeIntent = new Intent(AddAddressActivity.this, AddDanceActivity.class);
+                                        startActivity(homeIntent);
                                         finish();
                                     }
                                     else
