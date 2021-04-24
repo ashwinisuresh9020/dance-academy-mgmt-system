@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2021 at 04:29 PM
+-- Generation Time: Apr 24, 2021 at 02:42 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -143,12 +143,18 @@ INSERT INTO `dance` (`dance_id`, `dance_name`, `dance_price`, `dance_description
 CREATE TABLE `fees` (
   `fees_id` int(11) NOT NULL,
   `student_id` int(11) NOT NULL,
-  `dance_id` int(11) NOT NULL,
   `amount` int(11) NOT NULL,
-  `due_amount` int(11) NOT NULL,
-  `paid_date` date NOT NULL,
-  `paid_status` int(11) NOT NULL DEFAULT 0
+  `paid_date` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `fees`
+--
+
+INSERT INTO `fees` (`fees_id`, `student_id`, `amount`, `paid_date`) VALUES
+(1, 1, 550, '24-04-2021'),
+(2, 2, 1350, '24-04-2021'),
+(3, 1, 50, '24-04-2021');
 
 -- --------------------------------------------------------
 
@@ -280,7 +286,7 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` (`student_id`, `student_name`, `student_dob`, `student_gender`, `address`, `place`, `pincode`, `district`, `nearest_branch`, `email_address`, `mobile_number`, `profile_photo`, `batch_id`, `fee_status`) VALUES
-(1, 'Nandu', '2020-03-03', 'Male', 'vadakkel methal house may', 'mayanad', 673008, 'Kozhikode', 10, 'nandu03@gmail.com', 9746541990, NULL, 0, 0),
+(1, 'Nandu', '2020-03-03', 'Male', 'vadakkel methal house may', 'mayanad', 673008, 'Kozhikode', 10, 'nandu03@gmail.com', 9746541990, NULL, 0, 1),
 (2, 'Manju N S ', '2015-06-01', 'Female', 'Ittapurathu house', 'mundikkalthazam', 673004, 'Kozhikode', 10, 'manjuns@gmail.com', 8129321420, NULL, 17, 0),
 (3, 'Ranju H', '2018-11-14', 'Male', 'puthiyakandi house', 'mayanad', 673008, 'Kozhikode', 10, 'ranjuh@gmail.com', 9865432567, NULL, 0, 0),
 (4, 'Ashwini S', '2014-11-05', 'Female', 'Melekkandi house', 'chevayoor', 673017, 'Kozhikode', 8, 'ashwini3456@gmail.com', 9654366654, NULL, 7, 0),
@@ -340,7 +346,7 @@ INSERT INTO `student` (`student_id`, `student_name`, `student_dob`, `student_gen
 (60, 'Anil kumar', '1992-10-01', 'Male', 'Ittapythau house', 'Thiruvambaadi', 673017, 'Kozhikode', 9, 'anil89@gmail.com', 7890564312, NULL, 15, 0),
 (61, 'Akash M', '1983-12-12', 'Male', 'Malabar building ', 'Mukkam', 673998, 'Kozhikode', 9, 'akash123@gmail.com', 9876543210, NULL, 15, 0),
 (62, 'Nithin N M', '1988-01-25', 'Male', 'NANGARI MEETHAL HOUSE', 'Mukkam', 678999, 'Kozhikode', 9, 'nithin003@gmail.com', 8765767676, NULL, 15, 0),
-(76, 'Safwan V', '2002-09-30', 'Male', 'valathel House', 'athikaripadi', 679581, 'Malappuram', 9, 'safwantrz@gmail.com', 7994367615, NULL, NULL, 0);
+(76, 'Safwan V', '2002-09-30', 'Male', 'valathel House', 'athikaripadi', 679581, 'Malappuram', 9, 'safwantrz@gmail.com', 7994367615, NULL, 15, 0);
 
 -- --------------------------------------------------------
 
@@ -359,7 +365,68 @@ CREATE TABLE `student_dance` (
 --
 
 INSERT INTO `student_dance` (`stud_dance_id`, `student_id`, `dance_id`) VALUES
-(3, 76, 1);
+(3, 76, 1),
+(4, 62, 1),
+(5, 61, 2),
+(6, 60, 1),
+(7, 59, 1),
+(8, 58, 2),
+(9, 57, 1),
+(10, 56, 1),
+(11, 55, 1),
+(12, 54, 1),
+(13, 53, 2),
+(14, 52, 2),
+(15, 51, 1),
+(16, 50, 2),
+(17, 49, 1),
+(18, 48, 1),
+(19, 47, 1),
+(20, 46, 2),
+(21, 45, 1),
+(22, 44, 1),
+(23, 43, 2),
+(24, 42, 2),
+(25, 41, 1),
+(26, 40, 2),
+(27, 39, 1),
+(28, 38, 2),
+(29, 37, 1),
+(30, 34, 1),
+(31, 33, 2),
+(32, 32, 1),
+(33, 31, 1),
+(34, 30, 2),
+(35, 29, 1),
+(36, 28, 2),
+(37, 27, 1),
+(38, 26, 2),
+(39, 25, 1),
+(40, 24, 2),
+(41, 23, 2),
+(42, 22, 1),
+(43, 21, 2),
+(44, 20, 1),
+(45, 19, 2),
+(46, 18, 2),
+(47, 17, 2),
+(48, 16, 1),
+(49, 15, 1),
+(50, 14, 1),
+(51, 13, 1),
+(52, 12, 1),
+(53, 11, 2),
+(54, 10, 1),
+(55, 9, 2),
+(56, 8, 1),
+(57, 7, 1),
+(58, 6, 2),
+(59, 5, 1),
+(60, 4, 2),
+(61, 3, 2),
+(62, 2, 2),
+(63, 1, 1),
+(65, 76, 2);
 
 -- --------------------------------------------------------
 
@@ -485,7 +552,7 @@ ALTER TABLE `dance`
 -- AUTO_INCREMENT for table `fees`
 --
 ALTER TABLE `fees`
-  MODIFY `fees_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `fees_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `login`
@@ -509,7 +576,7 @@ ALTER TABLE `student`
 -- AUTO_INCREMENT for table `student_dance`
 --
 ALTER TABLE `student_dance`
-  MODIFY `stud_dance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `stud_dance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `video_class`

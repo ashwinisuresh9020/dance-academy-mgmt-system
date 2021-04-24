@@ -5,7 +5,7 @@
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<title>Admin Dashboard | THUNDERLINES</title>
+		<title>Update fees | THUNDERLINES</title>
 		<meta name="keywords" content="HTML5 Admin Template" />
 		<meta name="description" content="Porto Admin - Responsive HTML5 Template">
 		<meta name="author" content="okler.net">
@@ -224,107 +224,99 @@
 
                 <section role="main" class="content-body">
                     <header class="page-header">
-                        <h2>Fees Management</h2>
+                        <h2>Update Fees</h2>
 
                     </header>
 
                     <!-- start: page -->
-                    <section class="panel">
-                        <header class="panel-heading">
-                            <div class="panel-actions">
-                                <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-                                <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
-                            </div>
 
-                            <h2 class="panel-title">Fees</h2>
-                        </header>
-                        <div class="panel-body">
-                            <div class="row">
-                                <form class="form-horizontal form-bordered" method="post">
-                                    <div class="col-sm-3">
-                                        <select class="form-control" id="studentdetails" name="studentdetails" required>
-                                            <option value="nothiing">Select an option</option>
-                                            <option value="1">Paid</option>
-                                            <option value="0">Not paid</option>
-                                        </select>
-                                        <div class="mb-md">
-
-                                        </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <section class="panel">
+                                <header class="panel-heading">
+                                    <div class="panel-actions">
+                                        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                                        <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
                                     </div>
 
-                                    <div class="col-sm-3">
-                                        <input type="submit" value="Get details" class="btn btn-primary" name="get_details" id="get_details"></input>
-                                        <div class="mb-md">
+                                    <h2 class="panel-title">Update Fees</h2>
+                                </header>
+                                <form class="form-horizontal form-bordered" method="post" enctype="multipart/form-data">
+                                    <div class="panel-body">
 
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="student">Student</label>
+                                            <div class="col-md-6">
+                                                <?php
+                                                    $stud_id = $_GET['stid'];
+
+                                                    include_once '../Database_Connect.php';
+
+                                                    $sel_stud = "select student_name from student where student_id='$stud_id'";
+                                                    $res_stud = $conn->query($sel_stud);
+                                                    $row_stud = $res_stud->fetch_array();
+
+                                                    $amount_sel = "SELECT sum(dance_price) from dance where dance_id IN(SELECT dance_id from student_dance where student_id='$stud_id')";
+                                                    $res_amount_sel = $conn->query($amount_sel);
+                                                    $row_amount_sel = $res_amount_sel->fetch_array();
+                                                    $total = $row_amount_sel[0];
+
+                                                    $amount_res_paid = "select sum(amount) from fees where student_id='$stud_id'";
+                                                    $amount_res_paid_res = $conn->query($amount_res_paid);
+                                                    $row_amount_res_paid = $amount_res_paid_res->fetch_array();
+
+                                                    echo "<input type='text' class='form-control' id='student' name='student' value='$row_stud[0]' disabled>";
+                                                ?>
+                                            </div>
                                         </div>
-                                    </div>
 
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="total">Total Amount</label>
+                                            <div class="col-md-6">
+                                                <?php
+                                                    echo "<input type='text' class='form-control' id='total' name='total' value='$total' disabled>";
+                                                ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="total">Due Amount</label>
+                                            <div class="col-md-6">
+                                                <?php
+                                                if ($row_amount_res_paid[0]==null)
+                                                {
+                                                    $due = $total;
+                                                }
+                                                else
+                                                {
+                                                    $due = $total - $row_amount_res_paid[0];
+                                                }
+                                                echo "<input type='text' class='form-control' id='total' name='total' value='$due' disabled>";
+                                                ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="amount">Pay Amount <span class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <input type="number" class="form-control" id="amount" name="amount" required>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <footer class="panel-footer">
+                                        <div class="row">
+                                            <div class="col-sm-9 col-sm-offset-3">
+                                                <input class="btn btn-primary" type="submit" name="add_fees" id="upload_video">
+                                            </div>
+                                        </div>
+                                    </footer>
                                 </form>
-
-                            </div>
-
-                            <table class="table table-bordered table-striped mb-none" id="tester_table">
-                                <thead>
-                                <tr>
-                                    <th>Student Name</th>
-                                    <th>Mobile Number</th>
-                                    <th>Status</th>
-                                    <th>Update</th>
-                                    <th>Notify</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php
-
-                                include_once '../Database_Connect.php';
-
-                                if (isset($_POST['get_details']))
-                                {
-                                    if ($_POST['studentdetails']==0)
-                                    {
-                                        $sel_stud_np = "select student_id,student_name, mobile_number from student where fee_status=0";
-                                        $res_student_np = $conn->query($sel_stud_np);
-                                        while ($row_student_np = $res_student_np->fetch_array())
-                                        {
-                                            echo "<tr>";
-                                            echo "<td>$row_student_np[1]</td>";
-                                            echo "<td>$row_student_np[2]</td>";
-                                            echo "<td>Not Paid</td>";
-                                            echo "<td><a href='update_fees.php?stid=$row_student_np[0]'><button class='btn btn-primary'>Update</button></a></td>";
-                                            echo "<td><a><button class='btn btn-warning'>Notify</button></a></td>";
-                                        }
-                                    }
-                                    if ($_POST['studentdetails']==1)
-                                    {
-                                        $sel_stud_p = "select student_id,student_name, mobile_number from student where fee_status=1";
-                                        $res_student_p = $conn->query($sel_stud_p);
-                                        while ($row_student_p = $res_student_p->fetch_array())
-                                        {
-                                            echo "<tr>";
-                                            echo "<td>$row_student_p[1]</td>";
-                                            echo "<td>$row_student_p[2]</td>";
-                                            echo "<td>Paid</td>";
-                                            echo "<a href='update_fees.php?stid=$row_student_p[0]'><td><button class='btn btn-primary'>Update</button></td></a>";
-                                            echo "<td><a><button class='btn btn-warning' disabled>Notify</button></a></td>";
-                                        }
-                                    }
-                                }
-                                /*$batch_sel = "select student_name,mobile from student where student_id";
-                                $res = $conn->query($batch_sel);
-                                while ($row = $res->fetch_array())
-                                {
-                                    echo "<tr>";
-                                    echo "<td>$row[1]</td>";
-                                    echo "<td>$row[2]</td>";
-                                    echo "<td>$row[4]</td>";
-                                    echo "<td>$row[5]</td>";
-                                    echo "<td>$row[9]</td>";
-                                }*/
-                                ?>
-                                </tbody>
-                            </table>
+                            </section>
                         </div>
-                    </section>
+                    </div>
+
                     <!-- end: page -->
                 </section>
 			</div>
@@ -367,7 +359,7 @@
 		<script src="assets/vendor/jqvmap/maps/continents/jquery.vmap.europe.js"></script>
 		<script src="assets/vendor/jqvmap/maps/continents/jquery.vmap.north-america.js"></script>
 		<script src="assets/vendor/jqvmap/maps/continents/jquery.vmap.south-america.js"></script>
-		
+
 		<!-- Theme Base, Components and Settings -->
 		<script src="assets/javascripts/theme.js"></script>
 		
@@ -382,3 +374,37 @@
 
 	</body>
 </html>
+
+<?php
+
+if (isset($_POST['add_fees']))
+{
+    $amount = $_POST['amount'];
+    $today_date = date('d-m-Y');
+
+    if ($amount > $due)
+    {
+        echo "<script>alert('Paid amount cannot be higher than total amount')</script>";
+    }
+    else
+    {
+        $ins_fees = "insert into fees(student_id, amount, paid_date) values ('$stud_id','$amount','$today_date')";
+        $res_fees = $conn->query($ins_fees);
+        if ($res_fees)
+        {
+            if ($due - $amount == 0)
+            {
+                $upd_status = "update student set fee_status='1' where student_id='$stud_id'";
+                $res_upd_status = $conn->query($upd_status);
+                if ($res_upd_status)
+                {
+                    echo "<script>window.location='fees_details.php'</script>";
+                }
+            }
+            else
+            {
+                echo "<script>window.location='fees_details.php'</script>";
+            }
+        }
+    }
+}
