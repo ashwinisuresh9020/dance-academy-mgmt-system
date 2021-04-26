@@ -12,7 +12,7 @@ import retrofit2.http.POST;
 
 public interface Api {
 
-    String BASE_URL = "http://192.168.0.106/dance-academy/";
+    String BASE_URL = "http://192.168.0.103/dance-academy/";
 
     @POST("service_call.php?servicecall=student_register")
     @FormUrlEncoded
@@ -22,6 +22,10 @@ public interface Api {
                                 @Field("district") String studentDistrict, @Field("email") String studentEmail,
                                 @Field("mobile") String studentMobile, @Field("password") String studentPassword,
                                 @Field("nearest_branch") String studentBranch);
+
+    @POST("service_call.php?servicecall=student_login")
+    @FormUrlEncoded
+    Call<JsonObject> studentLogin(@Field("email") String studentMail, @Field("password") String studentPass);
 
     @POST("service_call.php?servicecall=get_branches")
     Call<JsonArray> getBranches();

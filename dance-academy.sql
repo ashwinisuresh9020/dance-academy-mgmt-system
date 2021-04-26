@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 24, 2021 at 07:16 PM
+-- Generation Time: Apr 26, 2021 at 08:17 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -240,7 +240,8 @@ INSERT INTO `login` (`login_id`, `user_name`, `user_type`, `password`) VALUES
 (60, 'akash123@gmail.com', 'STUDENT', '111111'),
 (61, 'nithin003@gmail.com', 'STUDENT', '111111'),
 (64, 'suhu3515@gmail.com', 'CHOREOGRAPHER', 'abcd123'),
-(70, 'safwantrz@gmail.com', 'STUDENT', 'abcde');
+(70, 'safwantrz@gmail.com', 'STUDENT', 'abcde'),
+(71, 'aslamkedpl12@gmail.com', 'STUDENT', 'abcdef');
 
 -- --------------------------------------------------------
 
@@ -374,7 +375,8 @@ INSERT INTO `student` (`student_id`, `student_name`, `student_dob`, `student_gen
 (60, 'Anil kumar', '1992-10-01', 'Male', 'Ittapythau house', 'Thiruvambaadi', 673017, 'Kozhikode', 9, 'anil89@gmail.com', 7890564312, NULL, 15, 0),
 (61, 'Akash M', '1983-12-12', 'Male', 'Malabar building ', 'Mukkam', 673998, 'Kozhikode', 9, 'akash123@gmail.com', 9876543210, NULL, 15, 0),
 (62, 'Nithin N M', '1988-01-25', 'Male', 'NANGARI MEETHAL HOUSE', 'Mukkam', 678999, 'Kozhikode', 9, 'nithin003@gmail.com', 8765767676, NULL, 15, 0),
-(76, 'Safwan V', '2002-09-30', 'Male', 'valathel House', 'athikaripadi', 679581, 'Malappuram', 9, 'safwantrz@gmail.com', 7994367615, NULL, 15, 0);
+(76, 'Safwan V', '2002-09-30', 'Male', 'valathel House', 'athikaripadi', 679581, 'Malappuram', 9, 'safwantrz@gmail.com', 7994367615, NULL, 15, 0),
+(77, 'Mohammed Aslam K', '1998-05-18', 'Male', 'Kallingal House', 'Edappal', 679584, 'Malappuram', 10, 'aslamkedpl12@gmail.com', 9567105860, NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -592,7 +594,7 @@ ALTER TABLE `fees`
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT for table `messages`
@@ -610,7 +612,7 @@ ALTER TABLE `schedule`
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
 -- AUTO_INCREMENT for table `student_dance`

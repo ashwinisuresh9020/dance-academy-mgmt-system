@@ -7,6 +7,59 @@ if(isset($_GET['servicecall']))
 {
     switch($_GET['servicecall'])
     {
+
+        case "student_login":
+
+            if (isTheseParametersAvailable(array('email','password'))) {
+                $email = $_POST['email'];
+                $password = $_POST['password'];
+                $stmt5 = $conn->prepare("SELECT * from login where user_type='STUDENT' and user_name=? and password=?");
+                $stmt5->bind_param("ss", $email, $password);
+                $stmt5->execute();
+                $stmt5->store_result();
+                if ($stmt5->num_rows > 0) {
+                    $stmt = $conn->prepare("SELECT student_id, student_name,student_dob,student_gender,address,place,pincode,district,email_address,mobile_number, nearest_branch from student where email_address=?" );
+                    $stmt->bind_param("s",$email);
+                    $stmt->execute();
+                    $stmt->bind_result($stud_id, $stud_name,$stud_dob,$stud_gender,$stud_address,$stud_place,$stud_pincode,$stud_district,$stud_email,$stud_mobile, $stud_branch);
+                    $stmt->fetch();
+
+                    $student = array
+                    (
+                        'stud_id'=>$stud_id,
+                        'stud_name'=>$stud_name,
+                        'stud_dob'=>$stud_dob,
+                        'stud_gender'=>$stud_gender,
+                        'stud_address'=>$stud_address,
+                        'stud_place'=>$stud_place,
+                        'stud_pin'=>$stud_pincode,
+                        'stud_dst'=>$stud_district,
+                        'stud_mobile'=>$stud_mobile,
+                        'stud_email'=>$stud_email,
+                        'stud_branch'=>$stud_branch
+                    );
+
+                    $stmt->close();
+
+                    $response['error'] = false;
+                    $response['message'] = 'Succesfully logged in';
+                    $response['student'] = $student;
+                    $stmt5->close();
+                }
+                else
+                {
+                    $response['error'] = true;
+                    $response['message'] = 'Check username/password';
+                    $stmt5->close();
+                }
+            }
+            else
+            {
+                $response['error'] = true;
+                $response['message'] = 'required parameters are not available';
+            }
+            break;
+
         case 'student_register':
 
             if(isTheseParametersAvailable(array('full_name', 'date_of_birth', 'gender', 'address','place','pincode','district','email','mobile','password','nearest_branch')))
@@ -45,32 +98,11 @@ if(isset($_GET['servicecall']))
 
                     if ($stmt->execute() && $stmt1->execute() )
                     {
-                        $stmt = $conn->prepare("SELECT student_id, student_name,student_dob,student_gender,address,place,pincode,district,email_address,mobile_number, nearest_branch from student where email_address=?" );
-                        $stmt->bind_param("s",$user_email);
-                        $stmt->execute();
-                        $stmt->bind_result($stud_id, $stud_name,$stud_dob,$stud_gender,$stud_address,$stud_place,$stud_pincode,$stud_district,$stud_email,$stud_mobile, $stud_branch);
-                        $stmt->fetch();
-
-                        $student = array
-                        (
-                            'stud_id'=>$stud_id,
-                            'stud_name'=>$stud_name,
-                            'stud_dob'=>$stud_dob,
-                            'stud_gender'=>$stud_gender,
-                            'stud_address'=>$stud_address,
-                            'stud_place'=>$stud_place,
-                            'stud_pin'=>$stud_pincode,
-                            'stud_dst'=>$stud_district,
-                            'stud_mobile'=>$stud_mobile,
-                            'stud_email'=>$stud_email,
-                            'stud_branch'=>$stud_branch
-                        );
 
                         $stmt->close();
 
                         $response['error']= false;
                         $response['message'] = 'User registered Successfully';
-                        $response['student'] = $student;
                     }
                 }
             }
