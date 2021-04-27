@@ -396,6 +396,14 @@ if (isset($_POST['add_fees']))
             {
                 $upd_status = "update student set fee_status='1' where student_id='$stud_id'";
                 $res_upd_status = $conn->query($upd_status);
+
+                $sel_msg = "select * from messages where to_id='$stud_id' and message_title='fee_dues'";
+                $res_msg = $conn->query($sel_msg);
+                if ($res_msg->num_rows > 0)
+                {
+                    $upd_msg = "update messages set message_status=0 where to_id='$stud_id' and message_title='fee_dues'";
+                    $res_upd_msg = $conn->query($upd_msg);
+                }
                 if ($res_upd_status)
                 {
                     echo "<script>window.location='fees_details.php'</script>";

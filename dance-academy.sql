@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 26, 2021 at 08:17 PM
+-- Generation Time: Apr 27, 2021 at 09:15 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -159,7 +159,9 @@ INSERT INTO `fees` (`fees_id`, `student_id`, `amount`, `paid_date`) VALUES
 (5, 4, 100, '24-04-2021'),
 (6, 4, 100, '24-04-2021'),
 (7, 2, -150, '24-04-2021'),
-(8, 6, 650, '24-04-2021');
+(8, 6, 650, '24-04-2021'),
+(9, 3, 600, '27-04-2021'),
+(10, 3, 600, '27-04-2021');
 
 -- --------------------------------------------------------
 
@@ -254,17 +256,18 @@ CREATE TABLE `messages` (
   `from_id` int(11) NOT NULL,
   `to_id` int(11) NOT NULL,
   `message_title` varchar(40) NOT NULL,
-  `message` text NOT NULL
+  `message` text NOT NULL,
+  `message_status` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `messages`
 --
 
-INSERT INTO `messages` (`msg_id`, `from_id`, `to_id`, `message_title`, `message`) VALUES
-(1, 111, 3, 'fee_dues', 'Hello Ranju H, You have a due amount of Rs. 1200 /-. Please clear the dues soon.\r\n                                                    -Admin'),
-(2, 111, 5, 'fee_dues', 'Hello Harikrishnan, You have a due amount of Rs. 600 /-. Please clear the dues soon.\r\n                                                    -Admin'),
-(3, 111, 6, 'fee_dues', 'Hello Anusree M T, You have a due amount of Rs. 550 /-. Please clear the dues soon.\r\n                                                    -Admin');
+INSERT INTO `messages` (`msg_id`, `from_id`, `to_id`, `message_title`, `message`, `message_status`) VALUES
+(1, 111, 3, 'fee_dues', 'Hello Ranju H, You have a due amount of Rs. 1200 /-. Please clear the dues soon.\r\n                                                    -Admin', 0),
+(2, 111, 5, 'fee_dues', 'Hello Harikrishnan, You have a due amount of Rs. 600 /-. Please clear the dues soon.\r\n                                                    -Admin', 1),
+(3, 111, 6, 'fee_dues', 'Hello Anusree M T, You have a due amount of Rs. 550 /-. Please clear the dues soon.\r\n                                                    -Admin', 1);
 
 -- --------------------------------------------------------
 
@@ -317,7 +320,7 @@ CREATE TABLE `student` (
 INSERT INTO `student` (`student_id`, `student_name`, `student_dob`, `student_gender`, `address`, `place`, `pincode`, `district`, `nearest_branch`, `email_address`, `mobile_number`, `profile_photo`, `batch_id`, `fee_status`) VALUES
 (1, 'Nandu', '2020-03-03', 'Male', 'vadakkel methal house may', 'mayanad', 673008, 'Kozhikode', 10, 'nandu03@gmail.com', 9746541990, NULL, 0, 1),
 (2, 'Manju N S ', '2015-06-01', 'Female', 'Ittapurathu house', 'mundikkalthazam', 673004, 'Kozhikode', 10, 'manjuns@gmail.com', 8129321420, NULL, 17, 1),
-(3, 'Ranju H', '2018-11-14', 'Male', 'puthiyakandi house', 'mayanad', 673008, 'Kozhikode', 10, 'ranjuh@gmail.com', 9865432567, NULL, 0, 0),
+(3, 'Ranju H', '2018-11-14', 'Male', 'puthiyakandi house', 'mayanad', 673008, 'Kozhikode', 10, 'ranjuh@gmail.com', 9865432567, NULL, 0, 1),
 (4, 'Ashwini S', '2014-11-05', 'Female', 'Melekkandi house', 'chevayoor', 673017, 'Kozhikode', 8, 'ashwini3456@gmail.com', 9654366654, NULL, 7, 1),
 (5, 'Harikrishnan', '2021-07-05', 'Male', 'varazikinnil house', 'kotooli', 673998, 'Kozhikode', 8, 'harikrishnan78@gmail.com', 9834556785, NULL, 0, 0),
 (6, 'Anusree M T', '2016-12-16', 'Female', 'MELEKKANDI HOUSE', 'KOVOOR', 673003, 'Kozhikode', 8, 'anusree1234@gmail.com', 98345676534, NULL, 7, 0),
@@ -588,7 +591,7 @@ ALTER TABLE `dance`
 -- AUTO_INCREMENT for table `fees`
 --
 ALTER TABLE `fees`
-  MODIFY `fees_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `fees_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `login`

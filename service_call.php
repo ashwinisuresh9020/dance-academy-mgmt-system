@@ -178,6 +178,32 @@ if(isset($_GET['servicecall']))
                 $response['message'] = 'required parameters are not available';
             }
         break;
+
+        case "get_fee_dues":
+
+            if (isTheseParametersAvailable(array('user_id')))
+            {
+                $user = $_POST['user_id'];
+
+                $stmt6 = "select * from messages where from_id='111' and message_title='fee_dues' and to_id='$user' and message_status='1'";
+                $res_stmt6 = $conn->query($stmt6);
+                $row_stmt6 = $res_stmt6->fetch_array();
+                if (mysqli_num_rows($res_stmt6) == 0)
+                {
+                    $response['error'] = true;
+                    $response['message'] = 'No fee dues...';
+                }
+                else
+                {
+                    $response['error'] = false;
+                    $response['message'] = $row_stmt6[4];
+                }
+            }
+            else
+            {
+                $response['error'] = true;
+                $response['message'] = 'required parameters are not available';
+            }
     }
 }
 else

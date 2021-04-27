@@ -37,4 +37,8 @@ public interface Api {
     @FormUrlEncoded
     Call<JsonObject> addStudentDance(@Field("student_id") String studentId, @Field("dance_id") String danceId);
 
+    @POST("service_call.php?servicecall=get_fee_dues")
+    @FormUrlEncoded
+    Call<JsonObject> getFeeDues(@Field("user_id") String userId);
+
 }
