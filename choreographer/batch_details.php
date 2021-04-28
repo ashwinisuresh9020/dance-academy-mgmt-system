@@ -174,8 +174,8 @@ session_start();
                         <tr>
                             <th>Full Name</th>
                             <th>Date of Birth</th>
-                            <th>Branch</th>
-                            <th>Details</th>
+                            <th>Address</th>
+                            <th>Mobile Number</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -194,14 +194,10 @@ session_start();
                         while ($row = $res_stud->fetch_array())
                         {
                             echo "<tr>";
+                            echo "<td>$row[0]</td>";
                             echo "<td>$row[1]</td>";
-                            echo "<td>$row[2]</td>";
-                            $res_branch = $conn->query("select branch_landmark, branch_place from branch where branch_id='$row[3]'");
-                            while ($row_branch = $res_branch->fetch_array())
-                            {
-                                echo "<td>$row_branch[0] , $row_branch[1]</td>";
-                            }
-                            echo "<td><a href='batch_details.php?id=$row[0]'><button class='btn btn-primary'>Details</button></a></td>";
+                            echo "<td>$row[2],$row[3]</td>";
+                            echo "<td>$row[4]</td>";
                         }
                         ?>
                         </tbody>
