@@ -189,6 +189,12 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="video_requests.php">
+                                    <i class="fa fa-video-camera" aria-hidden="true"></i>
+                                    <span>Video Requests</span>
+                                </a>
+                            </li>
+                            <li>
                                 <a href="#">
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                     <span>Events</span>

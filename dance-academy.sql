@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 28, 2021 at 11:44 AM
+-- Generation Time: Apr 28, 2021 at 04:19 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -461,7 +461,8 @@ INSERT INTO `student_dance` (`stud_dance_id`, `student_id`, `dance_id`) VALUES
 (61, 3, 2),
 (62, 2, 2),
 (63, 1, 1),
-(65, 76, 2);
+(65, 76, 2),
+(66, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -623,7 +624,7 @@ ALTER TABLE `student`
 -- AUTO_INCREMENT for table `student_dance`
 --
 ALTER TABLE `student_dance`
-  MODIFY `stud_dance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `stud_dance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `video_class`

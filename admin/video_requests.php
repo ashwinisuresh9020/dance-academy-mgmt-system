@@ -5,7 +5,7 @@
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<title>Add Videos | THUNDERLINES</title>
+		<title>Admin Dashboard | THUNDERLINES</title>
 		<meta name="keywords" content="HTML5 Admin Template" />
 		<meta name="description" content="Porto Admin - Responsive HTML5 Template">
 		<meta name="author" content="okler.net">
@@ -182,13 +182,13 @@
                                             <span>Gallery</span>
                                         </a>
                                     </li>
-                                    <li class="nav nav-active">
+                                    <li>
                                         <a href="video_lectures.php">
                                             <i class="fa fa-file-video-o" aria-hidden="true"></i>
                                             <span>Video Lectures</span>
                                         </a>
                                     </li>
-                                    <li>
+                                    <li class="nav nav-active">
                                         <a href="video_requests.php">
                                             <i class="fa fa-video-camera" aria-hidden="true"></i>
                                             <span>Video Requests</span>
@@ -230,69 +230,66 @@
 
                 <section role="main" class="content-body">
                     <header class="page-header">
-                        <h2>Video lectures</h2>
+                        <h2>Videos</h2>
 
                     </header>
 
                     <!-- start: page -->
+                    <section class="panel">
+                        <header class="panel-heading">
+                            <div class="panel-actions">
+                                <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                                <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+                            </div>
 
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <section class="panel">
-                                <header class="panel-heading">
-                                    <div class="panel-actions">
-                                        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-                                        <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+                            <h2 class="panel-title">Video Requests</h2>
+                        </header>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="mb-md">
                                     </div>
+                                </div>
+                            </div>
+                            <form action="" method="post">
+                                <table class="table table-bordered table-striped mb-none" id="tester_table">
+                                    <thead>
+                                    <tr>
+                                        <th>Choreographer</th>
+                                        <th>message</th>
+                                        <th>Accept</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    $server_name = "localhost";
+                                    $user_name = "root";
+                                    $password = "";
+                                    $database = "dance-academy";
 
-                                    <h2 class="panel-title">Video lectures</h2>
-                                </header>
-                                <form class="form-horizontal form-bordered" method="post" enctype="multipart/form-data">
-                                    <div class="panel-body">
+                                    $conn = new mysqli($server_name, $user_name, $password, $database);
 
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="schedule">Schedule <span class="required">*</span></label>
-                                            <div class="col-md-6">
-                                                <select class="form-control" id="schedule" name="schedule" required>
-                                                    <option value="nothing" selected>Select schedule</option>
-                                                    <?php
-                                                    include_once '../Database_Connect.php';
+                                    $video_sel = "select msg_id, from_id, message  from messages where to_id='111' and message_title='video_request' and message_status='1'";
+                                    $res = $conn->query($video_sel);
+                                    while ($row = $res->fetch_array())
+                                    {
+                                        echo "<tr>";
+                                        /*while ($row_batch = $batch_res->fetch_array())
+                                        {
 
-                                                    $sql_schedule = "select schedule_id, batch_id, schedule_time, schedule_date from schedule";
-                                                    $res_schedule = mysqli_query($conn, $sql_schedule);
-                                                    while ($row_schedule = mysqli_fetch_array($res_schedule))
-                                                    {
-                                                        $sql_batch = "select batch_name from batch where batch_id=$row_schedule[0]";
-                                                        $res_batch = $conn->query($sql_batch);
-                                                        echo "<option value='$row_schedule[0]'>$row_schedule[1]-$row_schedule[2] $row_schedule[3]</option>";
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="file">Video <span class="required">*</span></label>
-                                            <div class="col-md-6">
-                                                <input type="file" class="form-control" id="file" name="file" required>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-                                    <footer class="panel-footer">
-                                        <div class="row">
-                                            <div class="col-sm-9 col-sm-offset-3">
-                                                <input class="btn btn-primary" type="submit" name="upload_video" id="upload_video">
-                                                <button type="reset" class="btn btn-default">Reset</button>
-                                            </div>
-                                        </div>
-                                    </footer>
-                                </form>
-                            </section>
+                                        }*/
+                                        $res_ch = $conn->query("select * from choreographer where choreographer_id='$row[1]'");
+                                        $row_ch = $res_ch->fetch_array();
+                                        echo "<td>$row_ch[1]</td>";
+                                        echo "<td style='width: 65%'>$row[2]</td>";
+                                        echo "<td><a href='video_add.php'><button type='button' class='btn btn-success' name='btn_submit' id='btn_submit'>Add Video</button></a></td>";
+                                    }
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </form>
                         </div>
-                    </div>
-
+                    </section>
                     <!-- end: page -->
                 </section>
 			</div>
@@ -335,7 +332,7 @@
 		<script src="assets/vendor/jqvmap/maps/continents/jquery.vmap.europe.js"></script>
 		<script src="assets/vendor/jqvmap/maps/continents/jquery.vmap.north-america.js"></script>
 		<script src="assets/vendor/jqvmap/maps/continents/jquery.vmap.south-america.js"></script>
-
+		
 		<!-- Theme Base, Components and Settings -->
 		<script src="assets/javascripts/theme.js"></script>
 		
@@ -350,54 +347,3 @@
 
 	</body>
 </html>
-
-<?php
-
-if (isset($_POST['upload_video']))
-{
-    $schedule = $_POST['schedule'];
-    $maxsize = 10000000; //10MB
-    if ($schedule == "nothing")
-    {
-        echo "<script>alert('Please select a schedule...')</script>";
-    }
-    else
-    {
-        $name = $_FILES['file']['name'];
-        $target_dir = "videos/";
-        $target_file = $target_dir . $_FILES["file"]["name"];
-
-        // Select file type
-        $videoFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-
-        // Valid file extensions
-        $extensions_arr = array("mp4","avi","3gp","mov","mpeg");
-
-        // Check extension
-        if( in_array($videoFileType,$extensions_arr) ){
-
-            // Check file size
-            if(($_FILES['file']['size'] >= $maxsize) || ($_FILES["file"]["size"] == 0)) {
-                echo "<script>alert('File too large. File must be less than 10MB.')</script>";
-            }else{
-                // Upload
-                if(move_uploaded_file($_FILES['file']['tmp_name'],$target_file)){
-                    // Insert record
-                    $query = "INSERT INTO video_class(video_title,video_location,schedule_id,video_status) VALUES('$name','$target_file','$schedule','1')";
-
-                    $query = mysqli_query($conn,$query);
-                    if($query)
-                    {
-                        echo "<script>alert('Upload successfully.')</script>";
-                        echo "<script>window.location='video_lectures.php'</script>";
-
-                    }
-                }
-            }
-
-        }else{
-            echo "<script>alert('Invalid file extension.')</script>";
-        }
-
-    }
-}
