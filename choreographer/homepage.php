@@ -101,7 +101,7 @@ session_start();
                                 </ul>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="leaves.php">
                                     <i class="fa fa-envelope-open-o" aria-hidden="true"></i>
                                     <span>Leave Management</span>
                                 </a>

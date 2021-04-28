@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 28, 2021 at 04:19 PM
+-- Generation Time: Apr 28, 2021 at 01:44 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -110,7 +110,29 @@ CREATE TABLE `choreographer` (
 --
 
 INSERT INTO `choreographer` (`choreographer_id`, `choreographer_name`, `choreographer_dob`, `address`, `place`, `pincode`, `district`, `mobile`, `email`, `sallary`, `qualification`) VALUES
-(1, 'Suhail A K', '1998-10-28', 'Valathel house', 'MARANCHERY', 679581, 'Malappuram', 9633058949, 'suhu3515@gmail.com', 12000, 'Bsc Danceology');
+(1, 'Suhail A K', '1998-10-28', 'Valathel house', 'MARANCHERY', 679581, 'Malappuram', 9633058949, 'suhu3515@gmail.com', 12000, 'Bsc Danceology'),
+(2, 'Mohammed Sakkeer', '1990-10-11', 'Ward 7, valathel house', 'mavoor', 679581, 'Malappuram', 9946739215, 'mohamedsawa@gmail.com', 15000, 'Ba Arts');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `choreographer_leave`
+--
+
+CREATE TABLE `choreographer_leave` (
+  `leave_id` int(11) NOT NULL,
+  `choreo_id` int(11) NOT NULL,
+  `leave_reason` text NOT NULL,
+  `leave_date` varchar(20) NOT NULL,
+  `leave_status` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `choreographer_leave`
+--
+
+INSERT INTO `choreographer_leave` (`leave_id`, `choreo_id`, `leave_reason`, `leave_date`, `leave_status`) VALUES
+(2, 1, 'I want to take leave on 30th April since i have a interim evaluation', '2021-04-30', 0);
 
 -- --------------------------------------------------------
 
@@ -244,7 +266,8 @@ INSERT INTO `login` (`login_id`, `user_name`, `user_type`, `password`) VALUES
 (61, 'nithin003@gmail.com', 'STUDENT', '111111'),
 (64, 'suhu3515@gmail.com', 'CHOREOGRAPHER', 'abcd123'),
 (70, 'safwantrz@gmail.com', 'STUDENT', 'abcde'),
-(71, 'aslamkedpl12@gmail.com', 'STUDENT', 'abcdef');
+(71, 'aslamkedpl12@gmail.com', 'STUDENT', 'abcdef'),
+(72, 'mohamedsawa@gmail.com', 'CHOREOGRAPHER', 'abcde123');
 
 -- --------------------------------------------------------
 
@@ -311,7 +334,7 @@ CREATE TABLE `student` (
   `email_address` varchar(40) NOT NULL,
   `mobile_number` bigint(12) NOT NULL,
   `profile_photo` text DEFAULT NULL,
-  `batch_id` int(11) DEFAULT NULL,
+  `batch_id` int(11) DEFAULT 0,
   `fee_status` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -509,6 +532,13 @@ ALTER TABLE `choreographer`
   ADD PRIMARY KEY (`choreographer_id`);
 
 --
+-- Indexes for table `choreographer_leave`
+--
+ALTER TABLE `choreographer_leave`
+  ADD PRIMARY KEY (`leave_id`),
+  ADD KEY `fk_choreographer_leave` (`choreo_id`);
+
+--
 -- Indexes for table `dance`
 --
 ALTER TABLE `dance`
@@ -582,7 +612,13 @@ ALTER TABLE `branch`
 -- AUTO_INCREMENT for table `choreographer`
 --
 ALTER TABLE `choreographer`
-  MODIFY `choreographer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `choreographer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `choreographer_leave`
+--
+ALTER TABLE `choreographer_leave`
+  MODIFY `leave_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `dance`
@@ -600,7 +636,7 @@ ALTER TABLE `fees`
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT for table `messages`
@@ -641,6 +677,12 @@ ALTER TABLE `video_class`
 --
 ALTER TABLE `batch`
   ADD CONSTRAINT `fk_branch_batch` FOREIGN KEY (`branch_id`) REFERENCES `branch` (`branch_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `choreographer_leave`
+--
+ALTER TABLE `choreographer_leave`
+  ADD CONSTRAINT `fk_choreographer_leave` FOREIGN KEY (`choreo_id`) REFERENCES `choreographer` (`choreographer_id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `fees`

@@ -100,7 +100,7 @@ session_start();
                                         </li>
                                     </ul>
                                 </li>
-                                <li>
+                                <li class="nav nav-active">
                                     <a href="leaves.php">
                                         <i class="fa fa-envelope-open-o" aria-hidden="true"></i>
                                         <span>Leave Management</span>
@@ -112,7 +112,7 @@ session_start();
                                         <span>Profile</span>
                                     </a>
                                 </li>
-                                <li class="nav nav-active">
+                                <li>
                                     <a href="video_lectures.php">
                                         <i class="fa fa-file-video-o" aria-hidden="true"></i>
                                         <span>Video Lectures</span>
@@ -148,64 +148,77 @@ session_start();
 
             <section role="main" class="content-body">
                 <header class="page-header">
-                    <h2>Video Class</h2>
+                    <h2>Request Leave</h2>
 
                 </header>
 
-                    <!-- start: page -->
+            <!-- start: page -->
 
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <section class="panel">
-                                <header class="panel-heading">
-                                    <div class="panel-actions">
-                                        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-                                        <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
-                                    </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <section class="panel">
+                        <header class="panel-heading">
+                            <div class="panel-actions">
+                                <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                                <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+                            </div>
 
-                                    <h2 class="panel-title">Update Video</h2>
-                                </header>
-                                <form class="form-horizontal form-bordered" method="post" enctype="multipart/form-data">
-                                    <div class="panel-body">
+                            <h2 class="panel-title">Request Leave</h2>
+                        </header>
+                        <form class="form-horizontal form-bordered" method="post" enctype="multipart/form-data">
+                            <div class="panel-body">
 
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="select_status">Update Status <span class="required">*</span></label>
-                                            <div class="col-md-6">
-                                                <select class="form-control" name="select_status" id="select_status" required>
+                                <?php
 
-                                                    <option value="0">Completed</option>
-                                                    <option value="1">Cancel</option>
+                                include_once '../Database_Connect.php';
 
-                                                </select>
-                                                <?php
+                                $choreo_mail = $_SESSION['choreo_mail'];
+                                $sel_choreo_id = "select choreographer_id,choreographer_name from choreographer where email='$choreo_mail'";
+                                $res_choreo_id = $conn->query($sel_choreo_id);
+                                $row_choreo_id = $res_choreo_id->fetch_array();
+                                $choreo_id = $row_choreo_id[0];
+                                ?>
 
-                                                    $video_id = $_GET['vid'];
-
-                                                    include_once '../Database_Connect.php';
-
-                                                ?>
-                                            </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="leavedate">Leave Date <span class="required">*</span> </label>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                            <input id='leavedate' type='date' class='form-control' name='leavedate' required>
                                         </div>
-
                                     </div>
-                                    <footer class="panel-footer">
-                                        <div class="row">
-                                            <div class="col-sm-9 col-sm-offset-3">
-                                                <input class="btn btn-primary" type="submit" name="update_status" id="update_status">
-                                            </div>
-                                        </div>
-                                    </footer>
-                                </form>
-                            </section>
-                        </div>
-                    </div>
+                                </div>
 
-                    <!-- end: page -->
-                </section>
-			</div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="msg_text">Reason for leave <span class="required">*</span></label>
+                                    <div class="col-md-6">
+                                        <textarea class='form-control' name='msg_text' id='msg_text' rows='3' required></textarea>
+                                    </div>
+                                </div>
 
 
-		</section>
+
+                            </div>
+                            <footer class="panel-footer">
+                                <div class="row">
+                                    <div class="col-sm-9 col-sm-offset-3">
+                                        <input class="btn btn-primary" type="submit" value="Request" name="req_leave" id="req_leave">
+                                    </div>
+                                </div>
+                            </footer>
+                        </form>
+                    </section>
+                </div>
+            </div>
+
+            <!-- end: page -->
+        </section>
+    </div>
+
+
+</section>
 
     <!-- Vendor -->
     <script src="../admin/assets/vendor/jquery/jquery.js"></script>
@@ -257,17 +270,20 @@ session_start();
 
     </body>
 </html>
-
 <?php
 
-if (isset($_POST['update_status']))
+if (isset($_POST['req_leave']))
 {
-    $status = $_POST['select_status'];
 
-    $res_status = $conn->query("update video_class set video_status='$status' where video_id='$video_id'");
-    if ($res_status)
+    $leave_txt = $_POST['msg_text'];
+    $leave_date = $_POST['leavedate'];
+
+    $ins_leave = "insert into choreographer_leave(choreo_id, leave_reason, leave_date) values ('$choreo_id','$leave_txt','$leave_date')";
+    $res_leave = $conn->query($ins_leave);
+    if ($res_leave)
     {
-        echo "<script>alert('Updated status successfully...')</script>";
-        echo "<script>window.location='video_lectures.php'</script>";
+        echo "<script>alert('Requested leave successfully...')</script>";
+        echo "<script>window.location='leaves.php'</script>";
     }
+
 }

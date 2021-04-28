@@ -100,7 +100,7 @@ session_start();
                                         </li>
                                     </ul>
                                 </li>
-                                <li>
+                                <li class="nav nav-active">
                                     <a href="leaves.php">
                                         <i class="fa fa-envelope-open-o" aria-hidden="true"></i>
                                         <span>Leave Management</span>
@@ -112,7 +112,7 @@ session_start();
                                         <span>Profile</span>
                                     </a>
                                 </li>
-                                <li class="nav nav-active">
+                                <li>
                                     <a href="video_lectures.php">
                                         <i class="fa fa-file-video-o" aria-hidden="true"></i>
                                         <span>Video Lectures</span>
@@ -148,64 +148,79 @@ session_start();
 
             <section role="main" class="content-body">
                 <header class="page-header">
-                    <h2>Video Class</h2>
+                    <h2>Leaves</h2>
 
                 </header>
 
-                    <!-- start: page -->
-
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <section class="panel">
-                                <header class="panel-heading">
-                                    <div class="panel-actions">
-                                        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-                                        <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
-                                    </div>
-
-                                    <h2 class="panel-title">Update Video</h2>
-                                </header>
-                                <form class="form-horizontal form-bordered" method="post" enctype="multipart/form-data">
-                                    <div class="panel-body">
-
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="select_status">Update Status <span class="required">*</span></label>
-                                            <div class="col-md-6">
-                                                <select class="form-control" name="select_status" id="select_status" required>
-
-                                                    <option value="0">Completed</option>
-                                                    <option value="1">Cancel</option>
-
-                                                </select>
-                                                <?php
-
-                                                    $video_id = $_GET['vid'];
-
-                                                    include_once '../Database_Connect.php';
-
-                                                ?>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <footer class="panel-footer">
-                                        <div class="row">
-                                            <div class="col-sm-9 col-sm-offset-3">
-                                                <input class="btn btn-primary" type="submit" name="update_status" id="update_status">
-                                            </div>
-                                        </div>
-                                    </footer>
-                                </form>
-                            </section>
+                <!-- start: page -->
+                <section class="panel">
+                    <header class="panel-heading">
+                        <div class="panel-actions">
+                            <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                            <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
                         </div>
+
+                        <h2 class="panel-title">Leave Requests</h2>
+                    </header>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="mb-md">
+                                    <a href="leave_request.php">
+                                        <button id="reqleavebtn" class="btn btn-primary">Request Leave</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table table-bordered table-striped mb-none" id="tester_table">
+                            <thead>
+                            <tr>
+                                <th>Reason</th>
+                                <th>Leave Date</th>
+                                <th>Status</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+
+                            $server_name = "localhost";
+                            $user_name = "root";
+                            $password = "";
+                            $database = "dance-academy";
+
+                            $conn = new mysqli($server_name, $user_name, $password, $database);
+
+                            $choreo_mail = $_SESSION['choreo_mail'];
+                            $sel_choreo_id = "select choreographer_id from choreographer where email='$choreo_mail'";
+                            $res_choreo_id = $conn->query($sel_choreo_id);
+                            $row_choreo_id = $res_choreo_id->fetch_array();
+
+                            $leave_sel = "select leave_id,leave_reason, leave_date, leave_status from choreographer_leave where choreo_id='$row_choreo_id[0]'";
+                            $res = $conn->query($leave_sel);
+                            while ($row = $res->fetch_array())
+                            {
+                                echo "<tr>";
+                                echo "<td>$row[1]</td>";
+                                echo "<td>$row[2]</td>";
+                                if ($row[3]==0)
+                                {
+                                    echo "<td style='color: red'>In Review</td>";
+                                }
+                                else if($row[3]==1)
+                                {
+                                    echo "<td style='color: green'>Accepted</td>";
+                                }
+                            }
+                            ?>
+                            </tbody>
+                        </table>
                     </div>
-
-                    <!-- end: page -->
                 </section>
-			</div>
+                <!-- end: page -->
+            </section>
+        </div>
 
-
-		</section>
+    </section>
 
     <!-- Vendor -->
     <script src="../admin/assets/vendor/jquery/jquery.js"></script>
@@ -256,18 +271,8 @@ session_start();
     <script src="../admin/assets/javascripts/dashboard/examples.dashboard.js"></script>
 
     </body>
-</html>
+    </html>
 
 <?php
 
-if (isset($_POST['update_status']))
-{
-    $status = $_POST['select_status'];
 
-    $res_status = $conn->query("update video_class set video_status='$status' where video_id='$video_id'");
-    if ($res_status)
-    {
-        echo "<script>alert('Updated status successfully...')</script>";
-        echo "<script>window.location='video_lectures.php'</script>";
-    }
-}
