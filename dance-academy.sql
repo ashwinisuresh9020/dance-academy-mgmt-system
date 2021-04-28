@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 28, 2021 at 04:44 AM
+-- Generation Time: Apr 28, 2021 at 11:44 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -268,7 +268,8 @@ CREATE TABLE `messages` (
 INSERT INTO `messages` (`msg_id`, `from_id`, `to_id`, `message_title`, `message`, `message_status`) VALUES
 (1, 111, 3, 'fee_dues', 'Hello Ranju H, You have a due amount of Rs. 1200 /-. Please clear the dues soon.\r\n                                                    -Admin', 0),
 (2, 111, 5, 'fee_dues', 'Hello Harikrishnan, You have a due amount of Rs. 600 /-. Please clear the dues soon.\r\n                                                    -Admin', 1),
-(3, 111, 6, 'fee_dues', 'Hello Anusree M T, You have a due amount of Rs. 550 /-. Please clear the dues soon.\r\n                                                    -Admin', 1);
+(3, 111, 6, 'fee_dues', 'Hello Anusree M T, You have a due amount of Rs. 550 /-. Please clear the dues soon.\r\n                                                    -Admin', 1),
+(5, 1, 111, 'video_request', 'The video lecture that was provided has been completed. Therefore, requesting you for a new video lecture\r\n-Suhail A K', 1);
 
 -- --------------------------------------------------------
 
@@ -592,7 +593,7 @@ ALTER TABLE `dance`
 -- AUTO_INCREMENT for table `fees`
 --
 ALTER TABLE `fees`
-  MODIFY `fees_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `fees_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `login`
@@ -604,7 +605,7 @@ ALTER TABLE `login`
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `schedule`
