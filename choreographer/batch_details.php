@@ -148,7 +148,7 @@ session_start();
 
         <section role="main" class="content-body">
             <header class="page-header">
-                <h2>Batch List</h2>
+                <h2>Students</h2>
 
             </header>
 
@@ -160,7 +160,7 @@ session_start();
                         <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
                     </div>
 
-                    <h2 class="panel-title">Batches</h2>
+                    <h2 class="panel-title">Students</h2>
                 </header>
                 <div class="panel-body">
                     <div class="row">
@@ -172,14 +172,17 @@ session_start();
                     <table class="table table-bordered table-striped mb-none" id="tester_table">
                         <thead>
                         <tr>
-                            <th>Batch Name</th>
-                            <th>Age Group</th>
+                            <th>Full Name</th>
+                            <th>Date of Birth</th>
                             <th>Branch</th>
                             <th>Details</th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php
+
+                        $batch_id = $_GET['id'];
+
                         $server_name = "localhost";
                         $user_name = "root";
                         $password = "";
@@ -187,15 +190,8 @@ session_start();
 
                         $conn = new mysqli($server_name, $user_name, $password, $database);
 
-                        $choreo_mail = $_SESSION['choreo_mail'];
-                        $sel_choreo_id = "select choreographer_id from choreographer where email='$choreo_mail'";
-                        $res_choreo_id = $conn->query($sel_choreo_id);
-                        $row_choreo_id = $res_choreo_id->fetch_array();
-
-
-                        $batch_sel = "select batch_id, batch_name, batch_age_grp, branch_id from batch where choreographer_id='$row_choreo_id[0]'";
-                        $res = $conn->query($batch_sel);
-                        while ($row = $res->fetch_array())
+                        $res_stud = $conn->query("select student_name, student_dob, address, place, mobile_number from student where batch_id='$batch_id'");
+                        while ($row = $res_stud->fetch_array())
                         {
                             echo "<tr>";
                             echo "<td>$row[1]</td>";

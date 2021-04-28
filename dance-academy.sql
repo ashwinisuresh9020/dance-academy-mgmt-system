@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 27, 2021 at 09:15 AM
+-- Generation Time: Apr 28, 2021 at 05:59 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -161,7 +161,8 @@ INSERT INTO `fees` (`fees_id`, `student_id`, `amount`, `paid_date`) VALUES
 (7, 2, -150, '24-04-2021'),
 (8, 6, 650, '24-04-2021'),
 (9, 3, 600, '27-04-2021'),
-(10, 3, 600, '27-04-2021');
+(10, 3, 600, '27-04-2021'),
+(11, 6, 50, '27-04-2021');
 
 -- --------------------------------------------------------
 
@@ -591,7 +592,7 @@ ALTER TABLE `dance`
 -- AUTO_INCREMENT for table `fees`
 --
 ALTER TABLE `fees`
-  MODIFY `fees_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `fees_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `login`

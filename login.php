@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 
 $conn = mysqli_connect("localhost","root",'',"dance-academy");
 
@@ -19,13 +19,14 @@ if(isset($_POST['submit']))
         }
         if($row_login_stmt[2]=="CHOREOGRAPHER")
         {
+            $_SESSION['choreo_mail'] = $username;
             echo "<script>window.location.href='choreographer/homepage.php'</script>";
         }
     }
     else
     {
         echo "<script>alert('Please check the credentials...')</script>";
-        echo "<script>window.location.href='contact.html'</script>";
+        echo "<script>window.location.href='index.html'</script>";
     }
 }
 ?>
