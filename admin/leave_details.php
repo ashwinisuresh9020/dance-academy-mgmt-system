@@ -5,7 +5,7 @@
     <!-- Basic -->
     <meta charset="UTF-8">
 
-    <title>Choreographer Details | THUNDERLINES</title>
+    <title>Leave Details | THUNDERLINES</title>
     <meta name="keywords" content="HTML5 Admin Template" />
     <meta name="description" content="Porto Admin - Responsive HTML5 Template">
     <meta name="author" content="okler.net">
@@ -85,7 +85,7 @@
                                     <span>Choreographer</span>
                                 </a>
                                 <ul class="nav nav-children ">
-                                    <li class="nav nav-active">
+                                    <li>
                                         <a href="choreographer_list.php">
                                             Choreographer List
                                         </a>
@@ -100,7 +100,7 @@
                                             Assign batch
                                         </a>
                                     </li>
-                                    <li>
+                                    <li class="nav nav-active">
                                         <a href="leaves_list.php">
                                             Leave Management
                                         </a>
@@ -230,7 +230,7 @@
 
         <section role="main" class="content-body">
             <header class="page-header">
-                <h2>Choreographers</h2>
+                <h2>Leave</h2>
 
             </header>
 
@@ -245,13 +245,13 @@
                                 <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
                             </div>
 
-                            <h2 class="panel-title">Choreographer Details</h2>
+                            <h2 class="panel-title">Leave Details</h2>
                         </header>
-                        <form class="form-horizontal form-bordered" method="post">
+                        <form class="form-horizontal form-bordered" method="post" action="">
                             <div class="panel-body">
                                 <div class="form-group">
                                     <?php
-                                    $cid = $_GET['id'];
+                                    $lid = $_GET['id'];
                                     $server_name = "localhost";
                                     $user_name = "root";
                                     $password = "";
@@ -259,100 +259,83 @@
 
                                     $conn = new mysqli($server_name, $user_name, $password, $database);
 
-                                    $choreographer = "select choreographer_name, choreographer_dob, address, place, pincode, district, mobile, email, sallary, qualification from choreographer where choreographer_id='$cid'";
-                                    $res = $conn->query($choreographer);
-                                    $choreographer_data = $res->fetch_row();
-                                    $choreo_name = $choreographer_data[0];
-                                    $choreo_dob = $choreographer_data[1];
-                                    $choreo_address = $choreographer_data[2];
-                                    $choreo_place = $choreographer_data[3];
-                                    $choreo_pincode = $choreographer_data[4];
-                                    $choreo_dst = $choreographer_data[5];
-                                    $choreo_mob = $choreographer_data[6];
-                                    $choreo_mail = $choreographer_data[7];
-                                    $choreo_sal = $choreographer_data[8];
-                                    $choreo_qual = $choreographer_data[9];
+                                    $leave = "select choreo_id, leave_reason, leave_date, leave_days, leave_status from choreographer_leave where leave_id='$lid'";
+                                    $res = $conn->query($leave);
+                                    $leave_data = $res->fetch_row();
+
+
+                                    $choreo_id = $leave_data[0];
+                                    $res_ch = $conn->query("select choreographer_name from choreographer where choreographer_id='$choreo_id'");
+                                    $row_ch = $res_ch->fetch_row();
+
+                                    $choreo_name = $row_ch[0];
+                                    $leave_reason = $leave_data[1];
+                                    $leave_date = $leave_data[2];
+                                    $leave_days = $leave_data[3];
+                                    $leave_status = $leave_data[4];
                                     ?>
                                     <label class='col-md-3 control-label' for='testername'>Full Name</label>
                                     <?php
-                                    echo "<label class='col-md-3 control-label'>$choreo_name</label>";
+                                    echo "<label class='control-label'>$choreo_name</label>";
                                     ?>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Date of Birth</label>
+                                    <label class="col-md-3 control-label">Leave Reason</label>
                                     <?php
-                                    echo "<label class='col-md-3 control-label'>$choreo_dob</label>";
+                                    echo "<label class='control-label'>$leave_reason</label>";
                                     ?>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Address</label>
+                                    <label class="col-md-3 control-label">Leave date</label>
                                     <?php
-                                    echo "<label class='col-md-3 control-label'>$choreo_address</label>";
+                                    echo "<label class='control-label'>$leave_date</label>";
                                     ?>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Place</label>
+                                    <label class="col-md-3 control-label">Leave days</label>
                                     <?php
-                                    echo "<label class='col-md-3 control-label'>$choreo_place</label>";
+                                    echo "<label class='control-label'>$leave_days</label>";
                                     ?>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">Pin</label>
+                                    <label class="col-md-3 control-label">Status</label>
                                     <?php
-                                    echo "<label class='col-md-3 control-label'>$choreo_pincode</label>";
+                                    if ($leave_status == 1)
+                                    {
+                                        echo "<label class='control-label'>Approved</label>";
+                                    }
+                                    if ($leave_status == 0)
+                                    {
+                                        echo "<label class='control-label'>In Review</label>";
+                                    }
                                     ?>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label">District</label>
-                                    <?php
-                                    echo "<label class='col-md-3 control-label'>$choreo_dst</label>";
-                                    ?>
+                                    <label class="col-md-3 control-label">Update status</label>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <select name="leave_status" class="form-group">
+                                        <option value="nothing" selected>Select Value</option>
+                                        <option value="1">Approve</option>
+                                        <option value="0">Cancel</option>
+                                    </select>
                                 </div>
-
-                                <div class="form-group">
-                                    <label class='col-md-3 control-label'>Phone</label>
-                                    <?php
-                                    echo "<label class='col-md-3 control-label'>$choreo_mob</label>";
-                                    ?>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class='col-md-3 control-label'>Email</label>
-                                    <?php
-                                    echo "<label class='col-md-3 control-label'>$choreo_mail</label>";
-                                    ?>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class='col-md-3 control-label'>Sallary</label>
-                                    <?php
-                                    echo "<label class='col-md-3 control-label'>$choreo_sal</label>";
-                                    ?>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class='col-md-3 control-label'>Qualification</label>
-                                    <?php
-                                    echo "<label class='col-md-3 control-label'>$choreo_qual</label>";
-                                    ?>
-                                </div>
-
                             </div>
+                            <footer class="panel-footer">
+                                <div class="row">
+                                    <div class="col-sm-9 col-sm-offset-6">
+                                        <button class="btn btn-primary" name="accept_leave" type="submit">Submit</button>
+                                        <a href="leaves_list.php">
+                                            <button class="btn btn-danger" name="leave_list">Go back <i class="fa fa-arrow-left"></i> </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </footer>
                         </form>
-                        <footer class="panel-footer">
-                            <div class="row">
-                                <div class="col-sm-9 col-sm-offset-6">
-                                    <a href="choreographer_list.php">
-                                        <button class="btn btn-primary" name="choreo_list">Go back <i class="fa fa-arrow-left"></i> </button>
-                                    </a>
-                                </div>
-                            </div>
-                        </footer>
                     </section>
                 </div>
             </div>
@@ -413,3 +396,23 @@
 
 </body>
 </html>
+<?php
+
+if (isset($_POST['accept_leave']))
+{
+    $status = $_POST['leave_status'];
+
+    if ($status == "nothing")
+    {
+        echo "<script>alert('Please select an option')</script>";
+    }
+    else
+    {
+        $stat_upd = $conn->query("update choreographer_leave set leave_status='$status' where leave_id='$lid'");
+        if ($stat_upd)
+        {
+            echo "<script>alert('Updated leave successfully...')</script>";
+            echo "<script>window.location='leaves_list.php'</script>";
+        }
+    }
+}

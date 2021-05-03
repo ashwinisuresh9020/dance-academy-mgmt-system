@@ -101,7 +101,7 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="#">
+                                                <a href="leaves_list.php">
                                                     Leave Management
                                                 </a>
                                             </li>

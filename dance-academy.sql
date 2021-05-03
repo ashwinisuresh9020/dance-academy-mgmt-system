@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 28, 2021 at 01:44 PM
+-- Generation Time: May 03, 2021 at 07:55 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -124,6 +124,7 @@ CREATE TABLE `choreographer_leave` (
   `choreo_id` int(11) NOT NULL,
   `leave_reason` text NOT NULL,
   `leave_date` varchar(20) NOT NULL,
+  `leave_days` int(11) NOT NULL,
   `leave_status` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -131,8 +132,8 @@ CREATE TABLE `choreographer_leave` (
 -- Dumping data for table `choreographer_leave`
 --
 
-INSERT INTO `choreographer_leave` (`leave_id`, `choreo_id`, `leave_reason`, `leave_date`, `leave_status`) VALUES
-(2, 1, 'I want to take leave on 30th April since i have a interim evaluation', '2021-04-30', 0);
+INSERT INTO `choreographer_leave` (`leave_id`, `choreo_id`, `leave_reason`, `leave_date`, `leave_days`, `leave_status`) VALUES
+(2, 1, 'I want to take leave on 30th April since i have a interim evaluation', '2021-04-30', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -292,7 +293,7 @@ INSERT INTO `messages` (`msg_id`, `from_id`, `to_id`, `message_title`, `message`
 (1, 111, 3, 'fee_dues', 'Hello Ranju H, You have a due amount of Rs. 1200 /-. Please clear the dues soon.\r\n                                                    -Admin', 0),
 (2, 111, 5, 'fee_dues', 'Hello Harikrishnan, You have a due amount of Rs. 600 /-. Please clear the dues soon.\r\n                                                    -Admin', 1),
 (3, 111, 6, 'fee_dues', 'Hello Anusree M T, You have a due amount of Rs. 550 /-. Please clear the dues soon.\r\n                                                    -Admin', 1),
-(5, 1, 111, 'video_request', 'The video lecture that was provided has been completed. Therefore, requesting you for a new video lecture\r\n-Suhail A K', 1);
+(5, 1, 111, 'video_request', 'The video lecture that was provided has been completed. Therefore, requesting you for a new video lecture\r\n-Suhail A K', 0);
 
 -- --------------------------------------------------------
 

@@ -192,12 +192,18 @@ session_start();
                                 </div>
 
                                 <div class="form-group">
+                                    <label class="col-md-3 control-label" for="price">Days <span class="required">*</span></label>
+                                    <div class="col-md-6">
+                                        <input type="number"   class="form-control" id="leave_days" name="leave_days" maxlength="3" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
                                     <label class="col-md-3 control-label" for="msg_text">Reason for leave <span class="required">*</span></label>
                                     <div class="col-md-6">
                                         <textarea class='form-control' name='msg_text' id='msg_text' rows='3' required></textarea>
                                     </div>
                                 </div>
-
 
 
                             </div>
@@ -277,8 +283,9 @@ if (isset($_POST['req_leave']))
 
     $leave_txt = $_POST['msg_text'];
     $leave_date = $_POST['leavedate'];
+    $leave_days = $_POST['leave_days'];
 
-    $ins_leave = "insert into choreographer_leave(choreo_id, leave_reason, leave_date) values ('$choreo_id','$leave_txt','$leave_date')";
+    $ins_leave = "insert into choreographer_leave(choreo_id, leave_reason, leave_date, leave_days) values ('$choreo_id','$leave_txt','$leave_date','$leave_days')";
     $res_leave = $conn->query($ins_leave);
     if ($res_leave)
     {
