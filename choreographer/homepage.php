@@ -94,7 +94,7 @@ session_start();
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">
+                                        <a href="student_attendance.php">
                                             Attendance
                                         </a>
                                     </li>

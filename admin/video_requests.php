@@ -282,18 +282,7 @@
                                         $row_ch = $res_ch->fetch_array();
                                         echo "<td>$row_ch[1]</td>";
                                         echo "<td style='width: 65%'>$row[2]</td>";
-                                        echo "<td><button type='submit' class='btn btn-success' name='btn_submit' id='btn_submit'>Add Video</button></td>";
-
-                                        if (isset($_POST['btn_submit']))
-                                        {
-                                            $video_req = $conn->query("update messages set message_status='0' where msg_id='$row[0]'");
-                                            if ($video_req)
-                                            {
-                                                echo "<script>alert('Request Accepted Successfully...')</script>";
-                                                echo "<script>window.location='video_add.php'</script>";
-                                            }
-                                        }
-
+                                        echo "<td><a href='update_video_req.php?msgid=$row[0]'><button type='button' class='btn btn-success'>Add Video</button></a></td>";
                                     }
                                     ?>
                                     </tbody>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 03, 2021 at 07:55 AM
+-- Generation Time: May 04, 2021 at 08:39 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -20,6 +20,27 @@ SET time_zone = "+00:00";
 --
 -- Database: `dance-academy`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `attendance`
+--
+
+CREATE TABLE `attendance` (
+  `attendance_id` int(11) NOT NULL,
+  `attendance_date` date NOT NULL,
+  `stud_id` int(11) DEFAULT NULL,
+  `choreo_id` int(11) DEFAULT NULL,
+  `attendance_status` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `attendance`
+--
+
+INSERT INTO `attendance` (`attendance_id`, `attendance_date`, `stud_id`, `choreo_id`, `attendance_status`) VALUES
+(9, '2021-05-04', 4, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -293,7 +314,10 @@ INSERT INTO `messages` (`msg_id`, `from_id`, `to_id`, `message_title`, `message`
 (1, 111, 3, 'fee_dues', 'Hello Ranju H, You have a due amount of Rs. 1200 /-. Please clear the dues soon.\r\n                                                    -Admin', 0),
 (2, 111, 5, 'fee_dues', 'Hello Harikrishnan, You have a due amount of Rs. 600 /-. Please clear the dues soon.\r\n                                                    -Admin', 1),
 (3, 111, 6, 'fee_dues', 'Hello Anusree M T, You have a due amount of Rs. 550 /-. Please clear the dues soon.\r\n                                                    -Admin', 1),
-(5, 1, 111, 'video_request', 'The video lecture that was provided has been completed. Therefore, requesting you for a new video lecture\r\n-Suhail A K', 0);
+(5, 1, 111, 'video_request', 'The video lecture that was provided has been completed. Therefore, requesting you for a new video lecture\r\n-Suhail A K', 0),
+(6, 1, 111, 'video_request', 'The video lecture that was provided has been completed. Therefore, requesting you for a new video lecture\r\n-Suhail A K', 0),
+(7, 1, 111, 'video_request', 'The video lecture that was provided has been completed. Therefore, requesting you for a new video lecture\r\n-Suhail A K', 0),
+(8, 1, 111, 'video_request', 'The video lecture that was provided has been completed. Therefore, requesting you for a new video lecture\r\n-Suhail A K', 0);
 
 -- --------------------------------------------------------
 
@@ -514,6 +538,14 @@ INSERT INTO `video_class` (`video_id`, `video_title`, `video_location`, `schedul
 --
 
 --
+-- Indexes for table `attendance`
+--
+ALTER TABLE `attendance`
+  ADD PRIMARY KEY (`attendance_id`),
+  ADD KEY `fk_student_attendance` (`stud_id`),
+  ADD KEY `fk_choreographer_attendance` (`choreo_id`);
+
+--
 -- Indexes for table `batch`
 --
 ALTER TABLE `batch`
@@ -598,6 +630,12 @@ ALTER TABLE `video_class`
 --
 
 --
+-- AUTO_INCREMENT for table `attendance`
+--
+ALTER TABLE `attendance`
+  MODIFY `attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT for table `batch`
 --
 ALTER TABLE `batch`
@@ -643,7 +681,7 @@ ALTER TABLE `login`
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `schedule`
@@ -672,6 +710,13 @@ ALTER TABLE `video_class`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `attendance`
+--
+ALTER TABLE `attendance`
+  ADD CONSTRAINT `fk_choreographer_attendance` FOREIGN KEY (`choreo_id`) REFERENCES `choreographer` (`choreographer_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_student_attendance` FOREIGN KEY (`stud_id`) REFERENCES `student` (`student_id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `batch`

@@ -88,12 +88,12 @@ session_start();
                                     <span>Students</span>
                                 </a>
                                 <ul class="nav nav-children">
-                                    <li class="nav nav-active">
+                                    <li>
                                         <a href="batches.php">
                                             Batches
                                         </a>
                                     </li>
-                                    <li>
+                                    <li class="nav nav-active">
                                         <a href="student_attendance.php">
                                             Attendance
                                         </a>
@@ -148,7 +148,7 @@ session_start();
 
         <section role="main" class="content-body">
             <header class="page-header">
-                <h2>Batch List</h2>
+                <h2>Students</h2>
 
             </header>
 
@@ -160,7 +160,7 @@ session_start();
                         <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
                     </div>
 
-                    <h2 class="panel-title">Batches</h2>
+                    <h2 class="panel-title">Students</h2>
                 </header>
                 <div class="panel-body">
                     <div class="row">
@@ -169,47 +169,53 @@ session_start();
                             </div>
                         </div>
                     </div>
-                    <table class="table table-bordered table-striped mb-none" id="tester_table">
-                        <thead>
-                        <tr>
-                            <th>Batch Name</th>
-                            <th>Age Group</th>
-                            <th>Branch</th>
-                            <th>Details</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                        $server_name = "localhost";
-                        $user_name = "root";
-                        $password = "";
-                        $database = "dance-academy";
+                    <form action="" method="post" onsubmit="insert_details()">
+                        <table class="table table-bordered table-striped mb-none" id="tester_table">
+                            <thead>
+                            <tr>
+                                <th>Full Name</th>
+                                <th>Date of Birth</th>
+                                <th>Address</th>
+                                <th>Mobile Number</th>
+                                <th>Attendance</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
 
-                        $conn = new mysqli($server_name, $user_name, $password, $database);
+                            include_once '../Database_Connect.php';
 
-                        $choreo_mail = $_SESSION['choreo_mail'];
-                        $sel_choreo_id = "select choreographer_id from choreographer where email='$choreo_mail'";
-                        $res_choreo_id = $conn->query($sel_choreo_id);
-                        $row_choreo_id = $res_choreo_id->fetch_array();
+                            $choreo_mail = $_SESSION['choreo_mail'];
+                            $sel_choreo_id = "select choreographer_id from choreographer where email='$choreo_mail'";
+                            $res_choreo_id = $conn->query($sel_choreo_id);
+                            $row_choreo_id = $res_choreo_id->fetch_array();
 
-
-                        $batch_sel = "select batch_id, batch_name, batch_age_grp, branch_id from batch where choreographer_id='$row_choreo_id[0]'";
-                        $res = $conn->query($batch_sel);
-                        while ($row = $res->fetch_array())
-                        {
-                            echo "<tr>";
-                            echo "<td>$row[1]</td>";
-                            echo "<td>$row[2]</td>";
-                            $res_branch = $conn->query("select branch_landmark, branch_place from branch where branch_id='$row[3]'");
-                            while ($row_branch = $res_branch->fetch_array())
+                            $res_stud = $conn->query("SELECT student_id, student_name, student_dob, address, place, mobile_number from student where batch_id in (select batch_id from batch where choreographer_id='$row_choreo_id[0]')");
+                            $today_date = date("Y-m-d");
+                            $sel_attendance = $conn->query("select * from attendance where attendance_date='$today_date'");
+                            $count = mysqli_num_rows($sel_attendance);
+                            while ($row = $res_stud->fetch_array())
                             {
-                                echo "<td>$row_branch[0] , $row_branch[1]</td>";
+                                echo "<tr>";
+                                echo "<td>$row[1]</td>";
+                                echo "<td>$row[2]</td>";
+                                echo "<td>$row[3],$row[4]</td>";
+                                echo "<td>$row[5]</td>";
+                                $sel_attendance = $conn->query("select count(*) from attendance where stud_id ='$row[0]' and attendance_date='$today_date'");
+                                $res_attendance = $sel_attendance->fetch_array();
+                                if($res_attendance[0]>0)
+                                {
+                                    echo "<td>Already marked</td>";
+                                }
+                                else
+                                {
+                                    echo "<td><a href='mark_attendance.php?sid=$row[0]'><button type='button' class='btn btn-primary'>Present</button></a></td>";
+                                }
                             }
-                            echo "<td><a href='batch_details.php?id=$row[0]'><button class='btn btn-primary'>Details</button></a></td>";
-                        }
-                        ?>
-                        </tbody>
-                    </table>
+                            ?>
+                            </tbody>
+                        </table>
+                    </form>
                 </div>
             </section>
             <!-- end: page -->
