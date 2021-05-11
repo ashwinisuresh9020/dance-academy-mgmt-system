@@ -5,7 +5,7 @@
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<title>Assign Batch | THUNDERLINES</title>
+		<title>Admin Dashboard | THUNDERLINES</title>
 		<meta name="keywords" content="HTML5 Admin Template" />
 		<meta name="description" content="Porto Admin - Responsive HTML5 Template">
 		<meta name="author" content="okler.net">
@@ -95,7 +95,7 @@
                                                     Add Choreographer
                                                 </a>
                                             </li>
-                                            <li class="nav nav-active">
+                                            <li>
                                                 <a href="assign_batch.php">
                                                     Assign batch
                                                 </a>
@@ -113,7 +113,7 @@
 				                            <span>Students</span>
 				                        </a>
 				                        <ul class="nav nav-children">
-				                            <li>
+				                            <li class="nav">
 				                                <a href="batches.php">
 				                                    Batches
 				                                </a>
@@ -151,7 +151,7 @@
 				                                    Students
 				                                </a>
 				                            </li>
-				                            <li>
+				                            <li class="nav nav-active">
 				                                <a href="choreographer_attendance.php">
 				                                    Choreographers
 				                                </a>
@@ -230,79 +230,116 @@
 
                 <section role="main" class="content-body">
                     <header class="page-header">
-                        <h2>Assign Batch</h2>
+                        <h2>Choreographer Attendance</h2>
 
                     </header>
 
                     <!-- start: page -->
+                    <section class="panel">
+                        <header class="panel-heading">
+                            <div class="panel-actions">
+                                <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                                <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+                            </div>
 
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <section class="panel">
-                                <header class="panel-heading">
-                                    <div class="panel-actions">
-                                        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-                                        <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+                            <h2 class="panel-title">Choreographer Attendance</h2>
+                        </header>
+                        <form class="form-horizontal form-bordered" method="post">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <select class="form-control" id="selmonth" name="selmonth" required>
+                                            <option value="nothing">Select Month</option>
+                                            <option value="01">January</option>
+                                            <option value="02">February</option>
+                                            <option value="03">March</option>
+                                            <option value="04">April</option>
+                                            <option value="05">May</option>
+                                            <option value="06">June</option>
+                                            <option value="07">July</option>
+                                            <option value="08">August</option>
+                                            <option value="09">September</option>
+                                            <option value="10">October</option>
+                                            <option value="11">November</option>
+                                            <option value="12">December</option>
+                                        </select>
+                                        <div class="mb-md">
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <select class="form-control" id="selyear" name="selyear" required>
+                                            <option value="nothing">Select Year</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2020">2020</option>
+                                            <option value="2019">2019</option>
+                                            <option value="2018">2018</option>
+                                            <option value="2017">2017</option>
+                                            <option value="2016">2016</option>
+                                            <option value="2015">2015</option>
+                                        </select>
+                                        <div class="mb-md">
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="submit" value="View" class="btn btn-primary" name="view_attendance"></input>
+                                        <div class="mb-md">
+
+                                        </div>
                                     </div>
 
-                                    <h2 class="panel-title">Assign Batch</h2>
-                                </header>
-                                <form class="form-horizontal form-bordered" method="post">
-                                    <div class="panel-body">
+                                </div>
+                                <table class="table table-bordered table-striped mb-none" id="tester_table">
+                                    <thead>
+                                    <tr>
+                                        <th>Choreographer</th>
+                                        <th>Address</th>
+                                        <th>Mobile Number</th>
+                                        <th>Present Date</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    include_once '../Database_Connect.php';
 
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="batches">Batch <span class="required">*</span></label>
-                                            <div class="col-md-6">
-                                                <select class="form-control" id="batches" name="batches" required>
-                                                <option value="nothing" selected>Select batch</option>
-                                                    <?php
-                                                        require_once '../Database_Connect.php';
-                                                        $sql_batch = "select * from batch where choreographer_id=0";
-                                                        $res_batch = $conn->query($sql_batch);
-                                                        while ($row_batch = $res_batch->fetch_array())
-                                                        {
-                                                            $sql_branch = "select branch_landmark from branch where branch_id='$row_batch[3]'";
-                                                            $res_branch = mysqli_query($conn, $sql_branch);
-                                                            $row_branch = mysqli_fetch_array($res_branch);
-                                                            echo "<option value='$row_batch[0]'>$row_batch[1] - $row_branch[0]</option>";
-                                                        }
-                                                    ?>
-                                                </select>
-                                            </div>
-                                        </div>
+                                    if (isset($_POST['view_attendance']))
+                                    {
+                                        $month = $_POST['selmonth'];
+                                        $year = $_POST['selyear'];
 
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="choreographers">Choreographer <span class="required">*</span></label>
-                                            <div class="col-md-6">
-                                                <select class="form-control" id="choreographers" name="choreographers" required>
-                                                    <option value="nothing" selected>Select Choreographer</option>
-                                                    <?php
-                                                        require_once '../Database_Connect.php';
-                                                        $sql_choreo = "select choreographer_id, choreographer_name from choreographer";
-                                                        $res_choreo = $conn->query($sql_choreo);
-                                                        while ($row_choreo = $res_choreo->fetch_array())
-                                                        {
-                                                            echo "<option value='$row_choreo[0]'>$row_choreo[1]</option>";
-                                                        }
-                                                    ?>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <footer class="panel-footer">
-                                        <div class="row">
-                                            <div class="col-sm-9 col-sm-offset-3">
-                                                <input class="btn btn-primary" type="submit" name="assign_batch" id="assign_batch">
-                                                <button type="reset" class="btn btn-default">Reset</button>
-                                            </div>
-                                        </div>
-                                    </footer>
-                                </form>
-                            </section>
-                        </div>
-                    </div>
-
+                                        if ($month=="nothing")
+                                        {
+                                            echo "<script>alert('Please select a month')</script>";
+                                        }
+                                        else if ($year=="nothing")
+                                        {
+                                            echo "<script>alert('Please select a year')</script>";
+                                        }
+                                        else
+                                        {
+                                            $next_month = (int)$month + 01;
+                                            $res_choreo_attendance = $conn->query("select attendance_id, choreo_id, attendance_date from attendance where stud_id is null and attendance_status='1' and attendance_date between '$year-$month-01' and '$year-$next_month-01'");
+                                            while ($row_choreo_attendance = $res_choreo_attendance->fetch_array())
+                                            {
+                                                echo "<tr>";
+                                                $choreo_res = $conn->query("select choreographer_name, address, place, mobile from choreographer where choreographer_id='$row_choreo_attendance[1]'");
+                                                while ($choreo_row = $choreo_res->fetch_array())
+                                                {
+                                                    echo "<td>$choreo_row[0]</td>";
+                                                    echo "<td>$choreo_row[1] , $choreo_row[2]</td>";
+                                                    echo "<td>$choreo_row[3]</td>";
+                                                }
+                                                echo "<td>$row_choreo_attendance[2]</td>";
+                                            }
+                                        }
+                                    }
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                    </section>
                     <!-- end: page -->
                 </section>
 			</div>
@@ -360,33 +397,3 @@
 
 	</body>
 </html>
-
-<?php
-
-if (isset($_POST['assign_batch']))
-{
-    $batch_id = $_POST['batches'];
-    $choreo_id = $_POST['choreographers'];
-    if ($batch_id == "nothing")
-    {
-        echo "<script>alert('Please select a batch...')</script>";
-    }
-    else if ($choreo_id == "nothing")
-    {
-        echo "<script>alert('Please select a choreographer...')</script>";
-    }
-    else
-    {
-        $assgn_batch =  "UPDATE batch SET choreographer_id='$choreo_id' where batch_id='$batch_id'";
-        $res_batch = mysqli_query($conn, $assgn_batch);
-        if($res_batch == true)
-        {
-            echo "<script>alert('Batch Assigned Successfully...')</script>";
-            echo "<script>window.location='batches.php'</script>";
-        }
-        else
-        {
-            echo "<script>alert('Error in Assigning')</script>";
-        }
-    }
-}

@@ -152,7 +152,7 @@
 				                                </a>
 				                            </li>
 				                            <li>
-				                                <a href="#">
+				                                <a href="choreographer_attendance.php">
 				                                    Choreographers
 				                                </a>
 				                            </li>
