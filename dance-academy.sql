@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 04, 2021 at 08:39 AM
+-- Generation Time: May 11, 2021 at 01:29 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -40,7 +40,11 @@ CREATE TABLE `attendance` (
 --
 
 INSERT INTO `attendance` (`attendance_id`, `attendance_date`, `stud_id`, `choreo_id`, `attendance_status`) VALUES
-(9, '2021-05-04', 4, NULL, 1);
+(9, '2021-05-04', 4, NULL, 1),
+(11, '2021-05-10', 4, NULL, 1),
+(12, '2021-05-11', NULL, 1, 1),
+(15, '2021-05-11', 4, NULL, 1),
+(16, '2021-05-11', 6, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -633,7 +637,7 @@ ALTER TABLE `video_class`
 -- AUTO_INCREMENT for table `attendance`
 --
 ALTER TABLE `attendance`
-  MODIFY `attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `batch`
@@ -657,7 +661,7 @@ ALTER TABLE `choreographer`
 -- AUTO_INCREMENT for table `choreographer_leave`
 --
 ALTER TABLE `choreographer_leave`
-  MODIFY `leave_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `leave_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `dance`

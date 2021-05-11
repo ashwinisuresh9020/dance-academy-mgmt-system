@@ -113,7 +113,7 @@
 				                            <span>Students</span>
 				                        </a>
 				                        <ul class="nav nav-children">
-				                            <li class="nav nav-active">
+				                            <li class="nav">
 				                                <a href="batches.php">
 				                                    Batches
 				                                </a>
@@ -146,7 +146,7 @@
 				                            <span>Attendance Management</span>
 				                        </a>
 				                        <ul class="nav nav-children">
-				                            <li>
+				                            <li class="nav nav-active">
 				                                <a href="student_attendance.php">
 				                                    Students
 				                                </a>
@@ -230,7 +230,7 @@
 
                 <section role="main" class="content-body">
                     <header class="page-header">
-                        <h2>Batches</h2>
+                        <h2>Student Attendance</h2>
 
                     </header>
 
@@ -242,78 +242,48 @@
                                 <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
                             </div>
 
-                            <h2 class="panel-title">Batches</h2>
+                            <h2 class="panel-title">Student Attendance</h2>
                         </header>
                         <form class="form-horizontal form-bordered" method="post">
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-sm-3">
-                                        <select class="form-control" id="studentdetails" name="studentdetails" required>
-                                            <option value="nothing"> Select student</option>
-                                            <?php
-
-                                            $batch_id = $_GET['bid'];
-                                            include_once '../Database_Connect.php';
-
-                                            $sel_batch = "select batch_age_grp, branch_id from batch where batch_id=".htmlspecialchars($_GET['bid']);
-                                            $res_batch = $conn->query($sel_batch);
-                                            while ($row_batch = $res_batch->fetch_array())
-                                            {
-                                                if ($row_batch[0]=="4-10 yrs")
-                                                {
-                                                    $sel_student1 = "SELECT student_id, student_name from student where nearest_branch='$row_batch[1]' AND batch_id='0' and student_dob BETWEEN '2011-04-01' AND '2017-04-19'";
-                                                    $res_student1 = $conn->query($sel_student1);
-                                                    while ($row_student1 = $res_student1->fetch_array())
-                                                    {
-                                                        echo "<option value='$row_student1[0]'>$row_student1[1]</option>";
-                                                    }
-                                                }
-                                                else if ($row_batch[0]=="11-15 yrs")
-                                                {
-                                                    $sel_student2 = "SELECT student_id, student_name from student where nearest_branch='$row_batch[1]' AND batch_id='0' and student_dob BETWEEN '2006-04-01' AND '2011-03-31'";
-                                                    $res_student2 = $conn->query($sel_student2);
-                                                    while ($row_student2 = $res_student2->fetch_array())
-                                                    {
-                                                        echo "<option value='$row_student2[0]'>$row_student2[1]</option>";
-                                                    }
-                                                }
-                                                else if ($row_batch[0]=="16-25 yrs")
-                                                {
-                                                    $sel_student3 = "SELECT student_id, student_name from student where nearest_branch='$row_batch[1]' AND batch_id='0' and student_dob BETWEEN '1996-04-01' AND '2006-03-31'";
-                                                    $res_student3 = $conn->query($sel_student3);
-                                                    while ($row_student3 = $res_student3->fetch_array())
-                                                    {
-                                                        echo "<option value='$row_student3[0]'>$row_student3[1]</option>";
-                                                    }
-                                                }
-                                                else if ($row_batch[0]=="25+ yrs male")
-                                                {
-                                                    $sel_student4 = "SELECT student_id, student_name from student where nearest_branch='$row_batch[1]' AND batch_id='0' and student_gender='Male' and student_dob BETWEEN '1971-04-01' AND '1996-03-31'";
-                                                    $res_student4 = $conn->query($sel_student4);
-                                                    while ($row_student4 = $res_student4->fetch_array())
-                                                    {
-                                                        echo "<option value='$row_student4[0]'>$row_student4[1]</option>";
-                                                    }
-                                                }
-                                                else if ($row_batch[0]=="25+ yrs female")
-                                                {
-                                                    $sel_student5 = "SELECT student_id, student_name from student where nearest_branch='$row_batch[1]' AND batch_id='0' and student_gender='Female' and student_dob BETWEEN '1971-04-01' AND '1996-03-31'";
-                                                    $res_student5 = $conn->query($sel_student5);
-                                                    while ($row_student5 = $res_student5->fetch_array())
-                                                    {
-                                                        echo "<option value='$row_student5[0]'>$row_student5[1]</option>";
-                                                    }
-                                                }
-                                            }
-                                            ?>
+                                        <select class="form-control" id="selmonth" name="selmonth" required>
+                                            <option value="nothing">Select Month</option>
+                                            <option value="01">January</option>
+                                            <option value="02">February</option>
+                                            <option value="03">March</option>
+                                            <option value="04">April</option>
+                                            <option value="05">May</option>
+                                            <option value="06">June</option>
+                                            <option value="07">July</option>
+                                            <option value="08">August</option>
+                                            <option value="09">September</option>
+                                            <option value="10">October</option>
+                                            <option value="11">November</option>
+                                            <option value="12">December</option>
                                         </select>
                                         <div class="mb-md">
 
                                         </div>
                                     </div>
-
                                     <div class="col-sm-3">
-                                        <input type="submit" value="Add Student" class="btn btn-primary" name="add_stud"></input>
+                                        <select class="form-control" id="selyear" name="selyear" required>
+                                            <option value="nothing">Select Year</option>
+                                            <option value="2021">2021</option>
+                                            <option value="2020">2020</option>
+                                            <option value="2019">2019</option>
+                                            <option value="2018">2018</option>
+                                            <option value="2017">2017</option>
+                                            <option value="2016">2016</option>
+                                            <option value="2015">2015</option>
+                                        </select>
+                                        <div class="mb-md">
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="submit" value="View" class="btn btn-primary" name="view_attendance"></input>
                                         <div class="mb-md">
 
                                         </div>
@@ -323,33 +293,57 @@
                                 <table class="table table-bordered table-striped mb-none" id="tester_table">
                                     <thead>
                                     <tr>
+                                        <th>Student ID</th>
                                         <th>Student Name</th>
-                                        <th>Date of Birth</th>
                                         <th>Address</th>
-                                        <th>Place</th>
-                                        <th>Email Address</th>
+                                        <th>Mobile Number</th>
+                                        <th>Date</th>
+                                        <th>Attendance</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <?php
-                                    $server_name = "localhost";
-                                    $user_name = "root";
-                                    $password = "";
-                                    $database = "dance-academy";
+                                    include_once '../Database_Connect.php';
 
-                                    $batch_id = $_GET['bid'];
-
-                                    $conn = new mysqli($server_name, $user_name, $password, $database);
-                                    $batch_sel = "select * from student where batch_id=".htmlspecialchars($_GET['bid']);
-                                    $res = $conn->query($batch_sel);
-                                    while ($row = $res->fetch_array())
+                                    if (isset($_POST['view_attendance']))
                                     {
-                                        echo "<tr>";
-                                        echo "<td>$row[1]</td>";
-                                        echo "<td>$row[2]</td>";
-                                        echo "<td>$row[4]</td>";
-                                        echo "<td>$row[5]</td>";
-                                        echo "<td>$row[9]</td>";
+                                        $month = $_POST['selmonth'];
+                                        $year = $_POST['selyear'];
+
+                                        if ($month=="nothing")
+                                        {
+                                            echo "<script>alert('Please select a month')</script>";
+                                        }
+                                        else if ($year=="nothing")
+                                        {
+                                            echo "<script>alert('Please select a year')</script>";
+                                        }
+                                        else
+                                        {
+                                            $next_month = (int)$month + 01;
+                                            $res_stud_attendance = $conn->query("select attendance_id, stud_id, attendance_date, attendance_status from attendance where choreo_id is null and attendance_date between '$year-$month-01' and '$year-$next_month-01'");
+                                            while ($row_stud_attendance = $res_stud_attendance->fetch_array())
+                                            {
+                                                echo "<tr>";
+                                                echo "<td>$row_stud_attendance[1]</td>";
+                                                $student_res = $conn->query("select student_name, address, place, mobile_number from student where student_id='$row_stud_attendance[1]'");
+                                                while ($student_row = $student_res->fetch_array())
+                                                {
+                                                    echo "<td>$student_row[0]</td>";
+                                                    echo "<td>$student_row[1] , $student_row[2]</td>";
+                                                    echo "<td>$student_row[3]</td>";
+                                                }
+                                                echo "<td>$row_stud_attendance[2]</td>";
+                                                if ($row_stud_attendance[3]==1)
+                                                {
+                                                    echo "<td>Present</td>";
+                                                }
+                                                if ($row_stud_attendance[3]==0)
+                                                {
+                                                    echo "<td>Absent</td>";
+                                                }
+                                            }
+                                        }
                                     }
                                     ?>
                                     </tbody>
@@ -414,26 +408,3 @@
 
 	</body>
 </html>
-
-<?php
-
-require_once '../Database_Connect.php';
-
-if (isset($_POST['add_stud']))
-{
-    $student_id = $_POST['studentdetails'];
-    if ($student_id == "nothing")
-    {
-        echo "<script>alert('Please select a student...')</script>";
-    }
-    else
-    {
-        $ins_stud = "update student set batch_id=".htmlspecialchars($_GET['bid'])." where student_id='$student_id'";
-        $stud_res = $conn->query($ins_stud);
-        if ($stud_res)
-        {
-            echo "<script>alert('Student Added Successfully...')</script>";
-            echo "<script>window.location='batches.php'</script>";
-        }
-    }
-}

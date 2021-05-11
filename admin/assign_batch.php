@@ -147,7 +147,7 @@
 				                        </a>
 				                        <ul class="nav nav-children">
 				                            <li>
-				                                <a href="#">
+				                                <a href="student_attendance.php">
 				                                    Students
 				                                </a>
 				                            </li>

@@ -173,10 +173,8 @@ session_start();
                         <table class="table table-bordered table-striped mb-none" id="tester_table">
                             <thead>
                             <tr>
+                                <th>Student ID</th>
                                 <th>Full Name</th>
-                                <th>Date of Birth</th>
-                                <th>Address</th>
-                                <th>Mobile Number</th>
                                 <th>Attendance</th>
                             </tr>
                             </thead>
@@ -197,10 +195,8 @@ session_start();
                             while ($row = $res_stud->fetch_array())
                             {
                                 echo "<tr>";
+                                echo "<td>$row[0]</td>";
                                 echo "<td>$row[1]</td>";
-                                echo "<td>$row[2]</td>";
-                                echo "<td>$row[3],$row[4]</td>";
-                                echo "<td>$row[5]</td>";
                                 $sel_attendance = $conn->query("select count(*) from attendance where stud_id ='$row[0]' and attendance_date='$today_date'");
                                 $res_attendance = $sel_attendance->fetch_array();
                                 if($res_attendance[0]>0)
@@ -209,7 +205,8 @@ session_start();
                                 }
                                 else
                                 {
-                                    echo "<td><a href='mark_attendance.php?sid=$row[0]'><button type='button' class='btn btn-primary'>Present</button></a></td>";
+                                    echo "<td><a href='mark_attendance.php?sid=$row[0]'><button type='button' class='btn btn-success'>Present</button></a></td>";
+                                    echo "<td><a href='mark_absent.php?sid=$row[0]'><button type='button' class='btn btn-danger'>Absent</button></a></td>";
                                 }
                             }
                             ?>
