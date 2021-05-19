@@ -5,7 +5,7 @@
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<title>Update fees | THUNDERLINES</title>
+		<title>Admin Dashboard | THUNDERLINES</title>
 		<meta name="keywords" content="HTML5 Admin Template" />
 		<meta name="description" content="Porto Admin - Responsive HTML5 Template">
 		<meta name="author" content="okler.net">
@@ -164,7 +164,7 @@
 				                            <span>Branches</span>
 				                        </a>
 				                    </li>
-                                    <li class="nav nav-active">
+                                    <li>
                                         <a href="fees_details.php">
                                             <i class="fa fa-money" aria-hidden="true"></i>
                                             <span>Fee details</span>
@@ -200,7 +200,7 @@
                                             <span>Events</span>
                                         </a>
                                     </li>
-                                    <li>
+                                    <li class="nav nav-active">
                                         <a href="personal_class_requests.php">
                                             <i class="fa fa-comment" aria-hidden="true"></i>
                                             <span>Personal Class Enquiry</span>
@@ -236,99 +236,55 @@
 
                 <section role="main" class="content-body">
                     <header class="page-header">
-                        <h2>Update Fees</h2>
+                        <h2>Personal Class</h2>
 
                     </header>
 
                     <!-- start: page -->
+                    <section class="panel">
+                        <header class="panel-heading">
+                            <div class="panel-actions">
+                                <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                                <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+                            </div>
 
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <section class="panel">
-                                <header class="panel-heading">
-                                    <div class="panel-actions">
-                                        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-                                        <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
-                                    </div>
+                            <h2 class="panel-title">Enquiries</h2>
+                        </header>
+                        <form class="form-horizontal form-bordered" method="post">
+                            <div class="panel-body">
+                                <table class="table table-bordered table-striped mb-none" id="tester_table">
+                                    <thead>
+                                    <tr>
+                                        <th>Full Name</th>
+                                        <th>Mobile Number</th>
+                                        <th>Class Date</th>
+                                        <th>Class Time</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    $server_name = "localhost";
+                                    $user_name = "root";
+                                    $password = "";
+                                    $database = "dance-academy";
 
-                                    <h2 class="panel-title">Update Fees</h2>
-                                </header>
-                                <form class="form-horizontal form-bordered" method="post" enctype="multipart/form-data">
-                                    <div class="panel-body">
-
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="student">Student</label>
-                                            <div class="col-md-6">
-                                                <?php
-                                                    $stud_id = $_GET['stid'];
-
-                                                    include_once '../Database_Connect.php';
-
-                                                    $sel_stud = "select student_name from student where student_id='$stud_id'";
-                                                    $res_stud = $conn->query($sel_stud);
-                                                    $row_stud = $res_stud->fetch_array();
-
-                                                    $amount_sel = "SELECT sum(dance_price) from dance where dance_id IN(SELECT dance_id from student_dance where student_id='$stud_id')";
-                                                    $res_amount_sel = $conn->query($amount_sel);
-                                                    $row_amount_sel = $res_amount_sel->fetch_array();
-                                                    $total = $row_amount_sel[0];
-
-                                                    $amount_res_paid = "select sum(amount) from fees where student_id='$stud_id'";
-                                                    $amount_res_paid_res = $conn->query($amount_res_paid);
-                                                    $row_amount_res_paid = $amount_res_paid_res->fetch_array();
-
-                                                    echo "<input type='text' class='form-control' id='student' name='student' value='$row_stud[0]' disabled>";
-                                                ?>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="total">Total Amount</label>
-                                            <div class="col-md-6">
-                                                <?php
-                                                    echo "<input type='text' class='form-control' id='total' name='total' value='$total' disabled>";
-                                                ?>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="total">Due Amount</label>
-                                            <div class="col-md-6">
-                                                <?php
-                                                if ($row_amount_res_paid[0]==null)
-                                                {
-                                                    $due = $total;
-                                                }
-                                                else
-                                                {
-                                                    $due = $total - $row_amount_res_paid[0];
-                                                }
-                                                echo "<input type='text' class='form-control' id='total' name='total' value='$due' disabled>";
-                                                ?>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="amount">Pay Amount <span class="required">*</span></label>
-                                            <div class="col-md-6">
-                                                <input type="number" class="form-control" id="amount" name="amount" required>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-                                    <footer class="panel-footer">
-                                        <div class="row">
-                                            <div class="col-sm-9 col-sm-offset-3">
-                                                <input class="btn btn-primary" type="submit" name="add_fees" id="upload_video">
-                                            </div>
-                                        </div>
-                                    </footer>
-                                </form>
-                            </section>
-                        </div>
-                    </div>
-
+                                    $conn = new mysqli($server_name, $user_name, $password, $database);
+                                    $personal_sel = "select * from personal_class";
+                                    $res = $conn->query($personal_sel);
+                                    while ($row = $res->fetch_array())
+                                    {
+                                        echo "<tr>";
+                                        echo "<td>$row[1]</td>";
+                                        echo "<td>$row[2]</td>";
+                                        echo "<td>$row[3]</td>";
+                                        echo "<td>$row[4]</td>";
+                                    }
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                    </section>
                     <!-- end: page -->
                 </section>
 			</div>
@@ -371,7 +327,7 @@
 		<script src="assets/vendor/jqvmap/maps/continents/jquery.vmap.europe.js"></script>
 		<script src="assets/vendor/jqvmap/maps/continents/jquery.vmap.north-america.js"></script>
 		<script src="assets/vendor/jqvmap/maps/continents/jquery.vmap.south-america.js"></script>
-
+		
 		<!-- Theme Base, Components and Settings -->
 		<script src="assets/javascripts/theme.js"></script>
 		
@@ -389,42 +345,23 @@
 
 <?php
 
-if (isset($_POST['add_fees']))
-{
-    $amount = $_POST['amount'];
-    $today_date = date('d-m-Y');
+require_once '../Database_Connect.php';
 
-    if ($amount > $due)
+if (isset($_POST['add_stud']))
+{
+    $student_id = $_POST['studentdetails'];
+    if ($student_id == "nothing")
     {
-        echo "<script>alert('Paid amount cannot be higher than total amount')</script>";
+        echo "<script>alert('Please select a student...')</script>";
     }
     else
     {
-        $ins_fees = "insert into fees(student_id, amount, paid_date) values ('$stud_id','$amount','$today_date')";
-        $res_fees = $conn->query($ins_fees);
-        if ($res_fees)
+        $ins_stud = "update student set batch_id=".htmlspecialchars($_GET['bid'])." where student_id='$student_id'";
+        $stud_res = $conn->query($ins_stud);
+        if ($stud_res)
         {
-            if ($due - $amount == 0)
-            {
-                $upd_status = "update student set fee_status='1' where student_id='$stud_id'";
-                $res_upd_status = $conn->query($upd_status);
-
-                $sel_msg = "select * from messages where to_id='$stud_id' and message_title='fee_dues'";
-                $res_msg = $conn->query($sel_msg);
-                if ($res_msg->num_rows > 0)
-                {
-                    $upd_msg = "update messages set message_status=0 where to_id='$stud_id' and message_title='fee_dues'";
-                    $res_upd_msg = $conn->query($upd_msg);
-                }
-                if ($res_upd_status)
-                {
-                    echo "<script>window.location='fees_details.php'</script>";
-                }
-            }
-            else
-            {
-                echo "<script>window.location='fees_details.php'</script>";
-            }
+            echo "<script>alert('Student Added Successfully...')</script>";
+            echo "<script>window.location='batches.php'</script>";
         }
     }
 }

@@ -30,7 +30,7 @@
   <link href="css/responsive.css" rel="stylesheet" />
 </head>
 
-<body class="about-page">
+<body>
 
   <div class="hero_area">
     <!-- header section strats -->
@@ -69,40 +69,64 @@
       </div>
     </header>
     <!-- end header section -->
-
-  </div>
-
-  <!-- about section -->
-
-  <section class="about_section">
-    <div class="container">
-      <h2>
-        About Us
-      </h2>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="about-detail">
-            <h3>
-              
-            </h3>
-            <p>
-              With thunder storm dance academy, you can also keep moving your footsteps to the very professional dance steps. We have almost 3 branches in the Kerala state.
-              We provide classes for all age groups and for all levels of training.  
-            </p>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="about-imge-box">
-            <img src="images/about-img.jpg" alt="" class="img-fluid">
-          </div>
-        </div>
+    <!-- slider section -->
+    <section class=" slider_section position-relative">
+      <div class="number-container d-none d-md-block">
       </div>
-    </div>
-  </section>
+      <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="container slider_item-box">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="slider-box-detail">
+                    <h1>
+                      Personal Class<br>
+                    </h1>
+                    <form method="post" action="personal.php">
+                      <div class="contact_form-container">
+                        <div>
+                          <div>
+                            <input name="user_name" placeholder="Full Name" type="text" class="form-control" required>
+                          </div>
+                          <div>
+                            <br><input name="user_number" placeholder="Mobile Number" type="number" maxlength="10" class="form-control" required>
+                          </div>
+                          <div>
+                            <br><input name="user_date" type="date" class="form-control" required>
+                          </div>
+                          <div>
+                            <br><input name="user_time" type="time" class="form-control" required>
+                          </div>
+                          <div>
+                            <br><input name="add_personal" type="submit" value="Enquire" class="form-control btn-success">
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="slider_box-img">
+                    <div class="slider_item_img-box">
+                      <img src="images/dancer.png" alt="" class="img-fluid">
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-  <!-- end about section -->
 
+            </div>
+          </div>
 
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- end slider section -->
+  </div>
 
 
 
@@ -113,7 +137,7 @@
       <div class="row custom_border-btm mb-3 pb-4">
         <div class="col-md-4 info_logo">
           <h2>
-            Thunder Storm
+            Thunderlines
           </h2>
           <p>
             This dance academy trains people with any age groups and any type of dance for all type of dancers.
@@ -145,7 +169,7 @@
   <section class="container-fluid footer_section">
     <p>
       Copyright &copy; 2021 All Rights Reserved By
-      <a href="">Thunder storm</a>
+      <a href="">Thunderlines</a>
     </p>
   </section>
   <!-- footer section -->

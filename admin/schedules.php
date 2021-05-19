@@ -200,6 +200,12 @@
                                             <span>Events</span>
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="personal_class_requests.php">
+                                            <i class="fa fa-comment" aria-hidden="true"></i>
+                                            <span>Personal Class Enquiry</span>
+                                        </a>
+                                    </li>
 				                    <li>
 				                        <a href="../login.html">
 				                            <i class="fa fa-sign-out" aria-hidden="true"></i>

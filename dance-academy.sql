@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 11, 2021 at 01:29 PM
+-- Generation Time: May 19, 2021 at 07:20 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -326,6 +326,27 @@ INSERT INTO `messages` (`msg_id`, `from_id`, `to_id`, `message_title`, `message`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `personal_class`
+--
+
+CREATE TABLE `personal_class` (
+  `personal_id` int(11) NOT NULL,
+  `user_name` varchar(30) NOT NULL,
+  `user_mobile` bigint(12) NOT NULL,
+  `user_date` date NOT NULL,
+  `user_time` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `personal_class`
+--
+
+INSERT INTO `personal_class` (`personal_id`, `user_name`, `user_mobile`, `user_date`, `user_time`) VALUES
+(11, 'Mohammed Salih', 9633058949, '2021-05-21', '09:24:00');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `schedule`
 --
 
@@ -601,6 +622,12 @@ ALTER TABLE `messages`
   ADD PRIMARY KEY (`msg_id`);
 
 --
+-- Indexes for table `personal_class`
+--
+ALTER TABLE `personal_class`
+  ADD PRIMARY KEY (`personal_id`);
+
+--
 -- Indexes for table `schedule`
 --
 ALTER TABLE `schedule`
@@ -686,6 +713,12 @@ ALTER TABLE `login`
 --
 ALTER TABLE `messages`
   MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `personal_class`
+--
+ALTER TABLE `personal_class`
+  MODIFY `personal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `schedule`
