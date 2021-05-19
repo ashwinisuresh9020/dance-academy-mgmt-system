@@ -101,6 +101,11 @@
                                         </a>
                                     </li>
                                     <li>
+                                        <a href="sallary_details.php">
+                                            Sallary Management
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a href="leaves_list.php">
                                             Leave Management
                                         </a>

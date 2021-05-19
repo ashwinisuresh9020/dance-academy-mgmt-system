@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2021 at 07:20 PM
+-- Generation Time: May 19, 2021 at 08:50 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -347,6 +347,27 @@ INSERT INTO `personal_class` (`personal_id`, `user_name`, `user_mobile`, `user_d
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sallary`
+--
+
+CREATE TABLE `sallary` (
+  `sallary_id` int(11) NOT NULL,
+  `choreo_id` int(11) NOT NULL,
+  `sallary` int(11) NOT NULL,
+  `paid_date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `sallary`
+--
+
+INSERT INTO `sallary` (`sallary_id`, `choreo_id`, `sallary`, `paid_date`) VALUES
+(1, 1, 10000, '2021-05-19'),
+(2, 2, 9500, '2021-05-19');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `schedule`
 --
 
@@ -628,6 +649,13 @@ ALTER TABLE `personal_class`
   ADD PRIMARY KEY (`personal_id`);
 
 --
+-- Indexes for table `sallary`
+--
+ALTER TABLE `sallary`
+  ADD PRIMARY KEY (`sallary_id`),
+  ADD KEY `fk_choreographer_sallary` (`choreo_id`);
+
+--
 -- Indexes for table `schedule`
 --
 ALTER TABLE `schedule`
@@ -721,6 +749,12 @@ ALTER TABLE `personal_class`
   MODIFY `personal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT for table `sallary`
+--
+ALTER TABLE `sallary`
+  MODIFY `sallary_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `schedule`
 --
 ALTER TABLE `schedule`
@@ -772,6 +806,12 @@ ALTER TABLE `choreographer_leave`
 --
 ALTER TABLE `fees`
   ADD CONSTRAINT `fk_student_fees` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `sallary`
+--
+ALTER TABLE `sallary`
+  ADD CONSTRAINT `fk_choreographer_sallary` FOREIGN KEY (`choreo_id`) REFERENCES `choreographer` (`choreographer_id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `schedule`

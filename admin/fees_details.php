@@ -101,6 +101,11 @@
                                                 </a>
                                             </li>
                                             <li>
+                                                <a href="sallary_details.php">
+                                                    Sallary Management
+                                                </a>
+                                            </li>
+                                            <li>
                                                 <a href="leaves_list.php">
                                                     Leave Management
                                                 </a>
@@ -332,17 +337,6 @@
                                         }
                                     }
                                 }
-                                /*$batch_sel = "select student_name,mobile from student where student_id";
-                                $res = $conn->query($batch_sel);
-                                while ($row = $res->fetch_array())
-                                {
-                                    echo "<tr>";
-                                    echo "<td>$row[1]</td>";
-                                    echo "<td>$row[2]</td>";
-                                    echo "<td>$row[4]</td>";
-                                    echo "<td>$row[5]</td>";
-                                    echo "<td>$row[9]</td>";
-                                }*/
                                 ?>
                                 </tbody>
                             </table>

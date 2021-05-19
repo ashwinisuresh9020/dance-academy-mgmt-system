@@ -5,7 +5,7 @@
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<title>Schedule class | THUNDERLINES</title>
+		<title>Pay sallary | THUNDERLINES</title>
 		<meta name="keywords" content="HTML5 Admin Template" />
 		<meta name="description" content="Porto Admin - Responsive HTML5 Template">
 		<meta name="author" content="okler.net">
@@ -100,7 +100,7 @@
                                                     Assign batch
                                                 </a>
                                             </li>
-                                            <li>
+                                            <li class="nav nav-active">
                                                 <a href="sallary_details.php">
                                                     Sallary Management
                                                 </a>
@@ -133,7 +133,7 @@
                                                     Fee Dues
                                                 </a>
                                             </li>
-                                            <li class="nav nav-active">
+                                            <li>
                                                 <a href="schedules.php">
                                                     Schedules
                                                 </a>
@@ -241,7 +241,7 @@
 
                 <section role="main" class="content-body">
                     <header class="page-header">
-                        <h2>Schedule Class</h2>
+                        <h2>Pay sallary</h2>
 
                     </header>
 
@@ -256,51 +256,37 @@
                                         <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
                                     </div>
 
-                                    <h2 class="panel-title">Schedule Class</h2>
+                                    <h2 class="panel-title">Pay sallary</h2>
                                 </header>
-                                <form class="form-horizontal form-bordered" method="post">
+                                <form class="form-horizontal form-bordered" method="post" enctype="multipart/form-data">
                                     <div class="panel-body">
+
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label" for="batch">Batch <span class="required">*</span></label>
+                                            <label class="col-md-3 control-label" for="student">Choreographer</label>
                                             <div class="col-md-6">
-                                                <select class="form-control" id="batch" name="batch" required>
-                                                <option value="nothing" selected>Select batch</option>
-                                                    <?php
+                                                <select name="sel_choreo" required>
+                                                    <option value="nothing">Select choreographer</option>
+                                                <?php
+
                                                     include_once '../Database_Connect.php';
 
-                                                    $sql_batch = "select batch_id, batch_name from batch";
-                                                    $res_batch = mysqli_query($conn, $sql_batch);
-                                                    while ($row_batch = mysqli_fetch_array($res_batch))
+                                                    $sel_choreo = "select choreographer_id, choreographer_name from choreographer";
+                                                    $res_choreo = $conn->query($sel_choreo);
+                                                    while($row_choreo = $res_choreo->fetch_array())
                                                     {
-                                                        echo "<option value='$row_batch[0]'>$row_batch[1]</option>";
+                                                        echo "<option value='$row_choreo[0]'>$row_choreo[1]</option>";
                                                     }
-
-                                                    ?>
+                                                ?>
                                                 </select>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label" for="scheduledate">Schedule Date <span class="required">*</span> </label>
+                                            <label class="col-md-3 control-label" for="amount">Amount</label>
                                             <div class="col-md-6">
-                                                <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="fa fa-calendar"></i>
-                                        </span>
-                                                    <input id='scheduledate' type='date' class='form-control' name='scheduledate' required>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="scheduletime">Schedule Time <span class="required">*</span> </label>
-                                            <div class="col-md-6">
-                                                <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="fa fa-clock-o"></i>
-                                        </span>
-                                                    <input id='scheduletime' type='time' class='form-control' name='scheduletime' required>
-                                                </div>
+                                                <?php
+                                                    echo "<input type='number' class='form-control' id='amount' name='amount' required>";
+                                                ?>
                                             </div>
                                         </div>
 
@@ -308,8 +294,7 @@
                                     <footer class="panel-footer">
                                         <div class="row">
                                             <div class="col-sm-9 col-sm-offset-3">
-                                                <input class="btn btn-primary" type="submit" name="add_schedule" id="add_schedule">
-                                                <button type="reset" class="btn btn-default">Reset</button>
+                                                <input class="btn btn-primary" type="submit" name="add_sallary" id="add_sallary">
                                             </div>
                                         </div>
                                     </footer>
@@ -361,13 +346,6 @@
 		<script src="assets/vendor/jqvmap/maps/continents/jquery.vmap.north-america.js"></script>
 		<script src="assets/vendor/jqvmap/maps/continents/jquery.vmap.south-america.js"></script>
 
-        <script type="text/javascript">
-            $(function () {
-                $('.datepicker').datepicker({
-                    startDate: new Date()
-                });
-            });
-        </script>
 		<!-- Theme Base, Components and Settings -->
 		<script src="assets/javascripts/theme.js"></script>
 		
@@ -385,32 +363,23 @@
 
 <?php
 
-if (isset($_POST['add_schedule']))
+if (isset($_POST['add_sallary']))
 {
-    $batch = $_POST['batch'];
-    $schedule_date = $_POST['scheduledate'];
-    $schedule_time = $_POST['scheduletime'];
-    if ($batch == "nothing")
+    $choreo = $_POST['sel_choreo'];
+    $amount = $_POST['amount'];
+    $today_date = date('Y-m-d');
+
+    if ($choreo=="nothing")
     {
-        echo "<script>alert('Please select a batch...')</script>";
-    }
-    else if (strtotime($schedule_date) < strtotime(date('Y-m-d')))
-    {
-        echo "<script>alert('Please select a date from today...')</script>";
+        echo "<script>alert('Please select a choreographer')</script>";
     }
     else
     {
-        $ins_schedule =  "INSERT INTO schedule (batch_id,schedule_date,schedule_time) values ('$batch','$schedule_date','$schedule_time')";
-        $req_schedule = mysqli_query($conn, $ins_schedule);
-
-        if($req_schedule == true)
+        $ins_sallary = $conn->query("insert into sallary(choreo_id,sallary,paid_date) values ('$choreo','$amount','$today_date')");
+        if ($ins_sallary)
         {
-            echo "<script>alert('Class scheduled Successfully...')</script>";
-            echo "<script>window.location='schedules.php'</script>";
-        }
-        else
-        {
-            echo "<script>alert('Error in scheduling class')</script>";
+            echo "<script>alert('Salary paid successfully...')</script>";
+            echo "<script>window.location='sallary_details.php'</script>";
         }
     }
 }

@@ -100,6 +100,11 @@
                                             Assign batch
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="sallary_details.php">
+                                            Sallary Management
+                                        </a>
+                                    </li>
                                     <li class="nav nav-active">
                                         <a href="leaves_list.php">
                                             Leave Management

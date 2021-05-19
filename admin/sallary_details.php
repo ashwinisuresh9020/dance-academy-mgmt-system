@@ -5,7 +5,7 @@
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<title>Schedule class | THUNDERLINES</title>
+		<title>Admin Dashboard | THUNDERLINES</title>
 		<meta name="keywords" content="HTML5 Admin Template" />
 		<meta name="description" content="Porto Admin - Responsive HTML5 Template">
 		<meta name="author" content="okler.net">
@@ -100,7 +100,7 @@
                                                     Assign batch
                                                 </a>
                                             </li>
-                                            <li>
+                                            <li class="nav nav-active">
                                                 <a href="sallary_details.php">
                                                     Sallary Management
                                                 </a>
@@ -133,7 +133,7 @@
                                                     Fee Dues
                                                 </a>
                                             </li>
-                                            <li class="nav nav-active">
+                                            <li>
                                                 <a href="schedules.php">
                                                     Schedules
                                                 </a>
@@ -241,83 +241,100 @@
 
                 <section role="main" class="content-body">
                     <header class="page-header">
-                        <h2>Schedule Class</h2>
+                        <h2><Sallary></Sallary> Management</h2>
 
                     </header>
 
                     <!-- start: page -->
+                    <section class="panel">
+                        <header class="panel-heading">
+                            <div class="panel-actions">
+                                <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                                <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+                            </div>
 
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <section class="panel">
-                                <header class="panel-heading">
-                                    <div class="panel-actions">
-                                        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-                                        <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
-                                    </div>
-
-                                    <h2 class="panel-title">Schedule Class</h2>
-                                </header>
+                            <h2 class="panel-title">Sallary</h2>
+                        </header>
+                        <div class="panel-body">
+                            <div class="row">
                                 <form class="form-horizontal form-bordered" method="post">
-                                    <div class="panel-body">
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="batch">Batch <span class="required">*</span></label>
-                                            <div class="col-md-6">
-                                                <select class="form-control" id="batch" name="batch" required>
-                                                <option value="nothing" selected>Select batch</option>
-                                                    <?php
-                                                    include_once '../Database_Connect.php';
+                                    <div class="col-sm-3">
+                                        <select class="form-control" id="choreodetails" name="choreodetails" required>
+                                            <option value="0">All</option>
+                                            <?php
 
-                                                    $sql_batch = "select batch_id, batch_name from batch";
-                                                    $res_batch = mysqli_query($conn, $sql_batch);
-                                                    while ($row_batch = mysqli_fetch_array($res_batch))
-                                                    {
-                                                        echo "<option value='$row_batch[0]'>$row_batch[1]</option>";
-                                                    }
-
-                                                    ?>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="scheduledate">Schedule Date <span class="required">*</span> </label>
-                                            <div class="col-md-6">
-                                                <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="fa fa-calendar"></i>
-                                        </span>
-                                                    <input id='scheduledate' type='date' class='form-control' name='scheduledate' required>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-md-3 control-label" for="scheduletime">Schedule Time <span class="required">*</span> </label>
-                                            <div class="col-md-6">
-                                                <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <i class="fa fa-clock-o"></i>
-                                        </span>
-                                                    <input id='scheduletime' type='time' class='form-control' name='scheduletime' required>
-                                                </div>
-                                            </div>
-                                        </div>
-
+                                            include_once '../Database_Connect.php';
+                                            $res = $conn->query("select choreographer_id, choreographer_name from choreographer");
+                                            while ($row = $res->fetch_array())
+                                            {
+                                                echo "<option value='$row[0]'>$row[1]</option>";
+                                            }
+                                            ?>
+                                        </select>
                                     </div>
-                                    <footer class="panel-footer">
-                                        <div class="row">
-                                            <div class="col-sm-9 col-sm-offset-3">
-                                                <input class="btn btn-primary" type="submit" name="add_schedule" id="add_schedule">
-                                                <button type="reset" class="btn btn-default">Reset</button>
-                                            </div>
-                                        </div>
-                                    </footer>
-                                </form>
-                            </section>
-                        </div>
-                    </div>
 
+                                    <div class="col-sm-3">
+                                        <input type="submit" value="Get details" class="btn btn-primary" name="get_details" id="get_details"></input>
+                                    </div>
+
+
+                                </form>
+                                <a href="pay_sallary.php"><button class="btn btn-success">Pay Salary</button></a>
+
+                            </div>
+
+                            <div class="mb-md">
+
+                            </div>
+
+                            <table class="table table-bordered table-striped mb-none" id="tester_table">
+                                <thead>
+                                <tr>
+                                    <th>Choreographer</th>
+                                    <th>Salary</th>
+                                    <th>Paid Date</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+
+                                include_once '../Database_Connect.php';
+
+                                if (isset($_POST['get_details']))
+                                {
+                                    if ($_POST['choreodetails']==0)
+                                    {
+                                        $sel_all_choreo = "select * from sallary";
+                                        $res_all_choreo = $conn->query($sel_all_choreo);
+                                        while ($row_all_choreo = $res_all_choreo->fetch_array())
+                                        {
+                                            echo "<tr>";
+                                            $choreo_row = mysqli_fetch_array($conn->query("select choreographer_name from choreographer where choreographer_id='$row_all_choreo[0]'"));
+                                            echo "<td>$choreo_row[0]</td>";
+                                            echo "<td>$row_all_choreo[2]</td>";
+                                            echo "<td>$row_all_choreo[3]</td>";
+                                        }
+                                    }
+                                    if ($_POST['choreodetails']!=0)
+                                    {
+                                        $choreo = $_POST['choreodetails'];
+                                        $sel_choreo = "select * from sallary where choreo_id='$choreo'";
+                                        $res_choreo = $conn->query($sel_choreo);
+                                        while ($row_choreo = $res_choreo->fetch_array())
+                                        {
+                                            echo "<tr>";
+                                            $choreo_row = mysqli_fetch_array($conn->query("select choreographer_name from choreographer where choreographer_id='$choreo'"));
+                                            echo "<td>$choreo_row[0]</td>";
+                                            echo "<td>$row_choreo[2]</td>";
+                                            echo "<td>$row_choreo[3]</td>";
+                                        }
+                                    }
+                                }
+                                ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
                     <!-- end: page -->
                 </section>
 			</div>
@@ -360,14 +377,7 @@
 		<script src="assets/vendor/jqvmap/maps/continents/jquery.vmap.europe.js"></script>
 		<script src="assets/vendor/jqvmap/maps/continents/jquery.vmap.north-america.js"></script>
 		<script src="assets/vendor/jqvmap/maps/continents/jquery.vmap.south-america.js"></script>
-
-        <script type="text/javascript">
-            $(function () {
-                $('.datepicker').datepicker({
-                    startDate: new Date()
-                });
-            });
-        </script>
+		
 		<!-- Theme Base, Components and Settings -->
 		<script src="assets/javascripts/theme.js"></script>
 		
@@ -382,35 +392,3 @@
 
 	</body>
 </html>
-
-<?php
-
-if (isset($_POST['add_schedule']))
-{
-    $batch = $_POST['batch'];
-    $schedule_date = $_POST['scheduledate'];
-    $schedule_time = $_POST['scheduletime'];
-    if ($batch == "nothing")
-    {
-        echo "<script>alert('Please select a batch...')</script>";
-    }
-    else if (strtotime($schedule_date) < strtotime(date('Y-m-d')))
-    {
-        echo "<script>alert('Please select a date from today...')</script>";
-    }
-    else
-    {
-        $ins_schedule =  "INSERT INTO schedule (batch_id,schedule_date,schedule_time) values ('$batch','$schedule_date','$schedule_time')";
-        $req_schedule = mysqli_query($conn, $ins_schedule);
-
-        if($req_schedule == true)
-        {
-            echo "<script>alert('Class scheduled Successfully...')</script>";
-            echo "<script>window.location='schedules.php'</script>";
-        }
-        else
-        {
-            echo "<script>alert('Error in scheduling class')</script>";
-        }
-    }
-}
