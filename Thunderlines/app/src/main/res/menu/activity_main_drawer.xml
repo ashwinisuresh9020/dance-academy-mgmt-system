@@ -17,6 +17,10 @@
             android:icon="@drawable/logo_profile"
             android:title="Profile" />
         <item
+            android:id="@+id/nav_events"
+            android:icon="@drawable/logo_star"
+            android:title="Events" />
+        <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/logo_logout"
             android:title="Logout" />

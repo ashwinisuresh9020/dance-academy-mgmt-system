@@ -5,7 +5,7 @@
     <!-- Basic -->
     <meta charset="UTF-8">
 
-    <title>Admin Dashboard | THUNDERLINES</title>
+    <title>Add Event | THUNDERLINES</title>
     <meta name="keywords" content="HTML5 Admin Template" />
     <meta name="description" content="Porto Admin - Responsive HTML5 Template">
     <meta name="author" content="okler.net">
@@ -241,72 +241,82 @@
 
         <section role="main" class="content-body">
             <header class="page-header">
-                <h2>Event List</h2>
+                <h2>Update Event</h2>
 
             </header>
 
             <!-- start: page -->
-            <section class="panel">
-                <header class="panel-heading">
-                    <div class="panel-actions">
-                        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-                        <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
-                    </div>
 
-                    <h2 class="panel-title">Events</h2>
-                </header>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="mb-md">
-                                <a href="event_add.php">
-                                    <button id="addeventbtn" class="btn btn-primary">Add <i class="fa fa-plus"></i> </button>
-                                </a>
+            <div class="row">
+                <div class="col-lg-12">
+                    <section class="panel">
+                        <header class="panel-heading">
+                            <div class="panel-actions">
+                                <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                                <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
                             </div>
-                        </div>
-                    </div>
-                    <table class="table table-bordered table-striped mb-none" id="tester_table">
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Event Date</th>
-                            <th>Status</th>
-                            <th>Details</th>
-                        </tr>
-                        </thead>
-                        <tbody>
+
+                            <h2 class="panel-title">Add Event</h2>
+                        </header>
                         <?php
-                        $server_name = "localhost";
-                        $user_name = "root";
-                        $password = "";
-                        $database = "dance-academy";
+                            $event = $_GET['id'];
+                            include_once '../Database_Connect.php';
 
-                        $conn = new mysqli($server_name, $user_name, $password, $database);
-
-                        $event_sel = "select * from events";
-                        $res = $conn->query($event_sel);
-                        while ($row = $res->fetch_array())
-                        {
-                            echo "<tr>";
-                            echo "<td>$row[1]</td>";
-                            echo "<td>$row[3]</td>";
-                            echo "<td>$row[4]</td>";
-                            if ($row[5]==1)
-                            {
-                                echo "<td>Active</td>";
-                            }
-                            if ($row[5]==0)
-                            {
-                                echo "<td>Inactive</td>";
-                            }
-                            echo "<td><a href='event_update.php?id=$row[0]'><button class='btn btn-primary'>Details</button></a></td>";
-                        }
+                            $event_det = mysqli_fetch_array($conn->query("select event_name, event_description, event_date from events where event_id='$event'"));
                         ?>
-                        </tbody>
-                    </table>
+                        <form method="post" enctype="multipart/form-data" action="">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="nameofevent">Event Name <span class="required">*</span></label>
+                                    <div class="col-md-6">
+                                        <?php
+                                            echo "<input type='text' class='form-control' id='nameofevent' name='nameofevent' value='$event_det[0]' required>";
+                                        ?>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="eventdate">Event Date <span class="required">*</span> </label>
+                                    <div class="col-md-6">
+                                        <?php
+                                        echo "<input type='text' class='form-control' id='eventdate' name='eventdate' value='$event_det[2]' disabled>";
+                                        ?>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="eventdesc">Description <span class="required">*</span></label>
+                                    <div class="col-md-6">
+                                        <?php
+                                            echo "<textarea class='form-control' id='eventdesc' name='eventdesc' required>$event_det[1]</textarea>";
+                                        ?>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="event_status">Event Poster <span class="required">*</span></label>
+                                    <div class="col-md-6">
+                                        <select class="form-control" id="event_status" name="event_status" required>
+                                            <option value="1">Active</option>
+                                            <option value="0">Inactive</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <footer class="panel-footer">
+                                <div class="row">
+                                    <div class="col-sm-9 col-sm-offset-3">
+                                        <button class="btn btn-primary" type="submit" name="eventupdate" id="eventupdate">Update event</button>
+                                    </div>
+                                </div>
+                            </footer>
+                        </form>
+                    </section>
                 </div>
-            </section>
+            </div>
+
             <!-- end: page -->
         </section>
     </div>
@@ -366,4 +376,18 @@
 
 <?php
 
+require_once '../Database_Connect.php';
 
+if (isset($_POST['eventupdate']))
+{
+    $event_name = $_POST['nameofevent'];
+    $event_desc = $_POST['eventdesc'];
+    $event_status = $_POST['event_status'];
+
+    $query = "update events set event_name='$event_name', event_description='$event_desc', event_status='$event_status' where event_id='$event'";
+    if(mysqli_query($conn,$query))
+    {
+        echo "<script>alert('Event updated successfully...')</script>";
+        echo "<script>window.location='event_details.php'</script>";
+    }
+}

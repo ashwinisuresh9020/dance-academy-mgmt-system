@@ -153,6 +153,27 @@ if(isset($_GET['servicecall']))
             }
         break;
 
+        case "get_events":
+
+            $stmt7 = "select * from events where event_status='1'";
+            $events = array();
+            $temp = array();
+            $res_stmt7 = $conn->query($stmt7);
+            if ($res_stmt7)
+            {
+                while ($row_stmt7 = $res_stmt7->fetch_array())
+                {
+                    $temp['event_id'] = $row_stmt7[0];
+                    $temp['event_name'] = $row_stmt7[1];
+                    $temp['event_desc'] = $row_stmt7[3];
+                    $temp['event_poster'] = $row_stmt7[2];
+                    $temp['event_date'] = $row_stmt7[4];
+                    array_push($events,$temp);
+                }
+                $response = $events;
+            }
+        break;
+
         case "add_student_dance":
             if (isTheseParametersAvailable(array('student_id','dance_id')))
             {

@@ -33,6 +33,9 @@ public interface Api {
     @POST("service_call.php?servicecall=get_dances")
     Call<JsonArray> getDances();
 
+    @POST("service_call.php?servicecall=get_events")
+    Call<JsonArray> getEvents();
+
     @POST("service_call.php?servicecall=add_student_dance")
     @FormUrlEncoded
     Call<JsonObject> addStudentDance(@Field("student_id") String studentId, @Field("dance_id") String danceId);
