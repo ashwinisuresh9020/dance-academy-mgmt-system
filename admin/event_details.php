@@ -85,7 +85,7 @@
                                     <span>Choreographer</span>
                                 </a>
                                 <ul class="nav nav-children ">
-                                    <li class="nav nav-active">
+                                    <li>
                                         <a href="choreographer_list.php">
                                             Choreographer List
                                         </a>
@@ -199,7 +199,7 @@
                                     <span>Video Requests</span>
                                 </a>
                             </li>
-                            <li>
+                            <li class="nav nav-active">
                                 <a href="event_details.php">
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                     <span>Events</span>
@@ -241,7 +241,7 @@
 
         <section role="main" class="content-body">
             <header class="page-header">
-                <h2>Choreographer List</h2>
+                <h2>Event List</h2>
 
             </header>
 
@@ -253,14 +253,14 @@
                         <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
                     </div>
 
-                    <h2 class="panel-title">Choreographer</h2>
+                    <h2 class="panel-title">Events</h2>
                 </header>
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="mb-md">
-                                <a href="choreographer_add.php">
-                                    <button id="addchoreobtn" class="btn btn-primary">Add <i class="fa fa-plus"></i> </button>
+                                <a href="event_add.php">
+                                    <button id="addeventbtn" class="btn btn-primary">Add <i class="fa fa-plus"></i> </button>
                                 </a>
                             </div>
                         </div>
@@ -269,10 +269,9 @@
                         <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Date of Birth</th>
-                            <th>House Name</th>
-                            <th>Place</th>
-                            <th>Mobile</th>
+                            <th>Description</th>
+                            <th>Event Date</th>
+                            <th>Status</th>
                             <th>Details</th>
                         </tr>
                         </thead>
@@ -285,17 +284,23 @@
 
                         $conn = new mysqli($server_name, $user_name, $password, $database);
 
-                        $choreo_sel = "select choreographer_id, choreographer_name, choreographer_dob, address, place, mobile from choreographer where email in (select user_name from login where user_type='CHOREOGRAPHER')";
-                        $res = $conn->query($choreo_sel);
+                        $event_sel = "select * from events";
+                        $res = $conn->query($event_sel);
                         while ($row = $res->fetch_array())
                         {
                             echo "<tr>";
                             echo "<td>$row[1]</td>";
-                            echo "<td>$row[2]</td>";
                             echo "<td>$row[3]</td>";
                             echo "<td>$row[4]</td>";
-                            echo "<td>$row[5]</td>";
-                            echo "<td><a href='choreographer_details.php?id=$row[0]'><button class='btn btn-primary'>Details</button></a></td>";
+                            if ($row[5]==1)
+                            {
+                                echo "<td>Active</td>";
+                            }
+                            if ($row[5]==0)
+                            {
+                                echo "<td>Inactive</td>";
+                            }
+                            echo "<td><a href='event_details.php?id=$row[0]'><button class='btn btn-primary'>Details</button></a></td>";
                         }
                         ?>
                         </tbody>

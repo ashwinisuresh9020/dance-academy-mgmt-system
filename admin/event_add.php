@@ -5,7 +5,7 @@
     <!-- Basic -->
     <meta charset="UTF-8">
 
-    <title>Admin Dashboard | THUNDERLINES</title>
+    <title>Add Event | THUNDERLINES</title>
     <meta name="keywords" content="HTML5 Admin Template" />
     <meta name="description" content="Porto Admin - Responsive HTML5 Template">
     <meta name="author" content="okler.net">
@@ -85,7 +85,7 @@
                                     <span>Choreographer</span>
                                 </a>
                                 <ul class="nav nav-children ">
-                                    <li class="nav nav-active">
+                                    <li>
                                         <a href="choreographer_list.php">
                                             Choreographer List
                                         </a>
@@ -199,7 +199,7 @@
                                     <span>Video Requests</span>
                                 </a>
                             </li>
-                            <li>
+                            <li class="nav nav-active">
                                 <a href="event_details.php">
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                     <span>Events</span>
@@ -241,67 +241,72 @@
 
         <section role="main" class="content-body">
             <header class="page-header">
-                <h2>Choreographer List</h2>
+                <h2>Add Event</h2>
 
             </header>
 
             <!-- start: page -->
-            <section class="panel">
-                <header class="panel-heading">
-                    <div class="panel-actions">
-                        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-                        <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
-                    </div>
 
-                    <h2 class="panel-title">Choreographer</h2>
-                </header>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="mb-md">
-                                <a href="choreographer_add.php">
-                                    <button id="addchoreobtn" class="btn btn-primary">Add <i class="fa fa-plus"></i> </button>
-                                </a>
+            <div class="row">
+                <div class="col-lg-12">
+                    <section class="panel">
+                        <header class="panel-heading">
+                            <div class="panel-actions">
+                                <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                                <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
                             </div>
-                        </div>
-                    </div>
-                    <table class="table table-bordered table-striped mb-none" id="tester_table">
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Date of Birth</th>
-                            <th>House Name</th>
-                            <th>Place</th>
-                            <th>Mobile</th>
-                            <th>Details</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                        $server_name = "localhost";
-                        $user_name = "root";
-                        $password = "";
-                        $database = "dance-academy";
 
-                        $conn = new mysqli($server_name, $user_name, $password, $database);
+                            <h2 class="panel-title">Add Event</h2>
+                        </header>
+                        <form method="post" enctype="multipart/form-data" action="">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="nameofevent">Event Name <span class="required">*</span></label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control" id="nameofevent" name="nameofevent" required>
+                                    </div>
+                                </div>
 
-                        $choreo_sel = "select choreographer_id, choreographer_name, choreographer_dob, address, place, mobile from choreographer where email in (select user_name from login where user_type='CHOREOGRAPHER')";
-                        $res = $conn->query($choreo_sel);
-                        while ($row = $res->fetch_array())
-                        {
-                            echo "<tr>";
-                            echo "<td>$row[1]</td>";
-                            echo "<td>$row[2]</td>";
-                            echo "<td>$row[3]</td>";
-                            echo "<td>$row[4]</td>";
-                            echo "<td>$row[5]</td>";
-                            echo "<td><a href='choreographer_details.php?id=$row[0]'><button class='btn btn-primary'>Details</button></a></td>";
-                        }
-                        ?>
-                        </tbody>
-                    </table>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="eventdate">Event Date <span class="required">*</span> </label>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                            <input id="eventdate" type="date" class="form-control" name="eventdate"  required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="eventdesc">Description <span class="required">*</span></label>
+                                    <div class="col-md-6">
+                                        <textarea class="form-control" id="eventdesc" name="eventdesc" required></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="file">Event Poster <span class="required">*</span></label>
+                                    <div class="col-md-6">
+                                        <input type="file" class="form-control fileupload" id="file" name="file" required>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <footer class="panel-footer">
+                                <div class="row">
+                                    <div class="col-sm-9 col-sm-offset-3">
+                                        <button class="btn btn-primary" type="submit" name="eventadd" id="eventadd">Add event</button>
+                                    </div>
+                                </div>
+                            </footer>
+                        </form>
+                    </section>
                 </div>
-            </section>
+            </div>
+
             <!-- end: page -->
         </section>
     </div>
@@ -361,4 +366,51 @@
 
 <?php
 
+require_once '../Database_Connect.php';
 
+if (isset($_POST['eventadd']))
+{
+    $todayDate = date("Y-m-d");
+    $event_name = $_POST['nameofevent'];
+    $event_date = $_POST['eventdate'];
+    $event_desc = $_POST['eventdesc'];
+    $maxsize = 5242880; //5MB
+
+    /*echo "<script>alert('$event_name')</script>";
+    echo "<script>alert('$event_date')</script>";
+    echo "<script>alert('$event_desc')</script>";*/
+
+    $name = $_FILES['file']['name'];
+    $target_dir = "events/";
+    $target_file = $target_dir . basename($_FILES["file"]["name"]);
+    // Select file type
+    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+    // Valid file extensions
+    $extensions_arr = array("jpg","jpeg","png","gif");
+
+    if($event_date < $todayDate)
+    {
+        echo "<script>alert('Please select a date from today...')</script>";
+    }
+    else
+    {
+        if( in_array($imageFileType,$extensions_arr) ){
+            // Upload file
+            if(move_uploaded_file($_FILES['file']['tmp_name'],$target_file)){
+                // Insert record
+                $query = "insert into events(event_name, event_poster, event_description, event_date, event_status) values ('$event_name','$target_file','$event_desc','$event_date','1')";
+                if(mysqli_query($conn,$query))
+                {
+                    echo "<script>alert('Event added successfully...')</script>";
+                    echo "<script>window.location='event_details.php'</script>";
+                }
+            }
+
+        }
+        else
+        {
+            echo "<script>alert('Invalid file extension.')</script>";
+        }
+    }
+}

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2021 at 08:50 PM
+-- Generation Time: May 20, 2021 at 06:16 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -44,7 +44,25 @@ INSERT INTO `attendance` (`attendance_id`, `attendance_date`, `stud_id`, `choreo
 (11, '2021-05-10', 4, NULL, 1),
 (12, '2021-05-11', NULL, 1, 1),
 (15, '2021-05-11', 4, NULL, 1),
-(16, '2021-05-11', 6, NULL, 0);
+(16, '2021-05-11', 6, NULL, 0),
+(28, '2021-05-16', NULL, 1, 1),
+(29, '2021-05-16', 4, NULL, 1),
+(30, '2021-05-16', 6, NULL, 0),
+(31, '2021-05-17', NULL, 1, 1),
+(32, '2021-05-17', 4, NULL, 0),
+(33, '2021-05-17', 6, NULL, 0),
+(34, '2021-05-18', NULL, 1, 1),
+(35, '2021-05-18', 4, NULL, 1),
+(36, '2021-05-18', 6, NULL, 1),
+(37, '2021-05-15', NULL, 1, 1),
+(38, '2021-05-15', 4, NULL, 1),
+(39, '2021-05-15', 6, NULL, 1),
+(40, '2021-05-19', NULL, 1, 1),
+(41, '2021-05-19', 4, NULL, 1),
+(42, '2021-05-19', 6, NULL, 0),
+(43, '2021-05-20', NULL, 1, 1),
+(44, '2021-05-20', 4, NULL, 1),
+(45, '2021-05-20', 6, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -181,6 +199,31 @@ CREATE TABLE `dance` (
 INSERT INTO `dance` (`dance_id`, `dance_name`, `dance_price`, `dance_description`, `dance_status`) VALUES
 (1, 'HipHop ', 600, 'Hiphop dance, ', 1),
 (2, 'Classic', 1200, 'Classic dance', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `events`
+--
+
+CREATE TABLE `events` (
+  `event_id` int(11) NOT NULL,
+  `event_name` varchar(40) NOT NULL,
+  `event_poster` text NOT NULL,
+  `event_description` text NOT NULL,
+  `event_date` date NOT NULL,
+  `event_status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `events`
+--
+
+INSERT INTO `events` (`event_id`, `event_name`, `event_poster`, `event_description`, `event_date`, `event_status`) VALUES
+(11, 'Lets Dance Guys', 'events/download.jpg', 'Life is all about dancing.,,', '2021-05-22', 1),
+(12, 'Lets Dance ', 'events/demo_poster.jpg', 'Life can be more realistic with dance', '2021-05-23', 1),
+(13, 'Party Night', 'events/demo_poster.jpg', 'A night which can be completely dedicated to dance', '2021-05-23', 1),
+(15, 'DJ Night', 'events/download.jpg', 'Life is all about enjoying', '2021-05-22', 1);
 
 -- --------------------------------------------------------
 
@@ -624,6 +667,12 @@ ALTER TABLE `dance`
   ADD PRIMARY KEY (`dance_id`);
 
 --
+-- Indexes for table `events`
+--
+ALTER TABLE `events`
+  ADD PRIMARY KEY (`event_id`);
+
+--
 -- Indexes for table `fees`
 --
 ALTER TABLE `fees`
@@ -692,7 +741,7 @@ ALTER TABLE `video_class`
 -- AUTO_INCREMENT for table `attendance`
 --
 ALTER TABLE `attendance`
-  MODIFY `attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `batch`
@@ -723,6 +772,12 @@ ALTER TABLE `choreographer_leave`
 --
 ALTER TABLE `dance`
   MODIFY `dance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `events`
+--
+ALTER TABLE `events`
+  MODIFY `event_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `fees`

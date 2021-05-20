@@ -200,7 +200,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">
+                                        <a href="event_details.php">
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                             <span>Events</span>
                                         </a>

@@ -200,7 +200,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">
+                                        <a href="event_details.php">
                                             <i class="fa fa-star" aria-hidden="true"></i>
                                             <span>Events</span>
                                         </a>
@@ -347,26 +347,3 @@
 
 	</body>
 </html>
-
-<?php
-
-require_once '../Database_Connect.php';
-
-if (isset($_POST['add_stud']))
-{
-    $student_id = $_POST['studentdetails'];
-    if ($student_id == "nothing")
-    {
-        echo "<script>alert('Please select a student...')</script>";
-    }
-    else
-    {
-        $ins_stud = "update student set batch_id=".htmlspecialchars($_GET['bid'])." where student_id='$student_id'";
-        $stud_res = $conn->query($ins_stud);
-        if ($stud_res)
-        {
-            echo "<script>alert('Student Added Successfully...')</script>";
-            echo "<script>window.location='batches.php'</script>";
-        }
-    }
-}

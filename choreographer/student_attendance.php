@@ -175,7 +175,7 @@ session_start();
                             <tr>
                                 <th>Student ID</th>
                                 <th>Full Name</th>
-                                <th>Attendance</th>
+                                <th colspan="2">Attendance</th>
                             </tr>
                             </thead>
                             <tbody>
