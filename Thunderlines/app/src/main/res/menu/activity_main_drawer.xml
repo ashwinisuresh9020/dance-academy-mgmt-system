@@ -8,21 +8,31 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/logo_home"
             android:title="@string/menu_home" />
+
         <item
             android:id="@+id/nav_fee_dues"
             android:icon="@drawable/logo_dues"
             android:title="Fee Dues" />
+
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/logo_profile"
             android:title="Profile" />
+
+        <item
+            android:id="@+id/nav_chat"
+            android:icon="@drawable/logo_chat"
+            android:title="Chat with Admin" />
+
         <item
             android:id="@+id/nav_events"
             android:icon="@drawable/logo_star"
             android:title="Events" />
+
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/logo_logout"
             android:title="Logout" />
+
     </group>
 </menu>

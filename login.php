@@ -25,7 +25,7 @@ if(isset($_POST['submit']))
             $res_choreo_id = $conn->query($sel_choreo_id);
             $row_choreo_id = $res_choreo_id->fetch_array();
 
-            $res_choreo_attendance = $conn->query("select * from attendance where attendance_date='$tod'");
+            $res_choreo_attendance = $conn->query("select * from attendance where attendance_date='$tod' and choreo_id=$row_choreo_id[0]");
             if ($res_choreo_attendance->num_rows == 0)
             {
                 $res_add_attendance = $conn->query("insert into attendance(attendance_date,choreo_id,attendance_status) values ('$tod','$row_choreo_id[0]','1')");

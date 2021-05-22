@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_chat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/relative_chat"
+        android:layout_alignParentTop="true"/>
+
+    <RelativeLayout
+        android:id="@+id/relative_chat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_alignParentBottom="true">
+
+        <EditText
+            android:id="@+id/editTextMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Text Message"
+            android:layout_toLeftOf="@id/buttonSendMessage"
+            android:textColorHint="@android:color/black"
+            android:textSize="18sp"
+            android:layout_margin="5dp"/>
+
+        <Button
+            android:id="@+id/buttonSendMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SEND"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:drawableEnd="@drawable/logo_send"
+            android:backgroundTint="#3F51B5"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="5dp"/>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

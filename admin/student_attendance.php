@@ -294,6 +294,23 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
+                                        <select class="form-control" id="selbranch" name="selbranch" required>
+                                            <option value="nothing">Select Branch</option>
+                                            <?php
+                                                include_once '../Database_Connect.php';
+
+                                                $res_branch = $conn->query("select branch_id, branch_landmark,branch_place from branch");
+                                                while ($row_branch = $res_branch->fetch_array())
+                                                {
+                                                    echo "<option value='$row_branch[0]'>$row_branch[1], $row_branch[2]</option>";
+                                                }
+                                            ?>
+                                        </select>
+                                        <div class="mb-md">
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
                                         <input type="submit" value="View" class="btn btn-primary" name="view_attendance"></input>
                                         <div class="mb-md">
 
@@ -314,12 +331,13 @@
                                     </thead>
                                     <tbody>
                                     <?php
-                                    include_once '../Database_Connect.php';
+
 
                                     if (isset($_POST['view_attendance']))
                                     {
                                         $month = $_POST['selmonth'];
                                         $year = $_POST['selyear'];
+                                        $branch = $_POST['selbranch'];
 
                                         if ($month=="nothing")
                                         {
@@ -329,10 +347,14 @@
                                         {
                                             echo "<script>alert('Please select a year')</script>";
                                         }
+                                        else if ($branch=="nothing")
+                                        {
+                                            echo "<script>alert('Please select branch')</script>";
+                                        }
                                         else
                                         {
                                             $next_month = (int)$month + 01;
-                                            $res_stud_attendance = $conn->query("select attendance_id, stud_id, attendance_date, attendance_status from attendance where choreo_id is null and attendance_date between '$year-$month-01' and '$year-$next_month-01'");
+                                            $res_stud_attendance = $conn->query("select attendance_id, stud_id, attendance_date, attendance_status from attendance where choreo_id is null and attendance_date between '$year-$month-01' and '$year-$next_month-01' and stud_id in (select student_id from student where nearest_branch='$branch')");
                                             while ($row_stud_attendance = $res_stud_attendance->fetch_array())
                                             {
                                                 echo "<tr>";

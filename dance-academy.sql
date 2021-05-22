@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 20, 2021 at 06:16 AM
+-- Generation Time: May 22, 2021 at 06:53 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -62,7 +62,8 @@ INSERT INTO `attendance` (`attendance_id`, `attendance_date`, `stud_id`, `choreo
 (42, '2021-05-19', 6, NULL, 0),
 (43, '2021-05-20', NULL, 1, 1),
 (44, '2021-05-20', 4, NULL, 1),
-(45, '2021-05-20', 6, NULL, 1);
+(45, '2021-05-20', 6, NULL, 1),
+(46, '2021-05-20', NULL, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -154,7 +155,8 @@ CREATE TABLE `choreographer` (
 
 INSERT INTO `choreographer` (`choreographer_id`, `choreographer_name`, `choreographer_dob`, `address`, `place`, `pincode`, `district`, `mobile`, `email`, `sallary`, `qualification`) VALUES
 (1, 'Suhail A K', '1998-10-28', 'Valathel house', 'MARANCHERY', 679581, 'Malappuram', 9633058949, 'suhu3515@gmail.com', 12000, 'Bsc Danceology'),
-(2, 'Mohammed Sakkeer', '1990-10-11', 'Ward 7, valathel house', 'mavoor', 679581, 'Malappuram', 9946739215, 'mohamedsawa@gmail.com', 15000, 'Ba Arts');
+(2, 'Mohammed Sakkeer', '1990-10-11', 'Ward 7, valathel house', 'mavoor', 679581, 'Malappuram', 9946739215, 'mohamedsawa@gmail.com', 15000, 'Ba Arts'),
+(3, 'Mohammed Salih', '1998-11-14', 'Valathel house', 'MARANCHERY', 679581, 'Malappuram', 9446476392, 'mohamedsalih@gmail.com', 11000, 'Ba Arts');
 
 -- --------------------------------------------------------
 
@@ -336,7 +338,8 @@ INSERT INTO `login` (`login_id`, `user_name`, `user_type`, `password`) VALUES
 (64, 'suhu3515@gmail.com', 'CHOREOGRAPHER', 'abcd123'),
 (70, 'safwantrz@gmail.com', 'STUDENT', 'abcde'),
 (71, 'aslamkedpl12@gmail.com', 'STUDENT', 'abcdef'),
-(72, 'mohamedsawa@gmail.com', 'CHOREOGRAPHER', 'abcde123');
+(72, 'mohamedsawa@gmail.com', 'CHOREOGRAPHER', 'abcde123'),
+(73, 'mohamedsalih@gmail.com', 'CHOREOGRAPHER', 'abcd123');
 
 -- --------------------------------------------------------
 
@@ -364,7 +367,12 @@ INSERT INTO `messages` (`msg_id`, `from_id`, `to_id`, `message_title`, `message`
 (5, 1, 111, 'video_request', 'The video lecture that was provided has been completed. Therefore, requesting you for a new video lecture\r\n-Suhail A K', 0),
 (6, 1, 111, 'video_request', 'The video lecture that was provided has been completed. Therefore, requesting you for a new video lecture\r\n-Suhail A K', 0),
 (7, 1, 111, 'video_request', 'The video lecture that was provided has been completed. Therefore, requesting you for a new video lecture\r\n-Suhail A K', 0),
-(8, 1, 111, 'video_request', 'The video lecture that was provided has been completed. Therefore, requesting you for a new video lecture\r\n-Suhail A K', 0);
+(8, 1, 111, 'video_request', 'The video lecture that was provided has been completed. Therefore, requesting you for a new video lecture\r\n-Suhail A K', 0),
+(12, 6, 111, 'user_admin', 'Good', 1),
+(13, 6, 111, 'user_admin', 'Good', 1),
+(15, 48, 111, 'user_admin', 'good morning', 1),
+(16, 111, 48, 'user_admin', 'it\'s good evening dear...', 1),
+(17, 48, 111, 'user_admin', 'sorry.', 1);
 
 -- --------------------------------------------------------
 
@@ -406,7 +414,8 @@ CREATE TABLE `sallary` (
 
 INSERT INTO `sallary` (`sallary_id`, `choreo_id`, `sallary`, `paid_date`) VALUES
 (1, 1, 10000, '2021-05-19'),
-(2, 2, 9500, '2021-05-19');
+(2, 2, 9500, '2021-05-19'),
+(3, 3, 5000, '2021-05-20');
 
 -- --------------------------------------------------------
 
@@ -741,7 +750,7 @@ ALTER TABLE `video_class`
 -- AUTO_INCREMENT for table `attendance`
 --
 ALTER TABLE `attendance`
-  MODIFY `attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `batch`
@@ -759,7 +768,7 @@ ALTER TABLE `branch`
 -- AUTO_INCREMENT for table `choreographer`
 --
 ALTER TABLE `choreographer`
-  MODIFY `choreographer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `choreographer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `choreographer_leave`
@@ -789,13 +798,13 @@ ALTER TABLE `fees`
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `personal_class`
@@ -807,7 +816,7 @@ ALTER TABLE `personal_class`
 -- AUTO_INCREMENT for table `sallary`
 --
 ALTER TABLE `sallary`
-  MODIFY `sallary_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `sallary_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `schedule`
@@ -819,7 +828,7 @@ ALTER TABLE `schedule`
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
 
 --
 -- AUTO_INCREMENT for table `student_dance`

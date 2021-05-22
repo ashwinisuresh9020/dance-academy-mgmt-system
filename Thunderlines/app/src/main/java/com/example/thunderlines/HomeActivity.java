@@ -2,6 +2,7 @@ package com.example.thunderlines;
 
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
@@ -25,6 +26,7 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,6 +44,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private AppBarConfiguration mAppBarConfiguration;
     Student student;
     public static List<Events> eventsList;
+    public static List<Chat> chatList;
+    public SwipeRefreshLayout pullToRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +54,32 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        if (savedInstanceState == null)
+        {
+            displaySelectedScreen(R.id.nav_home);
+        }
+
+        pullToRefresh = findViewById(R.id.refresh_activity);
+
+        student = SharedPrefManager.getInstance(this).getStudent();
+
         if (android.os.Build.VERSION.SDK_INT > 9)
         {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
+
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                finish();
+                overridePendingTransition(0, 0);
+                startActivity(getIntent());
+                overridePendingTransition(0, 0);
+
+            }
+        });
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -63,6 +88,40 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         eventsList = new ArrayList<>();
+        chatList = new ArrayList<>();
+
+        Call<JsonArray> getMessagesCall = RetrofitClient.getInstance().getMyApi().getChats(String.valueOf(student.getStudentId()));
+        getMessagesCall.enqueue(new Callback<JsonArray>() {
+            @Override
+            public void onResponse(Call<JsonArray> call, Response<JsonArray> response) {
+
+                if (response.isSuccessful())
+                {
+                    try
+                    {
+                        JSONArray array = new JSONArray(response.body().toString());
+                        for (int j=0;j<array.length();j++)
+                        {
+                            JSONObject jsonObject = array.getJSONObject(j);
+                            chatList.add(new Chat(Integer.parseInt(jsonObject.getString("message_id")),
+                                    jsonObject.getString("sender"),
+                                    jsonObject.getString("message")));
+                        }
+                    }
+                    catch (JSONException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonArray> call, Throwable t) {
+
+                Toast.makeText(HomeActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e( "onFailurechats: ", t.getMessage());
+            }
+        });
 
         Call<JsonArray> getEventsCall = RetrofitClient.getInstance().getMyApi().getEvents();
         getEventsCall.enqueue(new Callback<JsonArray>() {
@@ -102,7 +161,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        displaySelectedScreen(R.id.nav_home);
+        //displaySelectedScreen(R.id.nav_home);
 
 
 
@@ -126,8 +185,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_events:
                 fragment = new EventFragment();
                 break;
+            case R.id.nav_chat:
+                fragment = new ChatFragment();
+                break;
             case R.id.nav_logout:
                 SharedPrefManager.getInstance(this).logout();
+                break;
         }
 
         if (fragment != null)

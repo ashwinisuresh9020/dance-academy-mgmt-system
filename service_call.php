@@ -225,6 +225,68 @@ if(isset($_GET['servicecall']))
                 $response['error'] = true;
                 $response['message'] = 'required parameters are not available';
             }
+        break;
+
+        case "get_messages":
+
+            if (isTheseParametersAvailable(array('student_id')))
+            {
+                $student = $_POST['student_id'];
+
+                $stmt8 = "select * from messages where message_title='user_admin' and msg_id in (select msg_id from messages where from_id='$student' or to_id='$student')";
+                $res_stmt8 = $conn->query($stmt8);
+                $temp = array();
+                $messages = array();
+                while ($row_stmt8 = $res_stmt8->fetch_array())
+                {
+                    $temp['message_id'] = $row_stmt8[0];
+                    if ($row_stmt8[1]==111)
+                    {
+                        $temp['sender'] = 'ADMIN';
+                    }
+                    else
+                    {
+                        $row_stud = mysqli_fetch_array($conn->query("select student_name from student where student_id='$row_stmt8[1]'"));
+                        $temp['sender'] = $row_stud[0];
+                    }
+                    $temp['message'] = $row_stmt8[4];
+                    array_push($messages,$temp);
+                }
+                $response = $messages;
+            }
+            else
+            {
+                $response['error'] = true;
+                $response['message'] = 'required parameters are not available';
+            }
+        break;
+
+        case "send_message":
+
+            if (isTheseParametersAvailable(array('student_id','message')))
+            {
+                $student = $_POST['student_id'];
+                $message = $_POST['message'];
+
+                $stmt9 = "insert into messages(from_id,to_id,message_title,message) values ('$student','111','user_admin','$message')";
+                $res_stmt9 = $conn->query($stmt9);
+                if ($res_stmt9)
+                {
+                    $response['error'] = false;
+                    $response['message'] = 'Message sent successfully...';
+                }
+                else
+                {
+                    $response['error'] = true;
+                    $response['message'] = 'Something went wrong...';
+                }
+            }
+            else
+            {
+                $response['error'] = true;
+                $response['message'] = 'required parameters are not available';
+            }
+        break;
     }
 }
 else

@@ -44,4 +44,12 @@ public interface Api {
     @FormUrlEncoded
     Call<JsonObject> getFeeDues(@Field("user_id") String userId);
 
+    @POST("service_call.php?servicecall=get_messages")
+    @FormUrlEncoded
+    Call<JsonArray> getChats(@Field("student_id") String studentId);
+
+    @POST("service_call.php?servicecall=send_message")
+    @FormUrlEncoded
+    Call<JsonObject> sendMessage(@Field("student_id") String studentId, @Field("message") String message);
+
 }
