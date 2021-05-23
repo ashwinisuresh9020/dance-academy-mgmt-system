@@ -5,7 +5,7 @@
     <!-- Basic -->
     <meta charset="UTF-8">
 
-    <title>Leave Requests | THUNDERLINES</title>
+    <title>Messages | THUNDERLINES</title>
     <meta name="keywords" content="HTML5 Admin Template" />
     <meta name="description" content="Porto Admin - Responsive HTML5 Template">
     <meta name="author" content="okler.net">
@@ -105,7 +105,7 @@
                                             Sallary Management
                                         </a>
                                     </li>
-                                    <li class="nav nav-active">
+                                    <li>
                                         <a href="leaves_list.php">
                                             Leave Management
                                         </a>
@@ -123,7 +123,7 @@
                                             Batches
                                         </a>
                                     </li>
-                                    <li>
+                                    <li class="nav nav-active">
                                         <a href="messages_list.php">
                                             Messages
                                         </a>
@@ -233,74 +233,78 @@
 
         </aside>
         <!-- end: sidebar -->
-
         <section role="main" class="content-body">
             <header class="page-header">
-                <h2>Leave Reqeuests</h2>
 
             </header>
-
             <!-- start: page -->
-            <section class="panel">
-                <header class="panel-heading">
-                    <div class="panel-actions">
-                        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-                        <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
-                    </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <?php
 
-                    <h2 class="panel-title">Leave Reqeuests</h2>
-                </header>
-                <div class="panel-body">
-                    <table class="table table-bordered table-striped mb-none" id="tester_table">
-                        <thead>
-                        <tr>
-                            <th>Choreographer</th>
-                            <th>Reason for leave</th>
-                            <th>Leave date</th>
-                            <th>Leave days</th>
-                            <th>Status</th>
-                            <th>Details</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                        $server_name = "localhost";
-                        $user_name = "root";
-                        $password = "";
-                        $database = "dance-academy";
+                        include_once '../Database_Connect.php';
+                        $student = $_GET['stId'];
 
-                        $conn = new mysqli($server_name, $user_name, $password, $database);
-
-                        $choreo_sel = "select leave_id, choreo_id, leave_reason, leave_date, leave_days, leave_status from choreographer_leave";
-                        $res = $conn->query($choreo_sel);
-                        while ($row = $res->fetch_array())
+                        $stmt8 = "select * from messages where message_title='user_admin' and msg_id in (select msg_id from messages where from_id='$student' or to_id='$student')";
+                        $res_stmt8 = $conn->query($stmt8);
+                        while ($row_stmt8 = $res_stmt8->fetch_array())
                         {
-                            echo "<tr>";
-                            $ch_res = $conn->query("select choreographer_name from choreographer where choreographer_id='$row[1]'");
-                            while ($ch_row = $ch_res->fetch_array())
+                            if ($row_stmt8[1]==111)
                             {
-                                echo "<td>$ch_row[0]</td>";
+                                $sender = 'ADMIN';
                             }
-                            echo "<td>$row[2]</td>";
-                            echo "<td>$row[3]</td>";
-                            echo "<td>$row[4]</td>";
-                            if ($row[5]==0)
+                            else
                             {
-                                echo "<td>In review</td>";
+                                $row_stud = mysqli_fetch_array($conn->query("select student_name from student where student_id='$row_stmt8[1]'"));
+                                $sender = $row_stud[0];
                             }
-                            if ($row[5]==1)
+                            if ($row_stmt8[2]==111)
                             {
-                                echo "<td>Approved</td>";
+                                $receiver = 'ADMIN';
                             }
-                            echo "<td><a href='leave_details.php?id=$row[0]'><button class='btn btn-primary'>Details</button></a></td>";
+                            else
+                            {
+                                $row_stud = mysqli_fetch_array($conn->query("select student_name from student where student_id='$row_stmt8[2]'"));
+                                $receiver = $row_stud[0];
+                            }
+                            $message = $row_stmt8[4];
+
+                            echo "<div class='panel-body'>";
+                            echo "<div class='panel-body'>";
+                            echo "<p class='panel-title'>$sender <i class='fa fa-angle-right fa-fw'></i> $receiver</p>";
+                            echo "</div>";
+                            echo "<div class='col-md-6'>";
+                            echo "<p><strong>$message</strong></p>";
+                            echo "</div>";
+                            echo "</div>";
                         }
-                        ?>
-                        </tbody>
-                    </table>
+                    ?>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel-body">
+                                <form action="" method="post">
+                                    <label class="col-md-3 control-label" for="message_admin"><strong>Message</strong></label>
+                                    <div class="col-md-12">
+                                        <textarea class="form-control" rows="3" id="message_admin" name="message_admin" data-plugin-textarea-autosize required></textarea><br>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button class="btn btn-primary" type="submit" name="send_message" id="send_message">
+                                            <i class="fa fa-send mr-xs"></i>
+                                            Send
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </section>
+            </div>
             <!-- end: page -->
         </section>
+        <!-- start: page -->
+
+        <!-- end: page -->
     </div>
 
 </section>
@@ -357,5 +361,18 @@
 </html>
 
 <?php
+if (isset($_POST['send_message']))
+{
+    $msg = $_POST['message_admin'];
 
+    $res_send_message = $conn->query("insert into messages(from_id,to_id,message_title,message) values ('111','$student','user_admin','$msg')");
+    if ($res_send_message)
+    {
+        echo "<script>window.location='message_details.php?stId=$student'</script>";
+    }
+    else
+    {
+        echo "<script>alert('Error')</script>";
+    }
+}
 

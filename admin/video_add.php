@@ -124,15 +124,10 @@
 				                                </a>
 				                            </li>
 				                            <li>
-				                                <a href="#">
+				                                <a href="messages_list.php">
 				                                    Messages
 				                                </a>
 				                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    Fee Dues
-                                                </a>
-                                            </li>
                                             <li>
                                                 <a href="schedules.php">
                                                     Schedules

@@ -5,7 +5,7 @@
     <!-- Basic -->
     <meta charset="UTF-8">
 
-    <title>Leave Requests | THUNDERLINES</title>
+    <title>Messages | THUNDERLINES</title>
     <meta name="keywords" content="HTML5 Admin Template" />
     <meta name="description" content="Porto Admin - Responsive HTML5 Template">
     <meta name="author" content="okler.net">
@@ -105,7 +105,7 @@
                                             Sallary Management
                                         </a>
                                     </li>
-                                    <li class="nav nav-active">
+                                    <li>
                                         <a href="leaves_list.php">
                                             Leave Management
                                         </a>
@@ -123,7 +123,7 @@
                                             Batches
                                         </a>
                                     </li>
-                                    <li>
+                                    <li class="nav nav-active">
                                         <a href="messages_list.php">
                                             Messages
                                         </a>
@@ -236,69 +236,67 @@
 
         <section role="main" class="content-body">
             <header class="page-header">
-                <h2>Leave Reqeuests</h2>
-
+                <h2>Message List</h2>
             </header>
 
-            <!-- start: page -->
-            <section class="panel">
-                <header class="panel-heading">
-                    <div class="panel-actions">
-                        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-                        <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
-                    </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <section class="panel-heading-transparent">
+                        <header class="panel-body">
+                            <h2 class="panel-body">Inbox</h2>
+                            <div class="col-md-3">
+                                <a href="#" class="btn btn-block btn-primary btn-md pt-sm pb-sm text-md">
+                                    <i class="fa fa-envelope mr-xs"></i>
+                                    Compose
+                                </a>
+                            </div>
+                            <section class="content-without-menu mailbox">
+                                <div class="content-without-menu-" data-mailbox data-mailbox-view="table">
+                                    <div class="body mailbox-folder">
+                                        <!-- START: .mailbox-header -->
+                                        <!-- END: .mailbox-header -->
 
-                    <h2 class="panel-title">Leave Reqeuests</h2>
-                </header>
-                <div class="panel-body">
-                    <table class="table table-bordered table-striped mb-none" id="tester_table">
-                        <thead>
-                        <tr>
-                            <th>Choreographer</th>
-                            <th>Reason for leave</th>
-                            <th>Leave date</th>
-                            <th>Leave days</th>
-                            <th>Status</th>
-                            <th>Details</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                        $server_name = "localhost";
-                        $user_name = "root";
-                        $password = "";
-                        $database = "dance-academy";
+                                        <!-- START: .mailbox-actions -->
 
-                        $conn = new mysqli($server_name, $user_name, $password, $database);
+                                        <!-- END: .mailbox-actions -->
 
-                        $choreo_sel = "select leave_id, choreo_id, leave_reason, leave_date, leave_days, leave_status from choreographer_leave";
-                        $res = $conn->query($choreo_sel);
-                        while ($row = $res->fetch_array())
-                        {
-                            echo "<tr>";
-                            $ch_res = $conn->query("select choreographer_name from choreographer where choreographer_id='$row[1]'");
-                            while ($ch_row = $ch_res->fetch_array())
-                            {
-                                echo "<td>$ch_row[0]</td>";
-                            }
-                            echo "<td>$row[2]</td>";
-                            echo "<td>$row[3]</td>";
-                            echo "<td>$row[4]</td>";
-                            if ($row[5]==0)
-                            {
-                                echo "<td>In review</td>";
-                            }
-                            if ($row[5]==1)
-                            {
-                                echo "<td>Approved</td>";
-                            }
-                            echo "<td><a href='leave_details.php?id=$row[0]'><button class='btn btn-primary'>Details</button></a></td>";
-                        }
-                        ?>
-                        </tbody>
-                    </table>
+                                        <div id="mailbox-email-list" class="mailbox-email-list">
+                                            <div class="nano">
+                                                <div class="nano-content">
+                                                    <ul id="" class="list-unstyled">
+                                                        <?php
+                                                        include_once '../Database_Connect.php';
+
+                                                        $res_inbox = $conn->query("select distinct from_id,message from messages where message_title='user_admin' and to_id='111' and from_id in (select distinct from_id from messages where message_title='user_admin' and to_id='111')");
+                                                        while ($row_inbox = $res_inbox->fetch_array())
+                                                        {
+                                                            $row_student = mysqli_fetch_array($conn->query("select student_name from student where student_id='$row_inbox[0]'"));
+                                                            echo "<li>";
+                                                            echo "<a href='message_details.php?stId=$row_inbox[0]'>";
+                                                            echo "<div class='col-sender'>";
+                                                            echo "<p class='m-none ib'>$row_student[0]</p>";
+                                                            echo "</div>";
+                                                            echo "<div class='col-mail'>";
+                                                            echo "<p class='m-none mail-content'>";
+                                                            echo "<span class='subject'>$row_inbox[1]</span>";
+                                                            echo "</p>";
+                                                            echo "</div>";
+                                                            echo "</a>";
+                                                            echo "</li>";
+                                                        }
+                                                        ?>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </header>
+                    </section>
                 </div>
-            </section>
+            </div>
+            <!-- start: page -->
             <!-- end: page -->
         </section>
     </div>

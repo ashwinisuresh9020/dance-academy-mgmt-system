@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 22, 2021 at 06:53 PM
+-- Generation Time: May 23, 2021 at 01:40 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -372,7 +372,23 @@ INSERT INTO `messages` (`msg_id`, `from_id`, `to_id`, `message_title`, `message`
 (13, 6, 111, 'user_admin', 'Good', 1),
 (15, 48, 111, 'user_admin', 'good morning', 1),
 (16, 111, 48, 'user_admin', 'it\'s good evening dear...', 1),
-(17, 48, 111, 'user_admin', 'sorry.', 1);
+(17, 48, 111, 'user_admin', 'sorry.', 1),
+(31, 7, 111, 'user_admin', 'Hello sir', 1),
+(32, 9, 111, 'user_admin', 'Hello sir,', 1),
+(33, 9, 111, 'user_admin', 'I would like to file a complaint against the choreographer', 1),
+(34, 2, 111, 'user_admin', 'Hi sir', 1),
+(35, 2, 111, 'user_admin', 'Are you free to talk???', 1),
+(36, 11, 111, 'user_admin', 'Enthaanu sir ith', 1),
+(37, 11, 111, 'user_admin', 'Ithu Shari alal', 1),
+(38, 11, 111, 'user_admin', 'alla *', 1),
+(39, 24, 111, 'user_admin', 'Hello sir', 1),
+(40, 23, 111, 'user_admin', 'Good night sir...', 1),
+(41, 23, 111, 'user_admin', 'Good night sir...', 1),
+(42, 23, 111, 'user_admin', 'Hello sir', 1),
+(43, 23, 111, 'user_admin', 'good for growing', 1),
+(44, 23, 111, 'user_admin', 'Hawaii is my favourite destination', 1),
+(174, 111, 48, 'user_admin', 'Thats ok', 1),
+(175, 111, 48, 'user_admin', 'What do you do now???', 1);
 
 -- --------------------------------------------------------
 
@@ -804,7 +820,7 @@ ALTER TABLE `login`
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=176;
 
 --
 -- AUTO_INCREMENT for table `personal_class`
