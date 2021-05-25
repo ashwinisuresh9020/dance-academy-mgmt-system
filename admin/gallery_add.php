@@ -5,7 +5,7 @@
 		<!-- Basic -->
 		<meta charset="UTF-8">
 
-		<title>Admin Dashboard | THUNDERLINES</title>
+		<title>Add Gallery | THUNDERLINES</title>
 		<meta name="keywords" content="HTML5 Admin Template" />
 		<meta name="description" content="Porto Admin - Responsive HTML5 Template">
 		<meta name="author" content="okler.net">
@@ -118,7 +118,7 @@
 				                            <span>Students</span>
 				                        </a>
 				                        <ul class="nav nav-children">
-				                            <li class="nav">
+				                            <li>
 				                                <a href="batches.php">
 				                                    Batches
 				                                </a>
@@ -146,7 +146,7 @@
 				                            <span>Attendance Management</span>
 				                        </a>
 				                        <ul class="nav nav-children">
-				                            <li class="nav nav-active">
+				                            <li>
 				                                <a href="student_attendance.php">
 				                                    Students
 				                                </a>
@@ -170,7 +170,7 @@
                                             <span>Fee details</span>
                                         </a>
                                     </li>
-                                    <li>
+                                    <li class="nav nav-active">
                                         <a href="gallery.php">
                                             <i class="fa fa-image" aria-hidden="true"></i>
                                             <span>Gallery</span>
@@ -230,149 +230,55 @@
 
                 <section role="main" class="content-body">
                     <header class="page-header">
-                        <h2>Student Attendance</h2>
+                        <h2>Gallery</h2>
 
                     </header>
 
                     <!-- start: page -->
-                    <section class="panel">
-                        <header class="panel-heading">
-                            <div class="panel-actions">
-                                <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-                                <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
-                            </div>
 
-                            <h2 class="panel-title">Student Attendance</h2>
-                        </header>
-                        <form class="form-horizontal form-bordered" method="post">
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <select class="form-control" id="selmonth" name="selmonth" required>
-                                            <option value="nothing">Select Month</option>
-                                            <option value="01">January</option>
-                                            <option value="02">February</option>
-                                            <option value="03">March</option>
-                                            <option value="04">April</option>
-                                            <option value="05">May</option>
-                                            <option value="06">June</option>
-                                            <option value="07">July</option>
-                                            <option value="08">August</option>
-                                            <option value="09">September</option>
-                                            <option value="10">October</option>
-                                            <option value="11">November</option>
-                                            <option value="12">December</option>
-                                        </select>
-                                        <div class="mb-md">
-
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <select class="form-control" id="selyear" name="selyear" required>
-                                            <option value="nothing">Select Year</option>
-                                            <option value="2021">2021</option>
-                                            <option value="2020">2020</option>
-                                            <option value="2019">2019</option>
-                                            <option value="2018">2018</option>
-                                            <option value="2017">2017</option>
-                                            <option value="2016">2016</option>
-                                            <option value="2015">2015</option>
-                                        </select>
-                                        <div class="mb-md">
-
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <select class="form-control" id="selbranch" name="selbranch" required>
-                                            <option value="nothing">Select Branch</option>
-                                            <?php
-                                                include_once '../Database_Connect.php';
-
-                                                $res_branch = $conn->query("select branch_id, branch_landmark,branch_place from branch");
-                                                while ($row_branch = $res_branch->fetch_array())
-                                                {
-                                                    echo "<option value='$row_branch[0]'>$row_branch[1], $row_branch[2]</option>";
-                                                }
-                                            ?>
-                                        </select>
-                                        <div class="mb-md">
-
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <input type="submit" value="View" class="btn btn-primary" name="view_attendance"></input>
-                                        <div class="mb-md">
-
-                                        </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <section class="panel">
+                                <header class="panel-heading">
+                                    <div class="panel-actions">
+                                        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                                        <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
                                     </div>
 
-                                </div>
-                                <table class="table table-bordered table-striped mb-none" id="tester_table">
-                                    <thead>
-                                    <tr>
-                                        <th>Student ID</th>
-                                        <th>Student Name</th>
-                                        <th>Address</th>
-                                        <th>Mobile Number</th>
-                                        <th>Date</th>
-                                        <th>Attendance</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php
+                                    <h2 class="panel-title">Gallery</h2>
+                                </header>
+                                <form class="form-horizontal form-bordered" method="post" enctype="multipart/form-data" action="">
+                                    <div class="panel-body">
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="imagetitle">Image Title <span class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control" id="imagetitle" name="imagetitle" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-3 control-label" for="file">Image <span class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <input type="file" class="form-control" id="image" name="image" required>
+                                            </div>
+                                        </div>
 
 
-                                    if (isset($_POST['view_attendance']))
-                                    {
-                                        $month = $_POST['selmonth'];
-                                        $year = $_POST['selyear'];
-                                        $branch = $_POST['selbranch'];
+                                    </div>
+                                    <footer class="panel-footer">
+                                        <div class="row">
+                                            <div class="col-sm-9 col-sm-offset-3">
+                                                <input class="btn btn-primary" type="submit" name="upload_image" id="upload_image">
+                                                <button type="reset" class="btn btn-default">Reset</button>
+                                            </div>
+                                        </div>
+                                    </footer>
+                                </form>
+                            </section>
+                        </div>
+                    </div>
 
-                                        if ($month=="nothing")
-                                        {
-                                            echo "<script>alert('Please select a month')</script>";
-                                        }
-                                        else if ($year=="nothing")
-                                        {
-                                            echo "<script>alert('Please select a year')</script>";
-                                        }
-                                        else if ($branch=="nothing")
-                                        {
-                                            echo "<script>alert('Please select branch')</script>";
-                                        }
-                                        else
-                                        {
-                                            $next_month = (int)$month + 01;
-                                            $res_stud_attendance = $conn->query("select attendance_id, stud_id, attendance_date, attendance_status from attendance where choreo_id is null and attendance_date between '$year-$month-01' and '$year-$next_month-01' and stud_id in (select student_id from student where nearest_branch='$branch')");
-                                            while ($row_stud_attendance = $res_stud_attendance->fetch_array())
-                                            {
-                                                echo "<tr>";
-                                                echo "<td>$row_stud_attendance[1]</td>";
-                                                $student_res = $conn->query("select student_name, address, place, mobile_number from student where student_id='$row_stud_attendance[1]'");
-                                                while ($student_row = $student_res->fetch_array())
-                                                {
-                                                    echo "<td>$student_row[0]</td>";
-                                                    echo "<td>$student_row[1] , $student_row[2]</td>";
-                                                    echo "<td>$student_row[3]</td>";
-                                                }
-                                                echo "<td>$row_stud_attendance[2]</td>";
-                                                if ($row_stud_attendance[3]==1)
-                                                {
-                                                    echo "<td>Present</td>";
-                                                }
-                                                if ($row_stud_attendance[3]==0)
-                                                {
-                                                    echo "<td>Absent</td>";
-                                                }
-                                            }
-                                        }
-                                    }
-                                    ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </form>
-                    </section>
                     <!-- end: page -->
                 </section>
 			</div>
@@ -415,7 +321,7 @@
 		<script src="assets/vendor/jqvmap/maps/continents/jquery.vmap.europe.js"></script>
 		<script src="assets/vendor/jqvmap/maps/continents/jquery.vmap.north-america.js"></script>
 		<script src="assets/vendor/jqvmap/maps/continents/jquery.vmap.south-america.js"></script>
-		
+
 		<!-- Theme Base, Components and Settings -->
 		<script src="assets/javascripts/theme.js"></script>
 		
@@ -430,3 +336,47 @@
 
 	</body>
 </html>
+
+<?php
+
+require_once '../Database_Connect.php';
+
+if (isset($_POST['upload_image']))
+{
+    $img_title = $_POST['imagetitle'];
+    $maxsize = 5000000; //5MB
+    $name = $_FILES['image']['name'];
+    $target_dir = "../gallery/";
+    $target_file = $target_dir . $_FILES["image"]["name"];
+
+    // Select file type
+    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+    // Valid file extensions
+    $extensions_arr = array("jpg","jpeg","png","gif","bmp");
+
+    // Check extension
+    if( in_array($imageFileType,$extensions_arr) ){
+
+        // Check file size
+        if(($_FILES['image']['size'] >= $maxsize) || ($_FILES["image"]["size"] == 0)) {
+            echo "<script>alert('File too large. File must be less than 5MB.')</script>";
+        }else{
+            // Upload
+            if(move_uploaded_file($_FILES['image']['tmp_name'],$target_file)){
+                // Insert record
+                $query = "INSERT INTO gallery(image_title,image_loc) VALUES('$img_title','$target_file')";
+                $query = mysqli_query($conn,$query);
+                if($query)
+                {
+                    echo "<script>alert('Upload successfully.')</script>";
+                    echo "<script>window.location='gallery.php'</script>";
+
+                }
+            }
+        }
+
+    }else{
+        echo "<script>alert('Invalid file extension.')</script>";
+    }
+}

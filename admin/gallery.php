@@ -118,7 +118,7 @@
 				                            <span>Students</span>
 				                        </a>
 				                        <ul class="nav nav-children">
-				                            <li class="nav">
+				                            <li>
 				                                <a href="batches.php">
 				                                    Batches
 				                                </a>
@@ -146,7 +146,7 @@
 				                            <span>Attendance Management</span>
 				                        </a>
 				                        <ul class="nav nav-children">
-				                            <li class="nav nav-active">
+				                            <li>
 				                                <a href="student_attendance.php">
 				                                    Students
 				                                </a>
@@ -170,7 +170,7 @@
                                             <span>Fee details</span>
                                         </a>
                                     </li>
-                                    <li>
+                                    <li class="nav nav-active">
                                         <a href="gallery.php">
                                             <i class="fa fa-image" aria-hidden="true"></i>
                                             <span>Gallery</span>
@@ -230,7 +230,7 @@
 
                 <section role="main" class="content-body">
                     <header class="page-header">
-                        <h2>Student Attendance</h2>
+                        <h2>Gallery</h2>
 
                     </header>
 
@@ -242,136 +242,65 @@
                                 <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
                             </div>
 
-                            <h2 class="panel-title">Student Attendance</h2>
+                            <h2 class="panel-title">Gallery</h2>
                         </header>
-                        <form class="form-horizontal form-bordered" method="post">
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <select class="form-control" id="selmonth" name="selmonth" required>
-                                            <option value="nothing">Select Month</option>
-                                            <option value="01">January</option>
-                                            <option value="02">February</option>
-                                            <option value="03">March</option>
-                                            <option value="04">April</option>
-                                            <option value="05">May</option>
-                                            <option value="06">June</option>
-                                            <option value="07">July</option>
-                                            <option value="08">August</option>
-                                            <option value="09">September</option>
-                                            <option value="10">October</option>
-                                            <option value="11">November</option>
-                                            <option value="12">December</option>
-                                        </select>
-                                        <div class="mb-md">
-
-                                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="mb-md">
+                                        <a href="gallery_add.php">
+                                            <button id="addgallerybtn" class="btn btn-primary">Add <i class="fa fa-plus"></i> </button>
+                                        </a>
                                     </div>
-                                    <div class="col-sm-3">
-                                        <select class="form-control" id="selyear" name="selyear" required>
-                                            <option value="nothing">Select Year</option>
-                                            <option value="2021">2021</option>
-                                            <option value="2020">2020</option>
-                                            <option value="2019">2019</option>
-                                            <option value="2018">2018</option>
-                                            <option value="2017">2017</option>
-                                            <option value="2016">2016</option>
-                                            <option value="2015">2015</option>
-                                        </select>
-                                        <div class="mb-md">
-
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <select class="form-control" id="selbranch" name="selbranch" required>
-                                            <option value="nothing">Select Branch</option>
-                                            <?php
-                                                include_once '../Database_Connect.php';
-
-                                                $res_branch = $conn->query("select branch_id, branch_landmark,branch_place from branch");
-                                                while ($row_branch = $res_branch->fetch_array())
-                                                {
-                                                    echo "<option value='$row_branch[0]'>$row_branch[1], $row_branch[2]</option>";
-                                                }
-                                            ?>
-                                        </select>
-                                        <div class="mb-md">
-
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <input type="submit" value="View" class="btn btn-primary" name="view_attendance"></input>
-                                        <div class="mb-md">
-
-                                        </div>
-                                    </div>
-
                                 </div>
-                                <table class="table table-bordered table-striped mb-none" id="tester_table">
-                                    <thead>
-                                    <tr>
-                                        <th>Student ID</th>
-                                        <th>Student Name</th>
-                                        <th>Address</th>
-                                        <th>Mobile Number</th>
-                                        <th>Date</th>
-                                        <th>Attendance</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php
-
-
-                                    if (isset($_POST['view_attendance']))
-                                    {
-                                        $month = $_POST['selmonth'];
-                                        $year = $_POST['selyear'];
-                                        $branch = $_POST['selbranch'];
-
-                                        if ($month=="nothing")
-                                        {
-                                            echo "<script>alert('Please select a month')</script>";
-                                        }
-                                        else if ($year=="nothing")
-                                        {
-                                            echo "<script>alert('Please select a year')</script>";
-                                        }
-                                        else if ($branch=="nothing")
-                                        {
-                                            echo "<script>alert('Please select branch')</script>";
-                                        }
-                                        else
-                                        {
-                                            $next_month = (int)$month + 01;
-                                            $res_stud_attendance = $conn->query("select attendance_id, stud_id, attendance_date, attendance_status from attendance where choreo_id is null and attendance_date between '$year-$month-01' and '$year-$next_month-01' and stud_id in (select student_id from student where nearest_branch='$branch')");
-                                            while ($row_stud_attendance = $res_stud_attendance->fetch_array())
-                                            {
-                                                echo "<tr>";
-                                                echo "<td>$row_stud_attendance[1]</td>";
-                                                $student_res = $conn->query("select student_name, address, place, mobile_number from student where student_id='$row_stud_attendance[1]'");
-                                                while ($student_row = $student_res->fetch_array())
-                                                {
-                                                    echo "<td>$student_row[0]</td>";
-                                                    echo "<td>$student_row[1] , $student_row[2]</td>";
-                                                    echo "<td>$student_row[3]</td>";
-                                                }
-                                                echo "<td>$row_stud_attendance[2]</td>";
-                                                if ($row_stud_attendance[3]==1)
-                                                {
-                                                    echo "<td>Present</td>";
-                                                }
-                                                if ($row_stud_attendance[3]==0)
-                                                {
-                                                    echo "<td>Absent</td>";
-                                                }
-                                            }
-                                        }
-                                    }
-                                    ?>
-                                    </tbody>
-                                </table>
                             </div>
-                        </form>
+                            <table class="table table-bordered table-striped mb-none" id="tester_table">
+                                <thead>
+                                <tr>
+                                    <th>Image Title</th>
+				                    <th>View Image</th>
+				                    <th>Status</th>
+				                    <th colspan="2">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+
+                                include_once '../Database_Connect.php';
+
+                                $gallery_sel = "select * from gallery";
+                                $res = $conn->query($gallery_sel);
+                                while ($row = $res->fetch_array())
+                                {
+                                    echo "<tr>";
+                                    echo "<td>$row[1]</td>";
+                                    echo  "<td><a href='http://localhost/dance-academy/admin/$row[2]' target='_blank'>Click to view</a></td>";
+                                    if ($row[3]==0)
+                                    {
+                                        echo "<td>InActive</td>";
+                                    }
+                                    else if($row[3]==1)
+                                    {
+                                        echo "<td>Active</td>";
+                                    }
+                                    echo "<td>";
+                                    if ($row[3]==1)
+                                    {
+                                        echo "<a href='manage_gallery.php?gid=$row[0]&action=disable'><button class='btn btn-warning'>Disable</button></a>";
+                                    }
+                                    if ($row[3]==0)
+                                    {
+                                        echo "<a href='manage_gallery.php?gid=$row[0]&action=enable'><button class='btn btn-success'>Enable</button></a>";
+                                    }
+                                    echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+                                    echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+                                    echo "<a href='manage_gallery.php?gid=$row[0]&action=delete'><button class='btn btn-danger'>Delete</button></a>";
+                                    echo "</td>";
+                                }
+                                ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </section>
                     <!-- end: page -->
                 </section>

@@ -189,6 +189,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 fragment = new ChatFragment();
                 break;
             case R.id.nav_logout:
+                finishAffinity();
                 SharedPrefManager.getInstance(this).logout();
                 break;
         }

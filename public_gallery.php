@@ -56,9 +56,9 @@
               <li class="nav-item">
                 <a class="nav-link" href="classes.html">Classes</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="public_gallery.php">Gallery</a>
-              </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="public_gallery.php">Gallery</a>
+                </li>
               <li class="nav-item">
                 <a class="nav-link" href="personal_class.html">Personal Class</a>
               </li>
@@ -72,95 +72,60 @@
       </div>
     </header>
     <!-- end header section -->
+    <!-- slider section -->
+    <section class=" slider_section position-relative">
+      <div class="number-container d-none d-md-block">
+      </div>
+      <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="container slider_item-box">
+              <div class="row pt-5">
+                  <div class="col-md-12">
+                      <div class="card">
+                          <div class="card-body">
+                              <h2>Gallery</h2>
+                              <div class="row">
+                                  <?php
+                                    include_once 'Database_Connect.php';
 
-
-    <!-- contact section -->
-
-    <section class="contact_section py-5">
-
-      <div class="container">
-        <div class="d-flex justify-content-center d-md-block">
-          <h2>
-            Login
-          </h2>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <form action="login.php" method="POST">
-              <div class="contact_form-container">
-                <div>
-                  <div>
-                    <input type="text" placeholder="Username" name="uname" id="uname">
+                                    $gallery_res = $conn->query("select * from gallery where image_status='1'");
+                                    while ($gallery_row = $gallery_res->fetch_array())
+                                    {
+                                        echo "<div class='col-md-3'>";
+                                        echo "<div class='card-body'>";
+                                        echo "<img src='http://localhost/dance-academy/admin/$gallery_row[2]' width='180' height='210'>";
+                                        echo "<p style='color:#000;'><br>$gallery_row[1]</p>";
+                                        echo "</div>";
+                                        echo "</div>";
+                                    }
+                                  ?>
+                              </div>
+                          </div>
+                      </div>
                   </div>
-                  <div>
-                    <input type="password" placeholder="Password" name="pwd" id="pwd">
-                  </div>
-                  <div class="mt-3">
-                    <button type="submit" id="submit" name="submit">
-                      Login
-                    </button>
-                  </div>
-                </div>
               </div>
-
-            </form>
-          </div>
-          <div class="col-md-6">
-            <div class="contact_img-box">
-              <img src="images/dance.jpg" alt="">
             </div>
           </div>
+
         </div>
+
       </div>
+
     </section>
-    <!-- end contact section -->
+
+    <!-- end slider section -->
+  </div>
 
 
-    <!-- info section -->
-  <section class="info_section">
-    <div class="container ">
-      <div class="row custom_border-btm mb-3 pb-4">
-        <div class="col-md-4 info_logo">
-          <h2>
-            Thunderlines
-          </h2>
-          <p>
-            This dance academy trains people with any age groups and any type of dance for all type of dancers.
-          </p>
-        </div>
-        <div class="col-md-4 info_address">
-          <h5>
-            Address
-          </h5>
-          <p>
-            Mavoor Road, Calicut
-          </p>
-          <p>
-            +91 9876543210
-          </p>
-          <p>
-            thunderlines@gmail.com
-          </p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-  <!-- endsss info section -->
 
 
+  <!-- info section -->
 
   <!-- footer section -->
-  <section class="container-fluid footer_section">
-    <p>
-      Copyright &copy; 2021 All Rights Reserved By
-      <a href="">Thunder storm</a>
-    </p>
-  </section>
-  <!-- footer section -->
 
-    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.js"></script>
+  <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
 
 
 

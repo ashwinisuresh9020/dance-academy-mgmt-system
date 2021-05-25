@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 23, 2021 at 01:40 PM
+-- Generation Time: May 25, 2021 at 02:43 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -63,7 +63,10 @@ INSERT INTO `attendance` (`attendance_id`, `attendance_date`, `stud_id`, `choreo
 (43, '2021-05-20', NULL, 1, 1),
 (44, '2021-05-20', 4, NULL, 1),
 (45, '2021-05-20', 6, NULL, 1),
-(46, '2021-05-20', NULL, 2, 1);
+(46, '2021-05-20', NULL, 2, 1),
+(47, '2021-05-25', NULL, 1, 1),
+(48, '2021-05-25', 4, NULL, 1),
+(49, '2021-05-25', 6, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -260,6 +263,30 @@ INSERT INTO `fees` (`fees_id`, `student_id`, `amount`, `paid_date`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `gallery`
+--
+
+CREATE TABLE `gallery` (
+  `image_id` int(11) NOT NULL,
+  `image_title` varchar(50) NOT NULL,
+  `image_loc` text NOT NULL,
+  `image_status` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `gallery`
+--
+
+INSERT INTO `gallery` (`image_id`, `image_title`, `image_loc`, `image_status`) VALUES
+(1, 'Dance', '../gallery/demo_poster.jpg', 1),
+(3, 'Poster', '../gallery/download.jpg', 1),
+(4, 'Event', '../gallery/download.jpg', 1),
+(5, 'Come on Dance', '../gallery/demo_poster.jpg', 1),
+(6, 'Come Dance', '../gallery/download.jpg', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `login`
 --
 
@@ -388,7 +415,8 @@ INSERT INTO `messages` (`msg_id`, `from_id`, `to_id`, `message_title`, `message`
 (43, 23, 111, 'user_admin', 'good for growing', 1),
 (44, 23, 111, 'user_admin', 'Hawaii is my favourite destination', 1),
 (174, 111, 48, 'user_admin', 'Thats ok', 1),
-(175, 111, 48, 'user_admin', 'What do you do now???', 1);
+(175, 111, 48, 'user_admin', 'What do you do now???', 1),
+(176, 48, 111, 'user_admin', 'Nothing sir', 1);
 
 -- --------------------------------------------------------
 
@@ -705,6 +733,12 @@ ALTER TABLE `fees`
   ADD KEY `fk_student_fees` (`student_id`);
 
 --
+-- Indexes for table `gallery`
+--
+ALTER TABLE `gallery`
+  ADD PRIMARY KEY (`image_id`);
+
+--
 -- Indexes for table `login`
 --
 ALTER TABLE `login`
@@ -766,7 +800,7 @@ ALTER TABLE `video_class`
 -- AUTO_INCREMENT for table `attendance`
 --
 ALTER TABLE `attendance`
-  MODIFY `attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `batch`
@@ -811,6 +845,12 @@ ALTER TABLE `fees`
   MODIFY `fees_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
+-- AUTO_INCREMENT for table `gallery`
+--
+ALTER TABLE `gallery`
+  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
@@ -820,7 +860,7 @@ ALTER TABLE `login`
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=176;
+  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=177;
 
 --
 -- AUTO_INCREMENT for table `personal_class`

@@ -170,14 +170,8 @@
                                             <span>Fee details</span>
                                         </a>
                                     </li>
-									<li>
-										<a href="#">
-											<i class="fa fa-user-o" aria-hidden="true"></i>
-											<span>Profile</span>
-										</a>
-									</li>
                                     <li>
-                                        <a href="#">
+                                        <a href="gallery.php">
                                             <i class="fa fa-image" aria-hidden="true"></i>
                                             <span>Gallery</span>
                                         </a>
