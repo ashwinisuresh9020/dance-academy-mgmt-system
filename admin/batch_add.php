@@ -118,7 +118,12 @@
 				                            <span>Students</span>
 				                        </a>
 				                        <ul class="nav nav-children">
-				                            <li class="nav nav-active">
+                                            <li>
+                                                <a href="student_list.php">
+                                                    Student List
+                                                </a>
+                                            </li>
+                                            <li class="nav nav-active">
 				                                <a href="batches.php">
 				                                    Batches
 				                                </a>

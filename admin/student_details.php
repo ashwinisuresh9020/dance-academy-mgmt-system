@@ -5,7 +5,7 @@
     <!-- Basic -->
     <meta charset="UTF-8">
 
-    <title>Messages | THUNDERLINES</title>
+    <title>Student Details | THUNDERLINES</title>
     <meta name="keywords" content="HTML5 Admin Template" />
     <meta name="description" content="Porto Admin - Responsive HTML5 Template">
     <meta name="author" content="okler.net">
@@ -118,7 +118,7 @@
                                     <span>Students</span>
                                 </a>
                                 <ul class="nav nav-children">
-                                    <li>
+                                    <li class="nav nav-active">
                                         <a href="student_list.php">
                                             Student List
                                         </a>
@@ -128,7 +128,7 @@
                                             Batches
                                         </a>
                                     </li>
-                                    <li class="nav nav-active">
+                                    <li>
                                         <a href="messages_list.php">
                                             Messages
                                         </a>
@@ -232,78 +232,122 @@
 
         </aside>
         <!-- end: sidebar -->
+
         <section role="main" class="content-body">
             <header class="page-header">
+                <h2>Students</h2>
 
             </header>
+
             <!-- start: page -->
+
             <div class="row">
                 <div class="col-lg-12">
-                    <?php
-
-                        include_once '../Database_Connect.php';
-                        $student = $_GET['stId'];
-
-                        $stmt8 = "select * from messages where message_title='user_admin' and msg_id in (select msg_id from messages where from_id='$student' or to_id='$student')";
-                        $res_stmt8 = $conn->query($stmt8);
-                        while ($row_stmt8 = $res_stmt8->fetch_array())
-                        {
-                            if ($row_stmt8[1]==111)
-                            {
-                                $sender = 'ADMIN';
-                            }
-                            else
-                            {
-                                $row_stud = mysqli_fetch_array($conn->query("select student_name from student where student_id='$row_stmt8[1]'"));
-                                $sender = $row_stud[0];
-                            }
-                            if ($row_stmt8[2]==111)
-                            {
-                                $receiver = 'ADMIN';
-                            }
-                            else
-                            {
-                                $row_stud = mysqli_fetch_array($conn->query("select student_name from student where student_id='$row_stmt8[2]'"));
-                                $receiver = $row_stud[0];
-                            }
-                            $message = $row_stmt8[4];
-
-                            echo "<div class='panel-body'>";
-                            echo "<div class='panel-body'>";
-                            echo "<p class='panel-title'>$sender <i class='fa fa-angle-right fa-fw'></i> $receiver</p>";
-                            echo "</div>";
-                            echo "<div class='col-md-6'>";
-                            echo "<p><strong>$message</strong></p>";
-                            echo "</div>";
-                            echo "</div>";
-                        }
-                    ?>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="panel-body">
-                                <form action="" method="post">
-                                    <label class="col-md-3 control-label" for="message_admin"><strong>Message</strong></label>
-                                    <div class="col-md-12">
-                                        <textarea class="form-control" rows="3" id="message_admin" name="message_admin" data-plugin-textarea-autosize required></textarea><br>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <button class="btn btn-primary" type="submit" name="send_message" id="send_message">
-                                            <i class="fa fa-send mr-xs"></i>
-                                            Send
-                                        </button>
-                                    </div>
-                                </form>
+                    <section class="panel">
+                        <header class="panel-heading">
+                            <div class="panel-actions">
+                                <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                                <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
                             </div>
-                        </div>
-                    </div>
+
+                            <h2 class="panel-title">Student Details</h2>
+                        </header>
+                        <form class="form-horizontal form-bordered" method="post">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <?php
+                                    $sid = $_GET['sid'];
+                                    $server_name = "localhost";
+                                    $user_name = "root";
+                                    $password = "";
+                                    $database = "dance-academy";
+
+                                    $conn = new mysqli($server_name, $user_name, $password, $database);
+
+                                    $student = "select student_name, student_dob, address, place, pincode, district, mobile_number, email_address from student where student_id='$sid'";
+                                    $res = $conn->query($student);
+                                    $student_data = $res->fetch_row();
+                                    $choreo_name = $student_data[0];
+                                    $choreo_dob = $student_data[1];
+                                    $choreo_address = $student_data[2];
+                                    $choreo_place = $student_data[3];
+                                    $choreo_pincode = $student_data[4];
+                                    $choreo_dst = $student_data[5];
+                                    $choreo_mob = $student_data[6];
+                                    $choreo_mail = $student_data[7];
+                                    ?>
+                                    <label class='col-md-3 control-label' for='testername'>Full Name</label>
+                                    <?php
+                                    echo "<label class='col-md-3 control-label'>$choreo_name</label>";
+                                    ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Date of Birth</label>
+                                    <?php
+                                    echo "<label class='col-md-3 control-label'>$choreo_dob</label>";
+                                    ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Address</label>
+                                    <?php
+                                    echo "<label class='col-md-3 control-label'>$choreo_address</label>";
+                                    ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Place</label>
+                                    <?php
+                                    echo "<label class='col-md-3 control-label'>$choreo_place</label>";
+                                    ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Pin</label>
+                                    <?php
+                                    echo "<label class='col-md-3 control-label'>$choreo_pincode</label>";
+                                    ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">District</label>
+                                    <?php
+                                    echo "<label class='col-md-3 control-label'>$choreo_dst</label>";
+                                    ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class='col-md-3 control-label'>Phone</label>
+                                    <?php
+                                    echo "<label class='col-md-3 control-label'>$choreo_mob</label>";
+                                    ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class='col-md-3 control-label'>Email</label>
+                                    <?php
+                                    echo "<label class='col-md-3 control-label'>$choreo_mail</label>";
+                                    ?>
+                                </div>
+
+                            </div>
+                        </form>
+                        <footer class="panel-footer">
+                            <div class="row">
+                                <div class="col-sm-9 col-sm-offset-6">
+                                    <a href="choreographer_list.php">
+                                        <button class="btn btn-primary" name="choreo_list">Go back <i class="fa fa-arrow-left"></i> </button>
+                                    </a>
+                                </div>
+                            </div>
+                        </footer>
+                    </section>
                 </div>
             </div>
+
             <!-- end: page -->
         </section>
-        <!-- start: page -->
-
-        <!-- end: page -->
     </div>
 
 </section>
@@ -358,20 +402,3 @@
 
 </body>
 </html>
-
-<?php
-if (isset($_POST['send_message']))
-{
-    $msg = $_POST['message_admin'];
-
-    $res_send_message = $conn->query("insert into messages(from_id,to_id,message_title,message) values ('111','$student','user_admin','$msg')");
-    if ($res_send_message)
-    {
-        echo "<script>window.location='message_details.php?stId=$student'</script>";
-    }
-    else
-    {
-        echo "<script>alert('Error')</script>";
-    }
-}
-

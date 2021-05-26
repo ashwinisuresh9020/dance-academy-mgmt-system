@@ -119,6 +119,11 @@
                                 </a>
                                 <ul class="nav nav-children">
                                     <li>
+                                        <a href="student_list.php">
+                                            Student List
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a href="batches.php">
                                             Batches
                                         </a>
@@ -237,12 +242,9 @@
                 <div class="col-lg-12">
                     <section class="panel-heading-transparent">
                         <header class="panel-body">
-                            <h2 class="panel-body">Inbox</h2>
+                            <h1 class="panel-body">Inbox</h1>
                             <div class="col-md-3">
-                                <a href="#" class="btn btn-block btn-primary btn-md pt-sm pb-sm text-md">
-                                    <i class="fa fa-envelope mr-xs"></i>
-                                    Compose
-                                </a>
+
                             </div>
                             <section class="content-without-menu mailbox">
                                 <div class="content-without-menu-" data-mailbox data-mailbox-view="table">

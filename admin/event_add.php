@@ -119,6 +119,11 @@
                                 </a>
                                 <ul class="nav nav-children">
                                     <li>
+                                        <a href="student_list.php">
+                                            Student List
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a href="batches.php">
                                             Batches
                                         </a>

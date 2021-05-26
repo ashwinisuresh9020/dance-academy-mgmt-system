@@ -100,7 +100,7 @@
                                                     Assign batch
                                                 </a>
                                             </li>
-                                            <li class="nav nav-active">
+                                            <li>
                                                 <a href="sallary_details.php">
                                                     Sallary Management
                                                 </a>
@@ -118,12 +118,12 @@
 				                            <span>Students</span>
 				                        </a>
 				                        <ul class="nav nav-children">
-                                            <li>
+                                            <li class="nav nav-active">
                                                 <a href="student_list.php">
                                                     Student List
                                                 </a>
                                             </li>
-                                            <li>
+                                            <li class="nav">
 				                                <a href="batches.php">
 				                                    Batches
 				                                </a>
@@ -151,7 +151,7 @@
 				                            <span>Attendance Management</span>
 				                        </a>
 				                        <ul class="nav nav-children">
-				                            <li>
+				                            <li class="nav nav-active">
 				                                <a href="student_attendance.php">
 				                                    Students
 				                                </a>
@@ -235,7 +235,7 @@
 
                 <section role="main" class="content-body">
                     <header class="page-header">
-                        <h2><Sallary></Sallary> Management</h2>
+                        <h2>Students</h2>
 
                     </header>
 
@@ -247,87 +247,80 @@
                                 <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
                             </div>
 
-                            <h2 class="panel-title">Sallary</h2>
+                            <h2 class="panel-title">Student Lists</h2>
                         </header>
-                        <div class="panel-body">
-                            <div class="row">
-                                <form class="form-horizontal form-bordered" method="post">
-                                    <div class="col-sm-3">
-                                        <select class="form-control" id="choreodetails" name="choreodetails" required>
-                                            <option value="0">All</option>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <form class="form-horizontal form-bordered" method="post">
+                                        <div class="col-sm-3">
+                                            <select class="form-control" id="selbranch" name="selbranch" required>
+                                                <option value="nothing">Select Branch</option>
                                             <?php
+                                                include_once '../Database_Connect.php';
 
-                                            include_once '../Database_Connect.php';
-                                            $res = $conn->query("select choreographer_id, choreographer_name from choreographer");
-                                            while ($row = $res->fetch_array())
-                                            {
-                                                echo "<option value='$row[0]'>$row[1]</option>";
-                                            }
+                                                $res_branch = $conn->query("select branch_id, branch_landmark,branch_place from branch");
+                                                while ($row_branch = $res_branch->fetch_array())
+                                                {
+                                                    echo "<option value='$row_branch[0]'>$row_branch[1], $row_branch[2]</option>";
+                                                }
                                             ?>
-                                        </select>
+                                            </select>
+                                            <div class="mb-md">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input type="submit" value="View" class="btn btn-primary" name="view_students"></input>
+                                        <div class="mb-md">
+
+                                        </div>
                                     </div>
+                                    </form>
+                                </div>
+                                <table class="table table-bordered table-striped mb-none" id="tester_table">
+                                    <thead>
+                                    <tr>
+                                        <th>Student ID</th>
+                                        <th>Student Name</th>
+                                        <th>Address</th>
+                                        <th>Mobile Number</th>
+                                        <th>Details</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
 
-                                    <div class="col-sm-3">
-                                        <input type="submit" value="Get details" class="btn btn-primary" name="get_details" id="get_details"></input>
-                                    </div>
 
-
-                                </form>
-                                <a href="pay_sallary.php"><button class="btn btn-success">Pay Salary</button></a>
-
-                            </div>
-
-                            <div class="mb-md">
-
-                            </div>
-
-                            <table class="table table-bordered table-striped mb-none" id="tester_table">
-                                <thead>
-                                <tr>
-                                    <th>Choreographer</th>
-                                    <th>Salary</th>
-                                    <th>Paid Date</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php
-
-                                include_once '../Database_Connect.php';
-
-                                if (isset($_POST['get_details']))
-                                {
-                                    if ($_POST['choreodetails']==0)
+                                    if (isset($_POST['view_students']))
                                     {
-                                        $sel_all_choreo = "select * from sallary";
-                                        $res_all_choreo = $conn->query($sel_all_choreo);
-                                        while ($row_all_choreo = $res_all_choreo->fetch_array())
+                                        $branch = $_POST['selbranch'];
+
+                                        if ($branch=="nothing")
                                         {
-                                            echo "<tr>";
-                                            $choreo_row = mysqli_fetch_array($conn->query("select choreographer_name from choreographer where choreographer_id='$row_all_choreo[0]'"));
-                                            echo "<td>$choreo_row[0]</td>";
-                                            echo "<td>$row_all_choreo[2]</td>";
-                                            echo "<td>$row_all_choreo[3]</td>";
+                                            echo "<script>alert('Please select branch')</script>";
+                                        }
+                                        else
+                                        {
+                                            $res_stud_attendance = $conn->query("select student_id from student where nearest_branch='$branch'");
+                                            while ($row_stud_attendance = $res_stud_attendance->fetch_array())
+                                            {
+                                                echo "<tr>";
+                                                echo "<td>$row_stud_attendance[0]</td>";
+                                                $student_res = $conn->query("select student_name, address, place, mobile_number from student where student_id='$row_stud_attendance[0]'");
+                                                while ($student_row = $student_res->fetch_array())
+                                                {
+                                                    echo "<td>$student_row[0]</td>";
+                                                    echo "<td>$student_row[1] , $student_row[2]</td>";
+                                                    echo "<td>$student_row[3]</td>";
+                                                }
+                                                echo "<td><a href='student_details.php?sid=$row_stud_attendance[0]'><button class='btn btn-primary'>Details</button></a></td>";
+                                            }
                                         }
                                     }
-                                    if ($_POST['choreodetails']!=0)
-                                    {
-                                        $choreo = $_POST['choreodetails'];
-                                        $sel_choreo = "select * from sallary where choreo_id='$choreo'";
-                                        $res_choreo = $conn->query($sel_choreo);
-                                        while ($row_choreo = $res_choreo->fetch_array())
-                                        {
-                                            echo "<tr>";
-                                            $choreo_row = mysqli_fetch_array($conn->query("select choreographer_name from choreographer where choreographer_id='$choreo'"));
-                                            echo "<td>$choreo_row[0]</td>";
-                                            echo "<td>$row_choreo[2]</td>";
-                                            echo "<td>$row_choreo[3]</td>";
-                                        }
-                                    }
-                                }
-                                ?>
-                                </tbody>
-                            </table>
-                        </div>
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </div>
                     </section>
                     <!-- end: page -->
                 </section>
