@@ -88,7 +88,7 @@ session_start();
                                     <span>Students</span>
                                 </a>
                                 <ul class="nav nav-children">
-                                    <li class="nav nav-active">
+                                    <li>
                                         <a href="batches.php">
                                             Batches
                                         </a>
@@ -106,7 +106,7 @@ session_start();
                                     <span>Leave Management</span>
                                 </a>
                             </li>
-                            <li>
+                            <li class="nav nav-active">
                                 <a href="choreographer_details.php">
                                     <i class="fa fa-user-o" aria-hidden="true"></i>
                                     <span>Profile</span>
@@ -148,41 +148,24 @@ session_start();
 
         <section role="main" class="content-body">
             <header class="page-header">
-                <h2>Students</h2>
+                <h2>Edit Choreographer</h2>
 
             </header>
 
             <!-- start: page -->
-            <section class="panel">
-                <header class="panel-heading">
-                    <div class="panel-actions">
-                        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-                        <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
-                    </div>
 
-                    <h2 class="panel-title">Students</h2>
-                </header>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="mb-md">
+            <div class="row">
+                <div class="col-lg-12">
+                    <section class="panel">
+                        <header class="panel-heading">
+                            <div class="panel-actions">
+                                <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                                <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
                             </div>
-                        </div>
-                    </div>
-                    <table class="table table-bordered table-striped mb-none" id="tester_table">
-                        <thead>
-                        <tr>
-                            <th>Full Name</th>
-                            <th>Date of Birth</th>
-                            <th>Address</th>
-                            <th>Mobile Number</th>
-                        </tr>
-                        </thead>
-                        <tbody>
+
+                            <h2 class="panel-title">Edit Choreographer</h2>
+                        </header>
                         <?php
-
-                        $batch_id = $_GET['id'];
-
                         $server_name = "localhost";
                         $user_name = "root";
                         $password = "";
@@ -190,20 +173,128 @@ session_start();
 
                         $conn = new mysqli($server_name, $user_name, $password, $database);
 
-                        $res_stud = $conn->query("select student_name, student_dob, address, place, mobile_number from student where batch_id='$batch_id'");
-                        while ($row = $res_stud->fetch_array())
-                        {
-                            echo "<tr>";
-                            echo "<td>$row[0]</td>";
-                            echo "<td>$row[1]</td>";
-                            echo "<td>$row[2],$row[3]</td>";
-                            echo "<td>$row[4]</td>";
-                        }
+                        $choreo_id = $_GET['cid'];
+
+                        $choreographer = "select choreographer_name, choreographer_dob, address, place, pincode, district, mobile, email, sallary, qualification from choreographer where choreographer_id='$choreo_id'";
+                        $res = $conn->query($choreographer);
+                        $choreographer_data = $res->fetch_row();
+                        $choreo_name = $choreographer_data[0];
+                        $choreo_dob = $choreographer_data[1];
+                        $choreo_address = $choreographer_data[2];
+                        $choreo_place = $choreographer_data[3];
+                        $choreo_pincode = $choreographer_data[4];
+                        $choreo_dst = $choreographer_data[5];
+                        $choreo_mob = $choreographer_data[6];
+                        $choreo_mail = $choreographer_data[7];
+                        $choreo_sal = $choreographer_data[8];
+                        $choreo_qual = $choreographer_data[9];
                         ?>
-                        </tbody>
-                    </table>
+                        <form class="form-horizontal form-bordered" method="post">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="choreoname">Full Name <span class="required">*</span></label>
+                                    <div class="col-md-6">
+                                        <?php
+                                         echo "<input type='text' class='form-control' id='choreoname' name='choreoname' value='$choreo_name' required>";
+                                        ?>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="address">Address <span class="required">*</span></label>
+                                    <div class="col-md-6">
+                                        <?php
+                                        echo "<input type='text' class='form-control' id='address' name='address' value='$choreo_address' required>";
+                                        ?>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="place">Place <span class="required">*</span></label>
+                                    <div class="col-md-6">
+                                        <?php
+                                        echo "<input type='text' class='form-control' id='place' name='place' value='$choreo_place' required>";
+                                        ?>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="pincode">Pin <span class="required">*</span></label>
+                                    <div class="col-md-6">
+                                        <?php
+                                        echo "<input type='number' class='form-control' id='pincode' name='pincode' maxlength='6' value='$choreo_pincode' required>";
+                                        ?>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="dst">District <span class="required">*</span></label>
+                                    <div class="col-md-6">
+                                        <select class="form-control" id="dst" name="dst" required>
+                                            <?php
+                                            echo "<option value='$choreo_dst'>$choreo_dst</option>";
+                                            ?>
+                                            <option value="nothing">Select District</option>
+                                            <option value="Alappuzha">Alappuzha</option>
+                                            <option value="Ernamkulam">Ernamkulam</option>
+                                            <option value="Idukki">Idukki</option>
+                                            <option value="Kannur">Kannur</option>
+                                            <option value="Kasargod">Kasargod</option>
+                                            <option value="Kollam">Kollam</option>
+                                            <option value="Kottayam">Kottayam</option>
+                                            <option value="Kozhikode">Kozhikode</option>
+                                            <option value="Malappuram">Malappuram</option>
+                                            <option value="Palakkad">Palakkad</option>
+                                            <option value="Pathanamthitta">Pathanamthitta</option>
+                                            <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                                            <option value="Thrissur">Thrissur</option>
+                                            <option value="Wayanad">Wayanad</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="phone">Phone <span class="required">*</span></label>
+                                    <div class="col-md-6">
+                                        <?php
+                                        echo "<input type='number' class='form-control' id='phone' name='phone' maxlength='10' value='$choreo_mob' required>"
+                                        ?>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="mail">Email <span class="required">*</span></label>
+                                    <div class="col-md-6">
+                                        <?php
+                                        echo "<input type='email' class='form-control' id='mail' name='mail' value='$choreo_mail' required>";
+                                        ?>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="qualification">Qualification <span class="required">*</span></label>
+                                    <div class="col-md-6">
+                                        <?php
+                                        echo "<input type='text' class='form-control' id='qualification' name='qualification' value='$choreo_qual' required>"
+                                        ?>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <footer class="panel-footer">
+                                <div class="row">
+                                    <div class="col-sm-9 col-sm-offset-3">
+                                        <input class="btn btn-primary" type="submit" name="update_choreo">
+                                    </div>
+                                </div>
+                            </footer>
+                        </form>
+                    </section>
                 </div>
-            </section>
+            </div>
+
             <!-- end: page -->
         </section>
     </div>
@@ -263,4 +354,34 @@ session_start();
 
 <?php
 
+if (isset($_POST['update_choreo']))
+{
+    $choreo_name = $_POST['choreoname'];
+    $choreo_addr = $_POST['address'];
+    $choreo_place = $_POST['place'];
+    $choreo_pin = $_POST['pincode'];
+    $choreo_dst = $_POST['dst'];
+    $choreo_phone = $_POST['phone'];
+    $choreo_mail = $_POST['mail'];
+    $choreo_qualification = $_POST['qualification'];
+    if ($choreo_dst=="nothing")
+    {
+        echo "<script>alert('Please select a district...')</script>";
+    }
+    else
+    {
+        $upd_choreo = "UPDATE choreographer set choreographer_name='$choreo_name',address='$choreo_addr',place='$choreo_place',pincode='$choreo_pin',district='$choreo_dst', mobile='$choreo_phone',email='$choreo_mail', qualification='$choreo_qualification' where choreographer_id='$choreo_id'";
+        $upd = mysqli_query($conn, $upd_choreo);
 
+        if($upd==true)
+        {
+            echo "<script>alert('Choreographer details updated successfully...')</script>";
+            echo "<script>window.location='choreographer_details.php'</script>";
+        }
+        else
+        {
+            echo "<script>alert('Error in updating details')</script>";
+            echo "" . mysqli_error($conn);
+        }
+    }
+}

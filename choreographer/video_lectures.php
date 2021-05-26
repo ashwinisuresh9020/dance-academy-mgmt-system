@@ -107,7 +107,7 @@ session_start();
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="choreographer_details.php">
                                         <i class="fa fa-user-o" aria-hidden="true"></i>
                                         <span>Profile</span>
                                     </a>

@@ -93,7 +93,7 @@ session_start();
                                             Batches
                                         </a>
                                     </li>
-                                    <li class="nav nav-active">
+                                    <li>
                                         <a href="student_attendance.php">
                                             Attendance
                                         </a>
@@ -106,7 +106,7 @@ session_start();
                                     <span>Leave Management</span>
                                 </a>
                             </li>
-                            <li>
+                            <li class="nav nav-active">
                                 <a href="choreographer_details.php">
                                     <i class="fa fa-user-o" aria-hidden="true"></i>
                                     <span>Profile</span>
@@ -148,73 +148,139 @@ session_start();
 
         <section role="main" class="content-body">
             <header class="page-header">
-                <h2>Students</h2>
+                <h2>Choreographers</h2>
 
             </header>
 
             <!-- start: page -->
-            <section class="panel">
-                <header class="panel-heading">
-                    <div class="panel-actions">
-                        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-                        <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
-                    </div>
 
-                    <h2 class="panel-title">Students</h2>
-                </header>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="mb-md">
+            <div class="row">
+                <div class="col-lg-12">
+                    <section class="panel">
+                        <header class="panel-heading">
+                            <div class="panel-actions">
+                                <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                                <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
                             </div>
-                        </div>
-                    </div>
-                    <form action="" method="post" onsubmit="insert_details()">
-                        <table class="table table-bordered table-striped mb-none" id="tester_table">
-                            <thead>
-                            <tr>
-                                <th>Student ID</th>
-                                <th>Full Name</th>
-                                <th colspan="2">Attendance</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <?php
 
-                            include_once '../Database_Connect.php';
+                            <h2 class="panel-title">Choreographer Details</h2>
+                        </header>
+                        <form class="form-horizontal form-bordered" method="post">
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <?php
+                                    $server_name = "localhost";
+                                    $user_name = "root";
+                                    $password = "";
+                                    $database = "dance-academy";
 
-                            $choreo_mail = $_SESSION['choreo_mail'];
-                            $sel_choreo_id = "select choreographer_id from choreographer where email='$choreo_mail'";
-                            $res_choreo_id = $conn->query($sel_choreo_id);
-                            $row_choreo_id = $res_choreo_id->fetch_array();
+                                    $conn = new mysqli($server_name, $user_name, $password, $database);
 
-                            $res_stud = $conn->query("SELECT student_id, student_name, student_dob, address, place, mobile_number from student where batch_id in (select batch_id from batch where choreographer_id='$row_choreo_id[0]')");
-                            $today_date = date("Y-m-d");
-                            $sel_attendance = $conn->query("select * from attendance where attendance_date='$today_date'");
-                            $count = mysqli_num_rows($sel_attendance);
-                            while ($row = $res_stud->fetch_array())
-                            {
-                                echo "<tr>";
-                                echo "<td>$row[0]</td>";
-                                echo "<td>$row[1]</td>";
-                                $sel_attendance = $conn->query("select count(*) from attendance where stud_id ='$row[0]' and attendance_date='$today_date'");
-                                $res_attendance = $sel_attendance->fetch_array();
-                                if($res_attendance[0]>0)
-                                {
-                                    echo "<td>Already marked</td>";
-                                }
-                                else
-                                {
-                                    echo "<td><a href='mark_attendance.php?sid=$row[0]'><button type='button' class='btn btn-success'>Present</button></a></td>";
-                                    echo "<td><a href='mark_absent.php?sid=$row[0]'><button type='button' class='btn btn-danger'>Absent</button></a></td>";
-                                }
-                            }
-                            ?>
-                            </tbody>
-                        </table>
-                    </form>
+                                    $choreo_mail = $_SESSION['choreo_mail'];
+                                    $sel_choreo_id = "select choreographer_id from choreographer where email='$choreo_mail'";
+                                    $res_choreo_id = $conn->query($sel_choreo_id);
+                                    $row_choreo_id = $res_choreo_id->fetch_array();
+
+                                    $choreographer = "select choreographer_name, choreographer_dob, address, place, pincode, district, mobile, email, sallary, qualification from choreographer where choreographer_id='$row_choreo_id[0]'";
+                                    $res = $conn->query($choreographer);
+                                    $choreographer_data = $res->fetch_row();
+                                    $choreo_name = $choreographer_data[0];
+                                    $choreo_dob = $choreographer_data[1];
+                                    $choreo_address = $choreographer_data[2];
+                                    $choreo_place = $choreographer_data[3];
+                                    $choreo_pincode = $choreographer_data[4];
+                                    $choreo_dst = $choreographer_data[5];
+                                    $choreo_mob = $choreographer_data[6];
+                                    $choreo_mail = $choreographer_data[7];
+                                    $choreo_sal = $choreographer_data[8];
+                                    $choreo_qual = $choreographer_data[9];
+                                    ?>
+                                    <label class='col-md-3 control-label' for='testername'>Full Name</label>
+                                    <?php
+                                    echo "<label class='col-md-3 control-label'>$choreo_name</label>";
+                                    ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label"">Date of Birth</label>
+                                    <?php
+                                    echo "<label class='col-md-3 control-label'>$choreo_dob</label>";
+                                    ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Address</label>
+                                    <?php
+                                    echo "<label class='col-md-3 control-label'>$choreo_address</label>";
+                                    ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Place</label>
+                                    <?php
+                                    echo "<label class='col-md-3 control-label'>$choreo_place</label>";
+                                    ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Pin</label>
+                                    <?php
+                                    echo "<label class='col-md-3 control-label'>$choreo_pincode</label>";
+                                    ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">District</label>
+                                    <?php
+                                    echo "<label class='col-md-3 control-label'>$choreo_dst</label>";
+                                    ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class='col-md-3 control-label'>Phone</label>
+                                    <?php
+                                    echo "<label class='col-md-3 control-label'>$choreo_mob</label>";
+                                    ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class='col-md-3 control-label'>Email</label>
+                                    <?php
+                                    echo "<label class='col-md-3 control-label'>$choreo_mail</label>";
+                                    ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class='col-md-3 control-label'>Sallary</label>
+                                    <?php
+                                    echo "<label class='col-md-3 control-label'>$choreo_sal</label>";
+                                    ?>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class='col-md-3 control-label'>Qualification</label>
+                                    <?php
+                                    echo "<label class='col-md-3 control-label'>$choreo_qual</label>";
+                                    ?>
+                                </div>
+
+                            </div>
+                        </form>
+                        <footer class="panel-footer">
+                            <div class="row">
+                                <div class="col-sm-9 col-sm-offset-6">
+                                    <?php
+                                     echo "<a href=choreographer_edit.php?cid=$row_choreo_id[0]>";
+                                    ?>
+                                        <button class="btn btn-primary" name="choreo_edit">Edit Profile  <i class="fa fa-pencil"></i> </button>
+                                    </a>
+                                </div>
+                            </div>
+                        </footer>
+                    </section>
                 </div>
-            </section>
+            </div>
+
             <!-- end: page -->
         </section>
     </div>
@@ -271,7 +337,3 @@ session_start();
 
 </body>
 </html>
-
-<?php
-
-

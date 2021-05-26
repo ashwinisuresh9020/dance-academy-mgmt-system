@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 26, 2021 at 05:35 AM
+-- Generation Time: May 26, 2021 at 02:39 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -66,7 +66,10 @@ INSERT INTO `attendance` (`attendance_id`, `attendance_date`, `stud_id`, `choreo
 (46, '2021-05-20', NULL, 2, 1),
 (47, '2021-05-25', NULL, 1, 1),
 (48, '2021-05-25', 4, NULL, 1),
-(49, '2021-05-25', 6, NULL, 1);
+(49, '2021-05-25', 6, NULL, 1),
+(50, '2021-05-26', NULL, 1, 1),
+(51, '2021-05-26', 4, NULL, 1),
+(52, '2021-05-26', 6, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -801,7 +804,7 @@ ALTER TABLE `video_class`
 -- AUTO_INCREMENT for table `attendance`
 --
 ALTER TABLE `attendance`
-  MODIFY `attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `batch`
