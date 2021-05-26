@@ -287,6 +287,97 @@ if(isset($_GET['servicecall']))
                 $response['message'] = 'required parameters are not available';
             }
         break;
+
+        case "update_student":
+
+            if (isTheseParametersAvailable(array('student_id','student_name','student_mob','student_addr','student_place','student_pin','student_dst')))
+            {
+                $student_id = $_POST['student_id'];
+                $student_name = $_POST['student_name'];
+                $student_mobile = $_POST['student_mob'];
+                $student_address = $_POST['student_addr'];
+                $student_place = $_POST['student_place'];
+                $student_pin = $_POST['student_pin'];
+                $student_dst = $_POST['student_dst'];
+
+                $update_student_res = $conn->query("update student set student_name='$student_name', address='$student_address',place='$student_place',pincode='$student_pin',district='$student_dst',mobile_number='$student_mobile' where student_id='$student_id'");
+                if ($update_student_res)
+                {
+                    $stmt10 = $conn->prepare("SELECT student_id, student_name,student_dob,student_gender,address,place,pincode,district,email_address,mobile_number, nearest_branch from student where student_id=?" );
+                    $stmt10->bind_param("s",$student_id);
+                    $stmt10->execute();
+                    $stmt10->bind_result($stud_id, $stud_name,$stud_dob,$stud_gender,$stud_address,$stud_place,$stud_pincode,$stud_district,$stud_email,$stud_mobile, $stud_branch);
+                    $stmt10->fetch();
+
+                    $student = array
+                    (
+                        'stud_id'=>$stud_id,
+                        'stud_name'=>$stud_name,
+                        'stud_dob'=>$stud_dob,
+                        'stud_gender'=>$stud_gender,
+                        'stud_address'=>$stud_address,
+                        'stud_place'=>$stud_place,
+                        'stud_pin'=>$stud_pincode,
+                        'stud_dst'=>$stud_district,
+                        'stud_mobile'=>$stud_mobile,
+                        'stud_email'=>$stud_email,
+                        'stud_branch'=>$stud_branch
+                    );
+
+                    $stmt10->close();
+
+                    $response['error'] = false;
+                    $response['message'] = 'Updated successfully...';
+                    $response['student'] = $student;
+                }
+                else
+                {
+                    $response['error'] = true;
+                    $response['message'] = 'Something went wrong!';
+                }
+            }
+            else
+            {
+                $response['error'] = true;
+                $response['message'] = 'required parameters are not available';
+            }
+        break;
+
+        case "change_pass":
+
+            if (isTheseParametersAvailable(array('student_email','old_pass','new_pass')))
+            {
+                $email = $_POST['student_email'];
+                $pass = $_POST['old_pass'];
+                $new_pass = $_POST['new_pass'];
+
+                $res_pass = $conn->query("select * from login where user_name='$email' and password='$pass' and user_type='STUDENT'");
+                if ($res_pass->num_rows>0)
+                {
+                    $update_pass = $conn->query("update login set password='$new_pass' where user_name='$email' and user_type='STUDENT'");
+                    if ($update_pass)
+                    {
+                        $response['error'] = false;
+                        $response['message'] = 'Password changed successfully...';
+                    }
+                    else
+                    {
+                        $response['error'] = true;
+                        $response['message'] = 'Something went wrong!';
+                    }
+                }
+                else
+                {
+                    $response['error'] = true;
+                    $response['message'] = 'Please check your current password';
+                }
+            }
+            else
+            {
+                $response['error'] = true;
+                $response['message'] = 'required parameters are not available';
+            }
+        break;
     }
 }
 else

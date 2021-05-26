@@ -13,25 +13,32 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Thunderlines"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AddDanceActivity"
+        <activity android:name=".ChangePasswordActivity"></activity>
+        <activity android:name=".EditProfileActivity" />
+        <activity
+            android:name=".AddDanceActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".HomeActivity"
+            android:configChanges="orientation"
             android:label="@string/title_activity_home"
-            android:theme="@style/Theme.Thunderlines.NoActionBar"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Thunderlines.NoActionBar" />
+        <activity
+            android:name=".AddAddressActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".AddAddressActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BasicDetailsActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".BasicDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LoginActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".LoginActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <intent-filter>

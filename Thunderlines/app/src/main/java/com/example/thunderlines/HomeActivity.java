@@ -45,7 +45,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     Student student;
     public static List<Events> eventsList;
     public static List<Chat> chatList;
-    public SwipeRefreshLayout pullToRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +58,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             displaySelectedScreen(R.id.nav_home);
         }
 
-        pullToRefresh = findViewById(R.id.refresh_activity);
 
         student = SharedPrefManager.getInstance(this).getStudent();
 
@@ -69,17 +67,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             StrictMode.setThreadPolicy(policy);
         }
 
-        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-
-                finish();
-                overridePendingTransition(0, 0);
-                startActivity(getIntent());
-                overridePendingTransition(0, 0);
-
-            }
-        });
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

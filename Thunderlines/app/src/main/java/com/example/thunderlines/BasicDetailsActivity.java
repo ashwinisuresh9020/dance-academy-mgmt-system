@@ -21,7 +21,8 @@ public class BasicDetailsActivity extends AppCompatActivity {
     Button buttonNext;
     final Calendar myCalendar = Calendar.getInstance();
     RadioGroup radioGroupGender;
-    String email_pattern = "[a-zA-Z0-9._-]+@[a-z]+\\\\.+[a-z]+", gender;
+    String email_pattern = "[a-zA-Z0-9._-]+@[a-z]+\\\\.+[a-z]+";
+    String gender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

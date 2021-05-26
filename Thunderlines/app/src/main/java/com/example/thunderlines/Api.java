@@ -52,4 +52,14 @@ public interface Api {
     @FormUrlEncoded
     Call<JsonObject> sendMessage(@Field("student_id") String studentId, @Field("message") String message);
 
+    @POST("service_call.php?servicecall=update_student")
+    @FormUrlEncoded
+    Call<JsonObject> updateStudent(@Field("student_id") String studentId, @Field("student_name") String studentName,
+                                   @Field("student_mob") String studentMobile, @Field("student_addr") String studentAddress,
+                                   @Field("student_place") String studentPlace, @Field("student_pin") String studentPin,
+                                   @Field("student_dst") String studentDistrict);
+
+    @POST("service_call.php?servicecall=change_pass")
+    @FormUrlEncoded
+    Call<JsonObject> changePassword(@Field("student_email") String studentEmail, @Field("old_pass") String oldPassword, @Field("new_pass") String newPassword);
 }

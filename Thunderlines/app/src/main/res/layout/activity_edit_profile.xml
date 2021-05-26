@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditProfileActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/edit_tv_edit_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Edit profile"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:textSize="28sp"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp" />
+
+            <EditText
+                android:id="@+id/edit_et_stud_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Full Name"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/black"
+                android:backgroundTint="@android:color/black"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_below="@id/edit_tv_edit_profile"
+                android:inputType="textPersonName"/>
+
+            <EditText
+                android:id="@+id/edit_et_stud_mobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mobile Number"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/black"
+                android:backgroundTint="@android:color/black"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_below="@id/edit_et_stud_name"
+                android:inputType="phone"
+                android:maxLength="10"/>
+
+            <EditText
+                android:id="@+id/edit_et_stud_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Address"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/black"
+                android:backgroundTint="@android:color/black"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_below="@id/edit_et_stud_mobile"
+                android:inputType="textPersonName"/>
+
+            <EditText
+                android:id="@+id/edit_et_stud_place"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Place"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/black"
+                android:backgroundTint="@android:color/black"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_below="@id/edit_et_stud_address"
+                android:inputType="textPersonName"/>
+
+            <EditText
+                android:id="@+id/edit_et_stud_pincode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Pincode"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/black"
+                android:backgroundTint="@android:color/black"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_below="@id/edit_et_stud_place"
+                android:inputType="phone"
+                android:maxLength="6"/>
+
+            <TextView
+                android:id="@+id/edit_tv_stud_dst"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Select District"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:layout_below="@id/edit_et_stud_pincode"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp" />
+
+            <Spinner
+                android:id="@+id/edit_spin_stud_dst"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/black"
+                android:backgroundTint="@android:color/black"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_below="@id/edit_tv_stud_dst"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/button_done"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="save changes"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@android:color/white"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:backgroundTint="#3F51B5"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"/>
+
+</RelativeLayout>

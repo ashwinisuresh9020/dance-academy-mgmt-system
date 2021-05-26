@@ -1,21 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <Button
-        android:id="@+id/btn_add_dance"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
-        android:text="add dance"
-        android:textColor="@android:color/white"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:backgroundTint="#3F51B5"/>
+        android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/profile_img_profile_pic"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/logo_profile"
+                app:tint="@android:color/black"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/profile_text_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="USAMA BIN ABOOBACKER"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:textAllCaps="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/profile_img_profile_pic"/>
+
+            <TextView
+                android:id="@+id/profile_text_mail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="usamabinaboobacker@gmail.com"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/profile_img_profile_pic"
+                android:layout_below="@id/profile_text_name"/>
+
+            <TextView
+                android:id="@+id/profile_text_dob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="     1998-10-28"
+                android:textColor="@android:color/black"
+                android:textSize="22sp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/profile_img_profile_pic"
+                app:drawableTint="@color/black"
+                app:drawableStartCompat="@drawable/calendar_logo" />
+
+            <TextView
+                android:id="@+id/profile_text_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="     VALATHEL HOUSE\n     ATHIKARIPADI\n     679581\n     MALAPPURAM"
+                android:textColor="@android:color/black"
+                android:textSize="22sp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/profile_text_dob"
+                app:drawableTint="@color/black"
+                app:drawableStartCompat="@drawable/logo_home" />
+
+            <TextView
+                android:id="@+id/profile_text_mobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="     9633058949"
+                android:textColor="@android:color/black"
+                android:textSize="22sp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/profile_text_address"
+                app:drawableTint="@color/black"
+                app:drawableStartCompat="@drawable/logo_phone" />
+
+
+            <Button
+                android:id="@+id/btn_add_dance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:text="add dance"
+                android:layout_below="@id/profile_text_mobile"
+                android:textColor="@android:color/white"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:backgroundTint="#3F51B5"/>
+
+            <Button
+                android:id="@+id/btn_edit_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
+                android:text="edit profile"
+                android:layout_below="@id/btn_add_dance"
+                android:textColor="@android:color/white"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:backgroundTint="#3F51B5"/>
+
+            <Button
+                android:id="@+id/btn_change_pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
+                android:text="change password"
+                android:layout_below="@id/btn_edit_profile"
+                android:textColor="@android:color/white"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:backgroundTint="#FF0000"/>
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

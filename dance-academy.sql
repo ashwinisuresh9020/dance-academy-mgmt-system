@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 25, 2021 at 02:43 PM
+-- Generation Time: May 26, 2021 at 05:35 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -321,7 +321,7 @@ INSERT INTO `login` (`login_id`, `user_name`, `user_type`, `password`) VALUES
 (18, 'anaswarav2345@gmail.com', 'STUDENT', '111111'),
 (19, 'princyc234@gmail.com', 'STUDENT', '111111'),
 (20, 'jincy@gmail.com', 'STUDENT', '111111'),
-(21, 'prjin34@gmail.com', 'STUDENT', '111111'),
+(21, 'prjin34@gmail.com', 'STUDENT', '121212'),
 (22, 'seethu@gmail.com', 'STUDENT', '111111'),
 (23, 'anusree1678@gmail.com', 'STUDENT', '111111'),
 (24, 'anuss234@gmail.com', 'STUDENT', '111111'),
@@ -416,7 +416,8 @@ INSERT INTO `messages` (`msg_id`, `from_id`, `to_id`, `message_title`, `message`
 (44, 23, 111, 'user_admin', 'Hawaii is my favourite destination', 1),
 (174, 111, 48, 'user_admin', 'Thats ok', 1),
 (175, 111, 48, 'user_admin', 'What do you do now???', 1),
-(176, 48, 111, 'user_admin', 'Nothing sir', 1);
+(176, 48, 111, 'user_admin', 'Nothing sir', 1),
+(177, 20, 111, 'user_admin', 'hello sir', 1);
 
 -- --------------------------------------------------------
 
@@ -529,7 +530,7 @@ INSERT INTO `student` (`student_id`, `student_name`, `student_dob`, `student_gen
 (17, 'Anaswara V', '2007-05-06', 'Female', 'MALAKUNNUL HOUSE', 'MEDICAL MCOLLEHGE', 673008, 'Kozhikode', 8, 'anaswarav2345@gmail.com', 8769876543, NULL, 8, 0),
 (18, 'Princy  C', '2008-05-21', 'Female', 'NALUKANDATHIL HOUSE', 'VRINDAVAN COLONY', 67305, 'Kozhikode', 8, 'prijncyc234@gmail.com', 8798876678, NULL, 8, 0),
 (19, 'Jincy C', '2007-09-12', 'Female', 'Melekkandi varathil house', 'Mayavadu', 673765, 'Kozhikode', 11, 'jincy@gmail.com', 8877665544, NULL, 23, 0),
-(20, 'Prjin R', '2011-04-04', 'Male', 'Balusseri house ', 'Mangaavu', 673998, 'Kozhikode', 11, 'prjin34@gmail.com', 997008800, NULL, 24, 0),
+(20, 'Prjin R', '2011-04-04', 'Male', 'Balusseri house', 'Mangaavu', 673998, 'Kozhikode', 11, 'prjin34@gmail.com', 9970088010, NULL, 24, 0),
 (21, 'Seethu H', '2009-01-05', 'Female', 'VARIDATHI HOUSE', 'cherikkampoyil', 679335, 'Kozhikode', 11, 'seethu@gmail.com', 9988443322, NULL, 23, 0),
 (22, 'Anusree B', '2011-03-01', 'Female', 'NANGARI MEETHAL HOUSE', 'Agasthyamuzhi', 678445, 'Kozhikode', 9, 'anusree1678@gmail.com', 6754321567, NULL, 13, 0),
 (23, 'Anagha N V', '2010-12-18', 'Female', 'Harikrishnan house', 'Manasseri', 6783354, 'Kozhikode', 9, 'anuss234@gmail.com', 8765498765, NULL, 13, 0),
@@ -860,7 +861,7 @@ ALTER TABLE `login`
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=177;
+  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=178;
 
 --
 -- AUTO_INCREMENT for table `personal_class`
