@@ -169,6 +169,26 @@ session_start();
                             <div class="panel-body">
 
                                 <div class="form-group">
+                                    <label class="col-md-3 control-label" for="batch">Batch <span class="required">*</span></label>
+                                    <div class="col-md-6">
+                                        <select class="form-control" id="batch" name="batch" required>
+                                            <option value="nothing" selected>Select batch</option>
+                                            <?php
+                                            include_once '../Database_Connect.php';
+
+                                            $sql_batch = "select batch_id, batch_name from batch";
+                                            $res_batch = mysqli_query($conn, $sql_batch);
+                                            while ($row_batch = mysqli_fetch_array($res_batch))
+                                            {
+                                                echo "<option value='$row_batch[0]'>$row_batch[1]</option>";
+                                            }
+
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
                                     <label class="col-md-3 control-label" for="msg_text">Message</label>
                                     <div class="col-md-6">
                                         <?php
@@ -181,7 +201,7 @@ session_start();
                                         $row_choreo_id = $res_choreo_id->fetch_array();
 
 
-                                        $message_text = "The video lecture that was provided has been completed. Therefore, requesting you for a new video lecture
+                                        $message_text = "The video lecture that was provided has been completed. Therefore, requesting you for a new video lecture for this batch 
 -$row_choreo_id[1]";
 
                                         echo "<textarea class='form-control' name='msg_text' id='msg_text' rows='4'>$message_text</textarea>";
@@ -266,17 +286,28 @@ session_start();
 if (isset($_POST['req_video']))
 {
 
-
+    $batch = $_POST['batch'];
     $msg_title = "video_request";
+
+    if ($batch == "nothing")
+    {
+        echo "<script>alert('Please select a batch...')</script>";
+    }
+    else
+    {
+        $message_text = "The video lecture that was provided has been completed. Therefore, requesting you for a new video lecture for this batch ID $batch
+-$row_choreo_id[1]";
+        $ins_dues = "insert into messages(from_id, to_id, message_title, message) values ('$row_choreo_id[0]','111','$msg_title','$message_text')";
+        $res_dues = $conn->query($ins_dues);
+        if ($res_dues)
+        {
+            echo "<script>alert('Requested video successfully...')</script>";
+            echo "<script>window.location='video_lectures.php'</script>";
+        }
+    }
 
     //admin num ==> 111
 
-    $ins_dues = "insert into messages(from_id, to_id, message_title, message) values ('$row_choreo_id[0]','111','$msg_title','$message_text')";
-    $res_dues = $conn->query($ins_dues);
-    if ($res_dues)
-    {
-        echo "<script>alert('Requested video successfully...')</script>";
-        echo "<script>window.location='video_lectures.php'</script>";
-    }
+
 
 }

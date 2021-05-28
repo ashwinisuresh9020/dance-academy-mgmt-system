@@ -256,6 +256,13 @@
                                     <div class="panel-body">
 
                                         <div class="form-group">
+                                            <label class="col-md-3 control-label" for="batchname">Batch Name <span class="required">*</span></label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control" id="batchname" name="batchname" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
                                             <label class="col-md-3 control-label" for="batchagegroup">Age Group <span class="required">*</span></label>
                                             <div class="col-md-6">
                                                 <select class="form-control" id="batchagegroup" name="batchagegroup" required>
@@ -363,6 +370,7 @@
 
 if (isset($_POST['add_batch']))
 {
+    $batch_name = $_POST['batchname'];
     $batch_age_grp = $_POST['batchagegroup'];
     $batch_branch = $_POST['batchbranch'];
     if ($batch_age_grp == "nothing")
@@ -375,7 +383,6 @@ if (isset($_POST['add_batch']))
     }
     else
     {
-        $batch_name = $batch_branch."_branch_".$batch_age_grp."_".date("d_m");
         $ins_batch =  "INSERT INTO batch (batch_name,batch_age_grp,branch_id) values ('$batch_name','$batch_age_grp','$batch_branch')";
         $req_batch = mysqli_query($conn, $ins_batch);
 

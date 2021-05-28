@@ -284,7 +284,7 @@
                                         <th>Student Name</th>
                                         <th>Address</th>
                                         <th>Mobile Number</th>
-                                        <th>Details</th>
+                                        <th colspan="2">Details</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -306,14 +306,22 @@
                                             {
                                                 echo "<tr>";
                                                 echo "<td>$row_stud_attendance[0]</td>";
-                                                $student_res = $conn->query("select student_name, address, place, mobile_number from student where student_id='$row_stud_attendance[0]'");
+                                                $student_res = $conn->query("select student_name, address, place, mobile_number, student_status from student where student_id='$row_stud_attendance[0]'");
                                                 while ($student_row = $student_res->fetch_array())
                                                 {
                                                     echo "<td>$student_row[0]</td>";
                                                     echo "<td>$student_row[1] , $student_row[2]</td>";
                                                     echo "<td>$student_row[3]</td>";
+                                                    if ($student_row[4]==0)
+                                                    {
+                                                        echo "<td><a href='manage_student.php?sid=$row_stud_attendance[0]&action=enable'><button class='btn btn-success'>Enable</button></a></td>";
+                                                    }
+                                                    if ($student_row[4]==1)
+                                                    {
+                                                        echo "<td><a href='manage_student.php?sid=$row_stud_attendance[0]&action=disable'><button class='btn btn-warning'>Disable</button></a></td>";
+                                                    }
+                                                    echo "<td><a href='student_details.php?sid=$row_stud_attendance[0]'><button class='btn btn-primary'>Details</button></a></td>";
                                                 }
-                                                echo "<td><a href='student_details.php?sid=$row_stud_attendance[0]'><button class='btn btn-primary'>Details</button></a></td>";
                                             }
                                         }
                                     }

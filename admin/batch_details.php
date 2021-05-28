@@ -266,7 +266,7 @@
                                             {
                                                 if ($row_batch[0]=="4-10 yrs")
                                                 {
-                                                    $sel_student1 = "SELECT student_id, student_name from student where nearest_branch='$row_batch[1]' AND batch_id='0' and student_dob BETWEEN '2011-04-01' AND '2017-04-19'";
+                                                    $sel_student1 = "SELECT student_id, student_name from student where student_status='1' and nearest_branch='$row_batch[1]' AND batch_id='0' and student_dob BETWEEN '2011-04-01' AND '2017-04-19'";
                                                     $res_student1 = $conn->query($sel_student1);
                                                     while ($row_student1 = $res_student1->fetch_array())
                                                     {
@@ -275,7 +275,7 @@
                                                 }
                                                 else if ($row_batch[0]=="11-15 yrs")
                                                 {
-                                                    $sel_student2 = "SELECT student_id, student_name from student where nearest_branch='$row_batch[1]' AND batch_id='0' and student_dob BETWEEN '2006-04-01' AND '2011-03-31'";
+                                                    $sel_student2 = "SELECT student_id, student_name from student where student_status='1' and nearest_branch='$row_batch[1]' AND batch_id='0' and student_dob BETWEEN '2006-04-01' AND '2011-03-31'";
                                                     $res_student2 = $conn->query($sel_student2);
                                                     while ($row_student2 = $res_student2->fetch_array())
                                                     {
@@ -284,7 +284,7 @@
                                                 }
                                                 else if ($row_batch[0]=="16-25 yrs")
                                                 {
-                                                    $sel_student3 = "SELECT student_id, student_name from student where nearest_branch='$row_batch[1]' AND batch_id='0' and student_dob BETWEEN '1996-04-01' AND '2006-03-31'";
+                                                    $sel_student3 = "SELECT student_id, student_name from student where student_status='1' and nearest_branch='$row_batch[1]' AND batch_id='0' and student_dob BETWEEN '1996-04-01' AND '2006-03-31'";
                                                     $res_student3 = $conn->query($sel_student3);
                                                     while ($row_student3 = $res_student3->fetch_array())
                                                     {
@@ -293,7 +293,7 @@
                                                 }
                                                 else if ($row_batch[0]=="25+ yrs male")
                                                 {
-                                                    $sel_student4 = "SELECT student_id, student_name from student where nearest_branch='$row_batch[1]' AND batch_id='0' and student_gender='Male' and student_dob BETWEEN '1971-04-01' AND '1996-03-31'";
+                                                    $sel_student4 = "SELECT student_id, student_name from student where student_status='1' and nearest_branch='$row_batch[1]' AND batch_id='0' and student_gender='Male' and student_dob BETWEEN '1971-04-01' AND '1996-03-31'";
                                                     $res_student4 = $conn->query($sel_student4);
                                                     while ($row_student4 = $res_student4->fetch_array())
                                                     {
@@ -302,7 +302,7 @@
                                                 }
                                                 else if ($row_batch[0]=="25+ yrs female")
                                                 {
-                                                    $sel_student5 = "SELECT student_id, student_name from student where nearest_branch='$row_batch[1]' AND batch_id='0' and student_gender='Female' and student_dob BETWEEN '1971-04-01' AND '1996-03-31'";
+                                                    $sel_student5 = "SELECT student_id, student_name from student where student_status='1' and nearest_branch='$row_batch[1]' AND batch_id='0' and student_gender='Female' and student_dob BETWEEN '1971-04-01' AND '1996-03-31'";
                                                     $res_student5 = $conn->query($sel_student5);
                                                     while ($row_student5 = $res_student5->fetch_array())
                                                     {
@@ -345,7 +345,7 @@
                                     $batch_id = $_GET['bid'];
 
                                     $conn = new mysqli($server_name, $user_name, $password, $database);
-                                    $batch_sel = "select * from student where batch_id=".htmlspecialchars($_GET['bid']);
+                                    $batch_sel = "select * from student where student_status='1' and batch_id=".htmlspecialchars($_GET['bid']);
                                     $res = $conn->query($batch_sel);
                                     while ($row = $res->fetch_array())
                                     {

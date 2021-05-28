@@ -197,11 +197,18 @@ session_start();
                                 echo "<tr>";
                                 echo "<td>$row[0]</td>";
                                 echo "<td>$row[1]</td>";
-                                $sel_attendance = $conn->query("select count(*) from attendance where stud_id ='$row[0]' and attendance_date='$today_date'");
+                                $sel_attendance = $conn->query("select count(*),attendance_status from attendance where stud_id ='$row[0]' and attendance_date='$today_date'");
                                 $res_attendance = $sel_attendance->fetch_array();
                                 if($res_attendance[0]>0)
                                 {
-                                    echo "<td>Already marked</td>";
+                                    if ($res_attendance[1]==1)
+                                    {
+                                        echo "<td><strong>Present</strong></td>";
+                                    }
+                                    if ($res_attendance[1]==0)
+                                    {
+                                        echo "<td><strong>Absent</strong></td>";
+                                    }
                                 }
                                 else
                                 {

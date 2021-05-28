@@ -293,7 +293,7 @@
                                 {
                                     if ($_POST['studentdetails']==0)
                                     {
-                                        $sel_stud_np = "select student_id,student_name, mobile_number from student where fee_status=0";
+                                        $sel_stud_np = "select student_id,student_name, mobile_number,student_status from student where fee_status=0";
                                         $res_student_np = $conn->query($sel_stud_np);
                                         while ($row_student_np = $res_student_np->fetch_array())
                                         {
@@ -305,7 +305,14 @@
                                             echo "<td>$row_student_np[1]</td>";
                                             echo "<td>$row_student_np[2]</td>";
                                             echo "<td>Not Paid</td>";
-                                            echo "<td><a href='update_fees.php?stid=$row_student_np[0]'><button class='btn btn-primary'>Update</button></a></td>";
+                                            if ($row_student_np[3]==1)
+                                            {
+                                                echo "<td><a href='update_fees.php?stid=$row_student_np[0]'><button class='btn btn-primary'>Update</button></a></td>";
+                                            }
+                                            if ($row_student_np[3]==0)
+                                            {
+                                                echo "<td><a href='update_fees.php?stid=$row_student_np[0]'><button class='btn btn-primary' disabled>Update</button></a></td>";
+                                            }
                                             if($count_dues > 0)
                                             {
                                                 echo "<td><a href='notify_due.php?stid=$row_student_np[0]'><button class='btn btn-warning' disabled>Notified Already</button></a></td>";
@@ -318,7 +325,7 @@
                                     }
                                     if ($_POST['studentdetails']==1)
                                     {
-                                        $sel_stud_p = "select student_id,student_name, mobile_number from student where fee_status=1";
+                                        $sel_stud_p = "select student_id,student_name, mobile_number, student_status from student where fee_status=1";
                                         $res_student_p = $conn->query($sel_stud_p);
                                         while ($row_student_p = $res_student_p->fetch_array())
                                         {
@@ -326,7 +333,14 @@
                                             echo "<td>$row_student_p[1]</td>";
                                             echo "<td>$row_student_p[2]</td>";
                                             echo "<td>Paid</td>";
-                                            echo "<td><a href='update_fees.php?stid=$row_student_p[0]'><button class='btn btn-primary'>Update</button></a></td>";
+                                            if ($row_student_p[3]==1)
+                                            {
+                                                echo "<td><a href='update_fees.php?stid=$row_student_p[0]'><button class='btn btn-primary'>Update</button></a></td>";
+                                            }
+                                            if ($row_student_p[3]==0)
+                                            {
+                                                echo "<td><a href='update_fees.php?stid=$row_student_p[0]'><button class='btn btn-primary' disabled>Update</button></a></td>";
+                                            }
                                             echo "<td><a><button class='btn btn-warning' disabled>Notify</button></a></td>";
                                         }
                                     }

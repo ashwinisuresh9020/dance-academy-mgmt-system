@@ -10,9 +10,11 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public class BasicDetailsActivity extends AppCompatActivity {
@@ -45,9 +47,18 @@ public class BasicDetailsActivity extends AppCompatActivity {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, month);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                String myFormat = "yyyy-MM-dd";
-                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-                editTextDob.setText(sdf.format(myCalendar.getTime()));
+                Calendar minAge = new GregorianCalendar();
+                minAge.add(Calendar.YEAR, -4);
+                if (minAge.before(myCalendar))
+                {
+                    Toast.makeText(BasicDetailsActivity.this, "Student must be atleast 4 years old", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    String myFormat = "yyyy-MM-dd";
+                    SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+                    editTextDob.setText(sdf.format(myCalendar.getTime()));
+                }
             }
         };
 

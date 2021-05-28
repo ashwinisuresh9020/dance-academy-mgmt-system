@@ -336,7 +336,7 @@
                         <footer class="panel-footer">
                             <div class="row">
                                 <div class="col-sm-9 col-sm-offset-6">
-                                    <a href="choreographer_list.php">
+                                    <a href="student_list.php">
                                         <button class="btn btn-primary" name="choreo_list">Go back <i class="fa fa-arrow-left"></i> </button>
                                     </a>
                                 </div>

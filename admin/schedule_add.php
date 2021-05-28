@@ -254,6 +254,7 @@
                                 </header>
                                 <form class="form-horizontal form-bordered" method="post">
                                     <div class="panel-body">
+
                                         <div class="form-group">
                                             <label class="col-md-3 control-label" for="batch">Batch <span class="required">*</span></label>
                                             <div class="col-md-6">

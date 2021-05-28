@@ -278,13 +278,13 @@
 
                                 $conn = new mysqli($server_name, $user_name, $password, $database);
 
-                                $video_sel = "select video_id, video_title, video_location, schedule_id, video_status from video_class";
+                                $video_sel = "select video_id, video_title, video_location, batch_id, video_status from video_class";
                                 $res = $conn->query($video_sel);
                                 while ($row = $res->fetch_array())
                                 {
                                     echo "<tr>";
                                     echo "<td>$row[1]</td>";
-                                    $batch_sel = "select batch_name,choreographer_id from batch where batch_id in (select batch_id from schedule where schedule_id='$row[3]')";
+                                    $batch_sel = "select batch_name,choreographer_id from batch where batch_id ='$row[3]'";
                                     $batch_res = mysqli_query($conn, $batch_sel);
                                     while ($row_batch = $batch_res->fetch_array())
                                     {

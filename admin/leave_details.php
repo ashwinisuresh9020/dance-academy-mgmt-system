@@ -334,6 +334,9 @@
                                 <div class="row">
                                     <div class="col-sm-9 col-sm-offset-6">
                                         <button class="btn btn-primary" name="accept_leave" type="submit">Submit</button>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <a href="leaves_list.php">
                                             <button class="btn btn-danger" name="leave_list">Go back <i class="fa fa-arrow-left"></i> </button>
                                         </a>

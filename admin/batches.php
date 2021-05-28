@@ -305,7 +305,7 @@
                                             echo "<td>$choreo_row[0]</td>";
                                         }
                                     }
-                                    $nostud = "select count(*) from student where batch_id='$row[0]'";
+                                    $nostud = "select count(*) from student where student_status='1' and batch_id='$row[0]'";
                                     $res_nostud = $conn->query($nostud);
                                     while ($row_nostud = $res_nostud->fetch_array())
                                     {

@@ -256,21 +256,20 @@
                                     <div class="panel-body">
 
                                         <div class="form-group">
-                                            <label class="col-md-3 control-label" for="schedule">Schedule <span class="required">*</span></label>
+                                            <label class="col-md-3 control-label" for="batch">Batch <span class="required">*</span></label>
                                             <div class="col-md-6">
-                                                <select class="form-control" id="schedule" name="schedule" required>
-                                                    <option value="nothing" selected>Select schedule</option>
+                                                <select class="form-control" id="batch" name="batch" required>
+                                                    <option value="nothing" selected>Select batch</option>
                                                     <?php
                                                     include_once '../Database_Connect.php';
 
-                                                    $sql_schedule = "select schedule_id, batch_id, schedule_time, schedule_date from schedule";
-                                                    $res_schedule = mysqli_query($conn, $sql_schedule);
-                                                    while ($row_schedule = mysqli_fetch_array($res_schedule))
+                                                    $sql_batch = "select batch_id, batch_name from batch";
+                                                    $res_batch = mysqli_query($conn, $sql_batch);
+                                                    while ($row_batch = mysqli_fetch_array($res_batch))
                                                     {
-                                                        $sql_batch = "select batch_name from batch where batch_id=$row_schedule[0]";
-                                                        $res_batch = $conn->query($sql_batch);
-                                                        echo "<option value='$row_schedule[0]'>$row_schedule[1]-$row_schedule[2] $row_schedule[3]</option>";
+                                                        echo "<option value='$row_batch[0]'>$row_batch[1]</option>";
                                                     }
+
                                                     ?>
                                                 </select>
                                             </div>
@@ -360,11 +359,11 @@
 
 if (isset($_POST['upload_video']))
 {
-    $schedule = $_POST['schedule'];
+    $batch = $_POST['batch'];
     $maxsize = 10000000; //10MB
-    if ($schedule == "nothing")
+    if ($batch == "nothing")
     {
-        echo "<script>alert('Please select a schedule...')</script>";
+        echo "<script>alert('Please select a batch...')</script>";
     }
     else
     {
@@ -388,7 +387,7 @@ if (isset($_POST['upload_video']))
                 // Upload
                 if(move_uploaded_file($_FILES['file']['tmp_name'],$target_file)){
                     // Insert record
-                    $query = "INSERT INTO video_class(video_title,video_location,schedule_id,video_status) VALUES('$name','$target_file','$schedule','1')";
+                    $query = "INSERT INTO video_class(video_title,video_location,batch_id,video_status) VALUES('$name','$target_file','$batch','1')";
 
                     $query = mysqli_query($conn,$query);
                     if($query)

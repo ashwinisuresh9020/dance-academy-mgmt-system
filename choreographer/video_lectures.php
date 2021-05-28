@@ -197,13 +197,13 @@ session_start();
                             $res_choreo_id = $conn->query($sel_choreo_id);
                             $row_choreo_id = $res_choreo_id->fetch_array();
 
-                            $video_sel = "select video_id, video_title, video_location, schedule_id, video_status from video_class where schedule_id IN(SELECT schedule_id from schedule where batch_id in(select batch_id from choreographer where choreographer_id='$row_choreo_id[0]'))";
+                            $video_sel = "select video_id, video_title, video_location, batch_id, video_status from video_class where batch_id IN(select batch_id from choreographer where choreographer_id='$row_choreo_id[0]')";
                             $res = $conn->query($video_sel);
                             while ($row = $res->fetch_array())
                             {
                                 echo "<tr>";
                                 echo "<td>$row[1]</td>";
-                                $batch_sel = "select batch_name from batch where batch_id in (select batch_id from schedule where schedule_id='$row[3]')";
+                                $batch_sel = "select batch_name from batch where batch_id ='$row[3]'";
                                 $batch_res = mysqli_query($conn, $batch_sel);
                                 while ($row_batch = $batch_res->fetch_array())
                                 {
