@@ -274,7 +274,7 @@
 
                                     $conn = new mysqli($server_name, $user_name, $password, $database);
 
-                                    $video_sel = "select msg_id, from_id, message  from messages where to_id='111' and message_title='video_request' and message_status='1'";
+                                    $video_sel = "select msg_id, from_id, message  from messages where to_id='111' and message_title='video_request' and message_status='1' order by msg_id desc ";
                                     $res = $conn->query($video_sel);
                                     while ($row = $res->fetch_array())
                                     {

@@ -278,7 +278,7 @@
 
                         $conn = new mysqli($server_name, $user_name, $password, $database);
 
-                        $event_sel = "select * from events";
+                        $event_sel = "select * from events order by event_id desc";
                         $res = $conn->query($event_sel);
                         while ($row = $res->fetch_array())
                         {

@@ -18,34 +18,32 @@ if(isset($_GET['servicecall']))
                 $stmt5->execute();
                 $stmt5->store_result();
                 if ($stmt5->num_rows > 0) {
-                    $stmt = $conn->prepare("SELECT student_id, student_name,student_dob,student_gender,address,place,pincode,district,email_address,mobile_number, nearest_branch from student where email_address=? and student_status='1'" );
+                    $stmt = $conn->prepare("SELECT student_id, student_name,student_dob,student_gender,address,place,pincode,district,email_address,mobile_number, nearest_branch from student where email_address=?" );
                     $stmt->bind_param("s",$email);
                     $stmt->execute();
                     $stmt->bind_result($stud_id, $stud_name,$stud_dob,$stud_gender,$stud_address,$stud_place,$stud_pincode,$stud_district,$stud_email,$stud_mobile, $stud_branch);
                     $stmt->fetch();
-                    if ($stmt->num_rows>0)
-                    {
-                        $student = array
-                        (
-                            'stud_id'=>$stud_id,
-                            'stud_name'=>$stud_name,
-                            'stud_dob'=>$stud_dob,
-                            'stud_gender'=>$stud_gender,
-                            'stud_address'=>$stud_address,
-                            'stud_place'=>$stud_place,
-                            'stud_pin'=>$stud_pincode,
-                            'stud_dst'=>$stud_district,
-                            'stud_mobile'=>$stud_mobile,
-                            'stud_email'=>$stud_email,
-                            'stud_branch'=>$stud_branch
-                        );
+                    $student = array
+                    (
+                        'stud_id'=>$stud_id,
+                        'stud_name'=>$stud_name,
+                        'stud_dob'=>$stud_dob,
+                        'stud_gender'=>$stud_gender,
+                        'stud_address'=>$stud_address,
+                        'stud_place'=>$stud_place,
+                        'stud_pin'=>$stud_pincode,
+                        'stud_dst'=>$stud_district,
+                        'stud_mobile'=>$stud_mobile,
+                        'stud_email'=>$stud_email,
+                        'stud_branch'=>$stud_branch
+                    );
 
-                        $stmt->close();
+                    $stmt->close();
 
-                        $response['error'] = false;
-                        $response['message'] = 'Succesfully logged in';
-                        $response['student'] = $student;
-                    }
+                    $response['error'] = false;
+                    $response['message'] = 'Succesfully logged in';
+                    $response['student'] = $student;
+
                     $stmt5->close();
                 }
                 else

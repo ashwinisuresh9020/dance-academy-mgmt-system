@@ -301,12 +301,12 @@
                                         }
                                         else
                                         {
-                                            $res_stud_attendance = $conn->query("select student_id from student where nearest_branch='$branch'");
+                                            $res_stud_attendance = $conn->query("select student_id from student where nearest_branch='$branch' order by student_id desc ");
                                             while ($row_stud_attendance = $res_stud_attendance->fetch_array())
                                             {
                                                 echo "<tr>";
                                                 echo "<td>$row_stud_attendance[0]</td>";
-                                                $student_res = $conn->query("select student_name, address, place, mobile_number, student_status from student where student_id='$row_stud_attendance[0]'");
+                                                $student_res = $conn->query("select student_name, address, place, mobile_number, student_status from student where student_id='$row_stud_attendance[0]' order by student_id desc ");
                                                 while ($student_row = $student_res->fetch_array())
                                                 {
                                                     echo "<td>$student_row[0]</td>";

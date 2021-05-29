@@ -279,7 +279,7 @@
 
                         $conn = new mysqli($server_name, $user_name, $password, $database);
 
-                        $choreo_sel = "select choreographer_id, choreographer_name, choreographer_dob, address, place, mobile from choreographer where email in (select user_name from login where user_type='CHOREOGRAPHER')";
+                        $choreo_sel = "select choreographer_id, choreographer_name, choreographer_dob, address, place, mobile from choreographer where email in (select user_name from login where user_type='CHOREOGRAPHER') order by choreographer_id desc ";
                         $res = $conn->query($choreo_sel);
                         while ($row = $res->fetch_array())
                         {

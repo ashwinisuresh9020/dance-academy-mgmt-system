@@ -278,7 +278,7 @@
 
                                 $conn = new mysqli($server_name, $user_name, $password, $database);
 
-                                $video_sel = "select video_id, video_title, video_location, batch_id, video_status from video_class";
+                                $video_sel = "select video_id, video_title, video_location, batch_id, video_status from video_class order by video_id desc ";
                                 $res = $conn->query($video_sel);
                                 while ($row = $res->fetch_array())
                                 {

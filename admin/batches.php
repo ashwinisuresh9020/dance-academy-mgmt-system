@@ -279,7 +279,7 @@
 
                                 $conn = new mysqli($server_name, $user_name, $password, $database);
 
-                                $batch_sel = "select batch_id, batch_name, batch_age_grp, branch_id, choreographer_id from batch";
+                                $batch_sel = "select batch_id, batch_name, batch_age_grp, branch_id, choreographer_id from batch order by batch_id desc";
                                 $res = $conn->query($batch_sel);
                                 while ($row = $res->fetch_array())
                                 {

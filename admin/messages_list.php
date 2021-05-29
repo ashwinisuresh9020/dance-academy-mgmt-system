@@ -235,64 +235,90 @@
 
         <section role="main" class="content-body">
             <header class="page-header">
-                <h2>Message List</h2>
+                <h2>Messages</h2>
             </header>
 
-            <div class="row">
-                <div class="col-lg-12">
-                    <section class="panel-heading-transparent">
-                        <header class="panel-body">
-                            <h1 class="panel-body">Inbox</h1>
-                            <div class="col-md-3">
-
-                            </div>
-                            <section class="content-without-menu mailbox">
-                                <div class="content-without-menu-" data-mailbox data-mailbox-view="table">
-                                    <div class="body mailbox-folder">
-                                        <!-- START: .mailbox-header -->
-                                        <!-- END: .mailbox-header -->
-
-                                        <!-- START: .mailbox-actions -->
-
-                                        <!-- END: .mailbox-actions -->
-
-                                        <div id="mailbox-email-list" class="mailbox-email-list">
-                                            <div class="nano">
-                                                <div class="nano-content">
-                                                    <ul id="" class="list-unstyled">
-                                                        <?php
-                                                        include_once '../Database_Connect.php';
-
-                                                        $res_inbox = $conn->query("select distinct from_id,message from messages where message_title='user_admin' and to_id='111' and from_id in (select distinct from_id from messages where message_title='user_admin' and to_id='111')");
-                                                        while ($row_inbox = $res_inbox->fetch_array())
-                                                        {
-                                                            $row_student = mysqli_fetch_array($conn->query("select student_name from student where student_id='$row_inbox[0]'"));
-                                                            echo "<li>";
-                                                            echo "<a href='message_details.php?stId=$row_inbox[0]'>";
-                                                            echo "<div class='col-sender'>";
-                                                            echo "<p class='m-none ib'>$row_student[0]</p>";
-                                                            echo "</div>";
-                                                            echo "<div class='col-mail'>";
-                                                            echo "<p class='m-none mail-content'>";
-                                                            echo "<span class='subject'>$row_inbox[1]</span>";
-                                                            echo "</p>";
-                                                            echo "</div>";
-                                                            echo "</a>";
-                                                            echo "</li>";
-                                                        }
-                                                        ?>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                        </header>
-                    </section>
-                </div>
-            </div>
             <!-- start: page -->
+            <section class="panel">
+                <header class="panel-heading">
+                    <div class="panel-actions">
+                        <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
+                        <a href="#" class="panel-action panel-action-dismiss" data-panel-dismiss></a>
+                    </div>
+
+                    <h2 class="panel-title">Messages</h2>
+                </header>
+                <div class="panel-body">
+                    <div class="row">
+                        <form class="form-horizontal form-bordered" method="post">
+                            <div class="col-sm-3">
+                                <select class="form-control" id="selbranch" name="selbranch" required>
+                                    <option value="nothing">Select Branch</option>
+                                    <?php
+                                    include_once '../Database_Connect.php';
+
+                                    $res_branch = $conn->query("select branch_id, branch_landmark,branch_place from branch");
+                                    while ($row_branch = $res_branch->fetch_array())
+                                    {
+                                        echo "<option value='$row_branch[0]'>$row_branch[1], $row_branch[2]</option>";
+                                    }
+                                    ?>
+                                </select>
+                                <div class="mb-md">
+
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="submit" value="View" class="btn btn-primary" name="view_students"></input>
+                                <div class="mb-md">
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <table class="table table-bordered table-striped mb-none" id="tester_table">
+                        <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Address</th>
+                            <th>Mobile Number</th>
+                            <th>View Message</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+
+
+                        if (isset($_POST['view_students']))
+                        {
+                            $branch = $_POST['selbranch'];
+
+                            if ($branch=="nothing")
+                            {
+                                echo "<script>alert('Please select branch')</script>";
+                            }
+                            else
+                            {
+                                $res_stud_messages = $conn->query("select distinct from_id from messages where message_title='user_admin' and to_id='111' and from_id in (select student_id from student where nearest_branch='$branch') order by msg_id desc");
+                                while ($row_stud_messages = $res_stud_messages->fetch_array())
+                                {
+                                    echo "<tr>";
+                                    $student_res = $conn->query("select student_name, address, place, mobile_number from student where student_id='$row_stud_messages[0]' order by student_id desc ");
+                                    while ($student_row = $student_res->fetch_array())
+                                    {
+                                        echo "<td>$student_row[0]</td>";
+                                        echo "<td>$student_row[1] , $student_row[2]</td>";
+                                        echo "<td>$student_row[3]</td>";
+                                        echo "<td><a href='message_details.php?stId=$row_stud_messages[0]'><button class='btn btn-primary'>View Message</button></a></td>";
+                                    }
+                                }
+                            }
+                        }
+                        ?>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
             <!-- end: page -->
         </section>
     </div>

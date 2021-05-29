@@ -270,7 +270,7 @@
 
                         $conn = new mysqli($server_name, $user_name, $password, $database);
 
-                        $choreo_sel = "select leave_id, choreo_id, leave_reason, leave_date, leave_days, leave_status from choreographer_leave";
+                        $choreo_sel = "select leave_id, choreo_id, leave_reason, leave_date, leave_days, leave_status from choreographer_leave order by leave_id desc ";
                         $res = $conn->query($choreo_sel);
                         while ($row = $res->fetch_array())
                         {

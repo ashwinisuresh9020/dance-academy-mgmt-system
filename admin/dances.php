@@ -276,7 +276,7 @@
 
                                 $conn = new mysqli($server_name, $user_name, $password, $database);
 
-                                $dance_sel = "select dance_name, dance_price, dance_description from dance";
+                                $dance_sel = "select dance_name, dance_price, dance_description from dance order by dance_name asc";
                                 $res = $conn->query($dance_sel);
                                 while ($row = $res->fetch_array())
                                 {

@@ -273,7 +273,7 @@
 
                                 include_once '../Database_Connect.php';
 
-                                $gallery_sel = "select * from gallery";
+                                $gallery_sel = "select * from gallery order by image_id desc ";
                                 $res = $conn->query($gallery_sel);
                                 while ($row = $res->fetch_array())
                                 {

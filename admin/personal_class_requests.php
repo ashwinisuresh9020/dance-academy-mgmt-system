@@ -268,7 +268,7 @@
                                     $database = "dance-academy";
 
                                     $conn = new mysqli($server_name, $user_name, $password, $database);
-                                    $personal_sel = "select * from personal_class";
+                                    $personal_sel = "select * from personal_class order by personal_id";
                                     $res = $conn->query($personal_sel);
                                     while ($row = $res->fetch_array())
                                     {

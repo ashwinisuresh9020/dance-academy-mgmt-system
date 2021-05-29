@@ -277,7 +277,7 @@
 
                                 $conn = new mysqli($server_name, $user_name, $password, $database);
 
-                                $branch_sel = "select branch_id, branch_landmark, branch_pincode, branch_place, branch_dst from branch";
+                                $branch_sel = "select branch_id, branch_landmark, branch_pincode, branch_place, branch_dst from branch order by branch_id desc";
                                 $res = $conn->query($branch_sel);
                                 while ($row = $res->fetch_array())
                                 {

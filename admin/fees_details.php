@@ -264,6 +264,20 @@
                                     </div>
 
                                     <div class="col-sm-3">
+                                        <select class="form-control" id="selbranch" name="selbranch" required>
+                                            <option value="nothing">Select Branch</option>
+                                            <?php
+                                            include_once '../Database_Connect.php';
+
+                                            $res_branch = $conn->query("select branch_id, branch_landmark,branch_place from branch");
+                                            while ($row_branch = $res_branch->fetch_array())
+                                            {
+                                                echo "<option value='$row_branch[0]'>$row_branch[1], $row_branch[2]</option>";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-3">
                                         <input type="submit" value="Get details" class="btn btn-primary" name="get_details" id="get_details"></input>
                                         <div class="mb-md">
 
@@ -291,57 +305,66 @@
 
                                 if (isset($_POST['get_details']))
                                 {
-                                    if ($_POST['studentdetails']==0)
+                                    if ($_POST['selbranch']=="nothing")
                                     {
-                                        $sel_stud_np = "select student_id,student_name, mobile_number,student_status from student where fee_status=0";
-                                        $res_student_np = $conn->query($sel_stud_np);
-                                        while ($row_student_np = $res_student_np->fetch_array())
-                                        {
-                                            $sel_dues = "select * from messages where message_title='fee_dues' and to_id='$row_student_np[0]'";
-                                            $res_sel_dues = $conn->query($sel_dues);
-                                            $count_dues = mysqli_num_rows($res_sel_dues);
+                                        echo "<script>alert('Please select a branch')</script>";
+                                    }
+                                    else
+                                    {
+                                        $branch = $_POST['selbranch'];
 
-                                            echo "<tr>";
-                                            echo "<td>$row_student_np[1]</td>";
-                                            echo "<td>$row_student_np[2]</td>";
-                                            echo "<td>Not Paid</td>";
-                                            if ($row_student_np[3]==1)
+                                        if ($_POST['studentdetails']==0)
+                                        {
+                                            $sel_stud_np = "select student_id,student_name, mobile_number,student_status from student where fee_status=0 and nearest_branch='$branch'";
+                                            $res_student_np = $conn->query($sel_stud_np);
+                                            while ($row_student_np = $res_student_np->fetch_array())
                                             {
-                                                echo "<td><a href='update_fees.php?stid=$row_student_np[0]'><button class='btn btn-primary'>Update</button></a></td>";
-                                            }
-                                            if ($row_student_np[3]==0)
-                                            {
-                                                echo "<td><a href='update_fees.php?stid=$row_student_np[0]'><button class='btn btn-primary' disabled>Update</button></a></td>";
-                                            }
-                                            if($count_dues > 0)
-                                            {
-                                                echo "<td><a href='notify_due.php?stid=$row_student_np[0]'><button class='btn btn-warning' disabled>Notified Already</button></a></td>";
-                                            }
-                                            else
-                                            {
-                                                echo "<td><a href='notify_due.php?stid=$row_student_np[0]'><button class='btn btn-warning'>Notify</button></a></td>";
+                                                $sel_dues = "select * from messages where message_title='fee_dues' and to_id='$row_student_np[0]'";
+                                                $res_sel_dues = $conn->query($sel_dues);
+                                                $count_dues = mysqli_num_rows($res_sel_dues);
+
+                                                echo "<tr>";
+                                                echo "<td>$row_student_np[1]</td>";
+                                                echo "<td>$row_student_np[2]</td>";
+                                                echo "<td>Not Paid</td>";
+                                                if ($row_student_np[3]==1)
+                                                {
+                                                    echo "<td><a href='update_fees.php?stid=$row_student_np[0]'><button class='btn btn-primary'>Update</button></a></td>";
+                                                }
+                                                if ($row_student_np[3]==0)
+                                                {
+                                                    echo "<td><a href='update_fees.php?stid=$row_student_np[0]'><button class='btn btn-primary' disabled>Update</button></a></td>";
+                                                }
+                                                if($count_dues > 0)
+                                                {
+                                                    echo "<td><a href='notify_due.php?stid=$row_student_np[0]'><button class='btn btn-warning' disabled>Notified Already</button></a></td>";
+                                                }
+                                                else
+                                                {
+                                                    echo "<td><a href='notify_due.php?stid=$row_student_np[0]'><button class='btn btn-warning'>Notify</button></a></td>";
+                                                }
                                             }
                                         }
-                                    }
-                                    if ($_POST['studentdetails']==1)
-                                    {
-                                        $sel_stud_p = "select student_id,student_name, mobile_number, student_status from student where fee_status=1";
-                                        $res_student_p = $conn->query($sel_stud_p);
-                                        while ($row_student_p = $res_student_p->fetch_array())
+                                        if ($_POST['studentdetails']==1)
                                         {
-                                            echo "<tr>";
-                                            echo "<td>$row_student_p[1]</td>";
-                                            echo "<td>$row_student_p[2]</td>";
-                                            echo "<td>Paid</td>";
-                                            if ($row_student_p[3]==1)
+                                            $sel_stud_p = "select student_id,student_name, mobile_number, student_status from student where fee_status=1 and nearest_branch='$branch'";
+                                            $res_student_p = $conn->query($sel_stud_p);
+                                            while ($row_student_p = $res_student_p->fetch_array())
                                             {
-                                                echo "<td><a href='update_fees.php?stid=$row_student_p[0]'><button class='btn btn-primary'>Update</button></a></td>";
+                                                echo "<tr>";
+                                                echo "<td>$row_student_p[1]</td>";
+                                                echo "<td>$row_student_p[2]</td>";
+                                                echo "<td>Paid</td>";
+                                                if ($row_student_p[3]==1)
+                                                {
+                                                    echo "<td><a href='update_fees.php?stid=$row_student_p[0]'><button class='btn btn-primary'>Update</button></a></td>";
+                                                }
+                                                if ($row_student_p[3]==0)
+                                                {
+                                                    echo "<td><a href='update_fees.php?stid=$row_student_p[0]'><button class='btn btn-primary' disabled>Update</button></a></td>";
+                                                }
+                                                echo "<td><a><button class='btn btn-warning' disabled>Notify</button></a></td>";
                                             }
-                                            if ($row_student_p[3]==0)
-                                            {
-                                                echo "<td><a href='update_fees.php?stid=$row_student_p[0]'><button class='btn btn-primary' disabled>Update</button></a></td>";
-                                            }
-                                            echo "<td><a><button class='btn btn-warning' disabled>Notify</button></a></td>";
                                         }
                                     }
                                 }

@@ -278,7 +278,7 @@
 
                                 $conn = new mysqli($server_name, $user_name, $password, $database);
 
-                                $schedule_sel = "select batch_id, schedule_time, schedule_date, schedule_status from schedule";
+                                $schedule_sel = "select batch_id, schedule_time, schedule_date, schedule_status from schedule order by schedule_id desc ";
                                 $res = $conn->query($schedule_sel);
                                 while ($row = $res->fetch_array())
                                 {

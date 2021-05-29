@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 28, 2021 at 07:04 AM
+-- Generation Time: May 29, 2021 at 02:44 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -69,7 +69,8 @@ INSERT INTO `attendance` (`attendance_id`, `attendance_date`, `stud_id`, `choreo
 (49, '2021-05-25', 6, NULL, 1),
 (50, '2021-05-26', NULL, 1, 1),
 (51, '2021-05-26', 4, NULL, 1),
-(52, '2021-05-26', 6, NULL, 0);
+(52, '2021-05-26', 6, NULL, 0),
+(53, '2021-05-28', NULL, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -369,7 +370,8 @@ INSERT INTO `login` (`login_id`, `user_name`, `user_type`, `password`) VALUES
 (70, 'safwantrz@gmail.com', 'STUDENT', 'abcde'),
 (71, 'aslamkedpl12@gmail.com', 'STUDENT', 'abcdef'),
 (72, 'mohamedsawa@gmail.com', 'CHOREOGRAPHER', 'abcde123'),
-(73, 'mohamedsalih@gmail.com', 'CHOREOGRAPHER', 'abcd123');
+(73, 'mohamedsalih@gmail.com', 'CHOREOGRAPHER', 'abcd123'),
+(74, 'shijina@gmail.com', 'STUDENT', 'abcde');
 
 -- --------------------------------------------------------
 
@@ -423,7 +425,8 @@ INSERT INTO `messages` (`msg_id`, `from_id`, `to_id`, `message_title`, `message`
 (177, 20, 111, 'user_admin', 'hello sir', 1),
 (178, 1, 111, 'video_request', 'The video lecture that was provided has been completed. Therefore, requesting you for a new video lecture for batch \r\n-Suhail A K', 1),
 (179, 1, 111, 'video_request', 'The video lecture that was provided has been completed. Therefore, requesting you for a new video lecture for this batch ID 9\r\n-Suhail A K', 1),
-(180, 1, 111, 'video_request', 'The video lecture that was provided has been completed. Therefore, requesting you for a new video lecture for this batch \r\n-Suhail A K', 1);
+(180, 1, 111, 'video_request', 'The video lecture that was provided has been completed. Therefore, requesting you for a new video lecture for this batch \r\n-Suhail A K', 1),
+(181, 113, 111, 'user_admin', 'Hello ', 1);
 
 -- --------------------------------------------------------
 
@@ -579,7 +582,8 @@ INSERT INTO `student` (`student_id`, `student_name`, `student_dob`, `student_gen
 (61, 'Akash M', '1983-12-12', 'Male', 'Malabar building ', 'Mukkam', 673998, 'Kozhikode', 9, 'akash123@gmail.com', 9876543210, NULL, 15, 0, 1),
 (62, 'Nithin N M', '1988-01-25', 'Male', 'NANGARI MEETHAL HOUSE', 'Mukkam', 678999, 'Kozhikode', 9, 'nithin003@gmail.com', 8765767676, NULL, 15, 0, 1),
 (76, 'Safwan V', '2002-09-30', 'Male', 'valathel House', 'athikaripadi', 679581, 'Malappuram', 9, 'safwantrz@gmail.com', 7994367615, NULL, 15, 0, 1),
-(77, 'Mohammed Aslam K', '1998-05-18', 'Male', 'Kallingal House', 'Edappal', 679584, 'Malappuram', 10, 'aslamkedpl12@gmail.com', 9567105860, NULL, NULL, 0, 1);
+(77, 'Mohammed Aslam K', '1998-05-18', 'Male', 'Kallingal House', 'Edappal', 679584, 'Malappuram', 10, 'aslamkedpl12@gmail.com', 9567105860, NULL, NULL, 0, 1),
+(113, 'Shijina K', '1998-08-12', 'Female', 'jayam nivas', 'kalladathode', 670008, 'Kannur', 9, 'shijina@gmail.com', 9567865234, NULL, 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -660,7 +664,8 @@ INSERT INTO `student_dance` (`stud_dance_id`, `student_id`, `dance_id`) VALUES
 (62, 2, 2),
 (63, 1, 1),
 (65, 76, 2),
-(66, 3, 1);
+(66, 3, 1),
+(67, 113, 1);
 
 -- --------------------------------------------------------
 
@@ -809,7 +814,7 @@ ALTER TABLE `video_class`
 -- AUTO_INCREMENT for table `attendance`
 --
 ALTER TABLE `attendance`
-  MODIFY `attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `batch`
@@ -863,13 +868,13 @@ ALTER TABLE `gallery`
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `login_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=181;
+  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=182;
 
 --
 -- AUTO_INCREMENT for table `personal_class`
@@ -893,13 +898,13 @@ ALTER TABLE `schedule`
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
 
 --
 -- AUTO_INCREMENT for table `student_dance`
 --
 ALTER TABLE `student_dance`
-  MODIFY `stud_dance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `stud_dance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `video_class`
