@@ -303,7 +303,7 @@
                                         while ($row_all_choreo = $res_all_choreo->fetch_array())
                                         {
                                             echo "<tr>";
-                                            $choreo_row = mysqli_fetch_array($conn->query("select choreographer_name from choreographer where choreographer_id='$row_all_choreo[0]'"));
+                                            $choreo_row = mysqli_fetch_array($conn->query("select choreographer_name from choreographer where choreographer_id='$row_all_choreo[1]'"));
                                             echo "<td>$choreo_row[0]</td>";
                                             echo "<td>$row_all_choreo[2]</td>";
                                             echo "<td>$row_all_choreo[3]</td>";

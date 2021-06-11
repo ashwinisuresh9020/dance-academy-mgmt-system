@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 29, 2021 at 02:44 PM
+-- Generation Time: Jun 11, 2021 at 04:45 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -426,7 +426,8 @@ INSERT INTO `messages` (`msg_id`, `from_id`, `to_id`, `message_title`, `message`
 (178, 1, 111, 'video_request', 'The video lecture that was provided has been completed. Therefore, requesting you for a new video lecture for batch \r\n-Suhail A K', 1),
 (179, 1, 111, 'video_request', 'The video lecture that was provided has been completed. Therefore, requesting you for a new video lecture for this batch ID 9\r\n-Suhail A K', 1),
 (180, 1, 111, 'video_request', 'The video lecture that was provided has been completed. Therefore, requesting you for a new video lecture for this batch \r\n-Suhail A K', 1),
-(181, 113, 111, 'user_admin', 'Hello ', 1);
+(181, 113, 111, 'user_admin', 'Hello ', 1),
+(182, 20, 111, 'user_admin', 'hi', 1);
 
 -- --------------------------------------------------------
 
@@ -469,7 +470,8 @@ CREATE TABLE `sallary` (
 INSERT INTO `sallary` (`sallary_id`, `choreo_id`, `sallary`, `paid_date`) VALUES
 (1, 1, 10000, '2021-05-19'),
 (2, 2, 9500, '2021-05-19'),
-(3, 3, 5000, '2021-05-20');
+(3, 3, 5000, '2021-05-20'),
+(4, 2, 2000, '2021-06-03');
 
 -- --------------------------------------------------------
 
@@ -874,7 +876,7 @@ ALTER TABLE `login`
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=182;
+  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=183;
 
 --
 -- AUTO_INCREMENT for table `personal_class`
@@ -886,7 +888,7 @@ ALTER TABLE `personal_class`
 -- AUTO_INCREMENT for table `sallary`
 --
 ALTER TABLE `sallary`
-  MODIFY `sallary_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `sallary_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `schedule`
