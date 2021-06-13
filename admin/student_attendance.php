@@ -348,7 +348,7 @@
                                         else
                                         {
                                             $next_month = (int)$month + 01;
-                                            $res_stud_attendance = $conn->query("select attendance_id, stud_id, attendance_date, attendance_status from attendance where choreo_id is null and attendance_date between '$year-$month-01' and '$year-$next_month-01' and stud_id in (select student_id from student where nearest_branch='$branch')");
+                                            $res_stud_attendance = $conn->query("select attendance_id, stud_id, attendance_date, attendance_status from attendance where choreo_id is null and attendance_date between '$year-$month-01' and '$year-$next_month-01' and stud_id in (select student_id from student where nearest_branch='$branch') order by attendance_id desc");
                                             while ($row_stud_attendance = $res_stud_attendance->fetch_array())
                                             {
                                                 echo "<tr>";

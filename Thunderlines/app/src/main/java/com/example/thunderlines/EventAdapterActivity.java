@@ -47,7 +47,7 @@ public class EventAdapterActivity extends RecyclerView.Adapter<EventAdapterActiv
         holder.textViewEventName.setText(event.getEventName());
         holder.textViewEventDesc.setText(event.getEventDescription());
         holder.textViewEventDate.setText(event.getEventDate());
-        String image_location = "http://192.168.0.103/dance-academy/admin/" + event.getEventImage();
+        String image_location = "http://192.168.0.105/dance-academy/admin/" + event.getEventImage();
         try {
             URL url = new URL(image_location);
             Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());

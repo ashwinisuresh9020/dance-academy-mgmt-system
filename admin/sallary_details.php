@@ -298,7 +298,7 @@
                                 {
                                     if ($_POST['choreodetails']==0)
                                     {
-                                        $sel_all_choreo = "select * from sallary";
+                                        $sel_all_choreo = "select * from sallary order by sallary_id desc";
                                         $res_all_choreo = $conn->query($sel_all_choreo);
                                         while ($row_all_choreo = $res_all_choreo->fetch_array())
                                         {
@@ -312,7 +312,7 @@
                                     if ($_POST['choreodetails']!=0)
                                     {
                                         $choreo = $_POST['choreodetails'];
-                                        $sel_choreo = "select * from sallary where choreo_id='$choreo'";
+                                        $sel_choreo = "select * from sallary where choreo_id='$choreo' order by sallary_id desc";
                                         $res_choreo = $conn->query($sel_choreo);
                                         while ($row_choreo = $res_choreo->fetch_array())
                                         {

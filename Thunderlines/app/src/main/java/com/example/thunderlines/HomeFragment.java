@@ -19,7 +19,6 @@ public class HomeFragment  extends Fragment {
 
     ViewGroup root;
     TextView textViewIg1, textViewIg2, textViewFb, textViewYt;
-    VideoView videoView;
 
     @Nullable
     @Override
@@ -31,18 +30,6 @@ public class HomeFragment  extends Fragment {
         textViewIg2 = root.findViewById(R.id.home_app_contact_ig2);
         textViewFb = root.findViewById(R.id.home_app_contact_fb);
         textViewYt = root.findViewById(R.id.home_app_contact_yt);
-        videoView = root.findViewById(R.id.home_video_dance);
-
-        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-
-                videoView.requestFocus();
-                videoView.start();
-
-            }
-        });
-        videoView.setVideoURI(Uri.parse("http://192.168.0.103/dance-academy/admin/videos/dance_promo.mp4"));
 
         textViewIg1.setOnClickListener(new View.OnClickListener() {
             @Override

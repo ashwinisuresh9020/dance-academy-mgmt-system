@@ -70,12 +70,6 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/home_app_since" />
 
-            <VideoView
-                android:id="@+id/home_video_dance"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_marginTop="25dp"
-                app:layout_constraintTop_toBottomOf="@id/home_app_about_msg" />
 
             <TextView
                 android:id="@+id/home_app_contact_head"
@@ -88,7 +82,7 @@
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/home_video_dance" />
+                app:layout_constraintTop_toBottomOf="@id/home_app_about_msg" />
 
             <TextView
                 android:id="@+id/home_app_contact_ig1"

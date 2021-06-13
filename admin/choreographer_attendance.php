@@ -324,7 +324,7 @@
                                         else
                                         {
                                             $next_month = (int)$month + 01;
-                                            $res_choreo_attendance = $conn->query("select attendance_id, choreo_id, attendance_date from attendance where stud_id is null and attendance_status='1' and attendance_date between '$year-$month-01' and '$year-$next_month-01'");
+                                            $res_choreo_attendance = $conn->query("select attendance_id, choreo_id, attendance_date from attendance where stud_id is null and attendance_status='1' and attendance_date between '$year-$month-01' and '$year-$next_month-01' order by attendance_id desc");
                                             while ($row_choreo_attendance = $res_choreo_attendance->fetch_array())
                                             {
                                                 echo "<tr>";
